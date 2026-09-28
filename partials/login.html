@@ -1,0 +1,119 @@
+<section class="auth-page" data-mode="login">
+  <div class="auth-bg" aria-hidden="true">
+    <div class="auth-grid"></div>
+  </div>
+
+  <div class="auth-card">
+    <header class="auth-head">
+      <h1 class="auth-title">
+        <span>Welcome back,</span>
+        <span class="auth-title-accent">unknown</span>
+      </h1>
+      <p class="auth-desc">
+        Enter your 20-character access code and verify you're human.
+      </p>
+    </header>
+
+    <!-- ============ CODE INPUT ============ -->
+    <div class="auth-code-field">
+      <input
+        type="text"
+        id="login-code"
+        class="auth-code-input"
+        placeholder="xxxx - xxxx - xxxx - xxxx - xxxx"
+        autocomplete="off"
+        autocapitalize="off"
+        autocorrect="off"
+        spellcheck="false"
+        inputmode="text"
+        aria-label="Access code"
+      />
+    </div>
+
+    <!-- ============ HUMAN CHECK ============ -->
+    <div class="auth-captcha" id="auth-captcha" data-state="idle">
+      <div class="auth-captcha-head">
+        <div class="auth-captcha-icon">
+          <i data-lucide="shield-check"></i>
+        </div>
+        <span class="auth-captcha-title">Human verification</span>
+        <button
+          class="auth-captcha-refresh"
+          type="button"
+          id="auth-captcha-refresh"
+          aria-label="New challenge"
+          title="New challenge"
+        >
+          <i data-lucide="refresh-cw"></i>
+        </button>
+      </div>
+
+      <!-- Round progress indicator -->
+      <div class="auth-captcha-progress">
+        <span class="auth-captcha-round-label" id="auth-captcha-round-label">
+          Round 1 of 2
+        </span>
+        <div class="auth-captcha-dots" id="auth-captcha-dots"></div>
+      </div>
+
+      <div class="auth-slider" id="auth-slider">
+        <div class="auth-slider-canvas" id="auth-slider-canvas">
+          <canvas id="auth-slider-bg"></canvas>
+          <canvas class="auth-slider-piece" id="auth-slider-piece"></canvas>
+        </div>
+        <div class="auth-slider-track" id="auth-slider-track">
+          <div class="auth-slider-fill" id="auth-slider-fill"></div>
+          <div class="auth-slider-handle" id="auth-slider-handle">
+            <i data-lucide="chevrons-right"></i>
+          </div>
+          <span class="auth-slider-text" id="auth-slider-text">
+            Slide to verify
+          </span>
+        </div>
+      </div>
+
+      <div
+        class="auth-captcha-msg"
+        id="auth-captcha-msg"
+        data-state="idle"
+      ></div>
+    </div>
+
+    <!-- ============ LOCK BAR ============ -->
+    <div class="auth-lock" id="auth-lock" hidden>
+      <div class="auth-lock-icon">
+        <i data-lucide="lock"></i>
+      </div>
+      <div class="auth-lock-content">
+        <span class="auth-lock-title"
+          >Too many attempts — temporarily locked</span
+        >
+        <span class="auth-lock-timer" id="auth-lock-timer">05:00</span>
+      </div>
+    </div>
+
+    <!-- ============ MESSAGE ============ -->
+    <div class="auth-code-message" id="login-message" data-state="idle"></div>
+
+    <!-- ============ ACTIONS ============ -->
+    <div class="auth-actions">
+      <button class="auth-submit" type="button" id="login-submit" disabled>
+        <span class="auth-submit-label">Verify & Enter</span>
+        <i data-lucide="log-in"></i>
+      </button>
+
+      <button class="auth-secondary" type="button" id="login-clear" hidden>
+        <i data-lucide="eraser"></i>
+        <span>Clear</span>
+      </button>
+    </div>
+
+    <footer class="auth-footer">
+      <span>Don't have a code yet?</span>
+      <button class="auth-link" type="button" data-route="/register">
+        <i data-lucide="user-plus"></i>
+        <span>Register</span>
+      </button>
+    </footer>
+  </div>
+</section>

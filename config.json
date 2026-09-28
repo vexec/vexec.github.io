@@ -1,0 +1,20 @@
+{
+  "limits": {
+    "image": 5242880,
+    "audio": 10485760,
+    "document": 20971520,
+    "camera": 5242880,
+    "profile": 5242880
+  },
+  "logos": {
+    "default": "./assets/pictures/vexec.png",
+    "#3b82f6": "./assets/pictures/vexec.png",
+    "#8b5cf6": "./assets/pictures/vexec_purple.png",
+    "#ec4899": "./assets/pictures/vexec_pink.png",
+    "#f43f5e": "./assets/pictures/vexec_rose.png",
+    "#f59e0b": "./assets/pictures/vexec_orange.png",
+    "#10b981": "./assets/pictures/vexec_lime.jpg",
+    "#06b6d4": "./assets/pictures/vexec_sky.png",
+    "#64748b": "./assets/pictures/vexec_light_gray.jpeg"
+  }
+}

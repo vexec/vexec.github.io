@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting…</title>
+  <script>
+    // 404.html – GitHub Pages SPA redirect
+    // اگر سایت در زیرمسیر (مثل /repo-name/) دیپلوی می‌شود،
+    // مقدار segmentCount را ۱ بگذار، وگرنه ۰ بگذار.
+    var segmentCount = 0; // برای username.github.io/repo-name/ → 1
+    
+    var l = window.location;
+    var path = l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/';
+    var query = l.search.slice(1).split('&').map(function(s) {
+      return s.replace(/~and~/g, '&');
+    }).join('?');
+    
+    window.location.replace(
+      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+      path + '?p=' + encodeURIComponent(l.pathname.slice(path.length) + query + l.hash)
+    );
+  </script>
+</head>
+<body></body>
+</html>

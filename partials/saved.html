@@ -1,0 +1,81 @@
+<section class="saved">
+  <header class="saved-header">
+    <div class="saved-search-wrap">
+      <div class="saved-search-box">
+        <i data-lucide="search" class="saved-search-icon"></i>
+        <input
+          type="text"
+          class="saved-search-input"
+          placeholder="Search saved items..."
+          aria-label="Search saved"
+        />
+      </div>
+      <div class="saved-filter" data-filter="all">
+        <button class="saved-filter-btn" type="button" aria-haspopup="listbox">
+          <span class="saved-filter-label">
+            <span class="saved-filter-prefix">show</span>
+            <span class="saved-filter-value">All</span>
+          </span>
+          <i data-lucide="chevron-down" class="saved-filter-chevron"></i>
+        </button>
+        <div class="saved-filter-menu" role="listbox">
+          <button class="saved-filter-item active" data-value="all" role="option">
+            <i data-lucide="layers"></i>
+            <span>All</span>
+          </button>
+          <button class="saved-filter-item" data-value="audio" role="option">
+            <i data-lucide="music"></i>
+            <span>Audio</span>
+          </button>
+          <button class="saved-filter-item" data-value="post" role="option">
+            <i data-lucide="file-text"></i>
+            <span>Posts</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="saved-content">
+    <!-- Skeleton (shown while loading) -->
+    <div class="saved-skeleton" id="saved-skeleton" hidden>
+      <div class="sk-saved-audio">
+        <div class="skeleton sk-saved-cover"></div>
+        <div class="sk-saved-body">
+          <div class="skeleton sk-line sk-line-sm"></div>
+          <div class="skeleton sk-line sk-line-mid"></div>
+        </div>
+      </div>
+      <div class="sk-saved-audio">
+        <div class="skeleton sk-saved-cover"></div>
+        <div class="sk-saved-body">
+          <div class="skeleton sk-line sk-line-sm"></div>
+          <div class="skeleton sk-line sk-line-mid"></div>
+        </div>
+      </div>
+      <div class="sk-saved-audio">
+        <div class="skeleton sk-saved-cover"></div>
+        <div class="sk-saved-body">
+          <div class="skeleton sk-line sk-line-sm"></div>
+          <div class="skeleton sk-line sk-line-mid"></div>
+        </div>
+      </div>
+      <div class="sk-saved-audio">
+        <div class="skeleton sk-saved-cover"></div>
+        <div class="sk-saved-body">
+          <div class="skeleton sk-line sk-line-sm"></div>
+          <div class="skeleton sk-line sk-line-mid"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="saved-list"></div>
+    <div class="saved-empty" style="display: none">
+      <div class="saved-empty-icon">
+        <i data-lucide="bookmark"></i>
+      </div>
+      <h3>Nothing saved yet</h3>
+      <p>Save posts and audio to find them here later.</p>
+    </div>
+  </div>
+</section>

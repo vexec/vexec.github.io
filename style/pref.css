@@ -1,0 +1,840 @@
+/* ============================================================
+   Vexec — Performance patch
+   Loaded AFTER all other stylesheets.
+   Keeps the same look, dramatically reduces GPU cost.
+   ============================================================ */
+
+/* ============================================================
+   1. Remove backdrop-filter from high-frequency elements
+   These render on every scroll frame → biggest win.
+   ============================================================ */
+
+.brand-bar,
+.home-header,
+.saved-header,
+.nav,
+.search-wrap,
+.search-filter-menu,
+.saved-search-wrap,
+.saved-filter-menu,
+.comment-form,
+.comment-attach-menu,
+.full-more-menu,
+.limit-modal,
+.profile-avatar-menu {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* Replace with solid/semi-solid backgrounds */
+.brand-bar {
+    background: color-mix(in srgb, var(--bg-primary) 92%, transparent) !important;
+}
+
+.nav {
+    background: color-mix(in srgb, var(--bg-secondary) 96%, transparent) !important;
+}
+
+.home-header,
+.saved-header {
+    background: color-mix(in srgb, var(--bg-primary) 94%, transparent) !important;
+}
+
+.search-wrap,
+.saved-search-wrap {
+    background: var(--bg-secondary) !important;
+}
+
+.search-filter-menu,
+.saved-filter-menu,
+.comment-attach-menu,
+.full-more-menu,
+.profile-avatar-menu {
+    background: var(--bg-primary) !important;
+}
+
+.comment-form {
+    background: var(--bg-primary) !important;
+}
+
+.limit-modal {
+    background: color-mix(in srgb, var(--bg-primary) 92%, transparent) !important;
+}
+
+/* ============================================================
+   2. Kill backdrop-filter on repeated content (tweets, cards)
+   These are the #1 cause of jank while scrolling.
+   ============================================================ */
+
+.tweet,
+.saved-item,
+.comment,
+.attach-chip,
+.comment-audio,
+.saved-post-audio,
+.comment-file,
+.media-skeleton,
+.comment-media,
+.tweet-media,
+.saved-post-image {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+.tweet,
+.saved-item {
+    background: var(--bg-secondary) !important;
+}
+
+.media-skeleton {
+    background: var(--bg-secondary) !important;
+}
+
+/* ============================================================
+   3. Hero orbs — remove blur filter, replace with radial gradients
+   (Blur + animation = death. This keeps the glow, removes the cost.)
+   ============================================================ */
+
+.profile-hero-orb {
+    filter: none !important;
+    opacity: 0.35 !important;
+}
+
+.orb-1 {
+    background: radial-gradient(circle,
+            color-mix(in srgb, var(--accent) 70%, transparent) 0%,
+            color-mix(in srgb, var(--accent) 30%, transparent) 40%,
+            transparent 70%) !important;
+    width: 340px !important;
+    height: 340px !important;
+}
+
+.orb-2 {
+    background: radial-gradient(circle,
+            color-mix(in srgb, #8b5cf6 70%, transparent) 0%,
+            color-mix(in srgb, #8b5cf6 25%, transparent) 40%,
+            transparent 70%) !important;
+    width: 400px !important;
+    height: 400px !important;
+}
+
+.orb-3 {
+    background: radial-gradient(circle,
+            color-mix(in srgb, #06b6d4 70%, transparent) 0%,
+            color-mix(in srgb, #06b6d4 25%, transparent) 40%,
+            transparent 70%) !important;
+    width: 300px !important;
+    height: 300px !important;
+    opacity: 0.22 !important;
+}
+
+/* Slow down animations to reduce frame pressure */
+.profile-hero-orb {
+    animation-duration: 26s !important;
+}
+
+/* ============================================================
+   4. Avatar ring — replace conic-gradient animation with CSS-only pulse
+   ============================================================ */
+
+.profile-avatar-ring {
+    background: conic-gradient(from 0deg,
+            var(--accent),
+            transparent 30%,
+            var(--accent),
+            transparent 70%,
+            var(--accent)) !important;
+    animation: ringPulse 3s ease-in-out infinite !important;
+}
+
+@keyframes ringPulse {
+
+    0%,
+    100% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.03);
+    }
+}
+
+/* ============================================================
+   5. Full player cover — stop the conic rotation, replace with pulse
+   ============================================================ */
+
+.full-player-cover::before {
+    background: radial-gradient(circle at 50% 50%,
+            color-mix(in srgb, var(--accent) 35%, transparent),
+            transparent 70%) !important;
+    animation: coverPulse 3.6s ease-in-out infinite !important;
+}
+
+@keyframes coverPulse {
+
+    0%,
+    100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.9;
+        transform: scale(1.06);
+    }
+}
+
+/* ============================================================
+   6. Reduce will-change usage (memory hog)
+   ============================================================ */
+
+* {
+    will-change: auto !important;
+}
+
+.home-header,
+.saved-header,
+.reload-inner,
+.loader-logo {
+    will-change: transform !important;
+}
+
+/* ============================================================
+   7. Remove backdrop-filter from overlays but keep the dark feel
+   ============================================================ */
+
+.tweet-overlay {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: color-mix(in srgb, var(--bg-primary) 78%, transparent) !important;
+}
+
+.image-lightbox {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(0, 0, 0, 0.92) !important;
+}
+
+/* ============================================================
+   8. Reduce heavy drop-shadows / filters
+   ============================================================ */
+
+.full-player-cover,
+.full-play-btn,
+.saved-item-play,
+.mini-cover {
+    box-shadow: 0 6px 20px color-mix(in srgb, var(--accent) 25%, transparent) !important;
+}
+
+.attach-chip-spinner,
+.comment-audio-loading svg,
+.media-skeleton svg {
+    filter: none !important;
+}
+
+/* ============================================================
+   9. Containment — helps browser know what can be optimized
+   ============================================================ */
+
+.tweet,
+.saved-item,
+.comment,
+.settings-section,
+.mini-player,
+.full-player-content {
+    contain: layout style paint;
+}
+
+/* پروفایل رو جدا کن — چون دراپ‌داون داره */
+.profile-hero {
+    contain: layout style;
+    /* paint رو حذف کن */
+    overflow: visible !important;
+    isolation: auto !important;
+}
+
+/* ============================================================
+   10. Images — prevent layout shift & decode cost
+   ============================================================ */
+
+img {
+    content-visibility: visible;
+}
+
+.tweet-media img,
+.comment-media img,
+.saved-post-image img {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 300px;
+}
+
+.tweet-media img,
+.comment-media img,
+.saved-post-image img,
+.comment-audio-cover img,
+.saved-item-cover img {
+    will-change: auto !important;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+/* ============================================================
+   11. Disable transitions on properties that trigger repaint
+   ============================================================ */
+
+.tweet,
+.saved-item,
+.comment-audio,
+.saved-post-audio,
+.comment-file,
+.settings-row,
+.settings-color,
+.settings-font-card,
+.settings-switch {
+    transition-property: transform, opacity, border-color, background-color !important;
+}
+
+/* ============================================================
+   12. Mobile — go aggressive
+   ============================================================ */
+
+@media (max-width: 720px) {
+
+    /* Kill ALL backdrop-filter on mobile */
+    * {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    /* Hide orbs entirely — they're the worst offenders */
+    .profile-hero-orb {
+        display: none !important;
+    }
+
+    /* Disable pulse animations */
+    .mini-player.is-playing .mini-cover svg,
+    .mini-player.is-loading .mini-cover,
+    .mini-player.is-loading .mini-cover svg,
+    .full-player.is-playing .full-player-cover::before,
+    .full-player.is-loading .full-player-cover::after,
+    .full-player.is-loading .full-play-btn::after,
+    .mini-player.is-looping .mini-cover::after,
+    .full-loop-btn.is-active::after,
+    .full-player.is-looping .full-loop-btn::after,
+    .settings-footer svg,
+    .profile-avatar-ring {
+        animation: none !important;
+    }
+
+    /* Kill the ring gradient blur */
+    .saved-item.is-cached::after {
+        animation: none !important;
+    }
+}
+
+/* ============================================================
+   13. Respect user preference
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ============================================================
+   ULTRA-LIGHT PATCH — Profile / Full Player / Reload Overlay
+   ============================================================ */
+
+/* ================= PROFILE PAGE ================= */
+
+/* حذف backdrop-filter از کل بخش پروفایل */
+.profile-hero,
+.settings-list,
+.profile-bio,
+.profile-username-wrap,
+.profile-avatar-menu {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+.profile-hero {
+    background: var(--bg-secondary) !important;
+}
+
+.settings-list {
+    background: var(--bg-secondary) !important;
+}
+
+.profile-bio {
+    background: var(--bg-primary) !important;
+}
+
+.profile-avatar-menu {
+    background: var(--bg-primary) !important;
+}
+
+/* حلقه دور آواتار — انیمیشن رو بکش، فقط رنگ ثابت */
+.profile-avatar-ring {
+    animation: none !important;
+    background: var(--accent) !important;
+    opacity: 0.5 !important;
+    filter: none !important;
+}
+
+/* orb های hero رو کلا حذف کن — سنگین‌ترین بخش بودن */
+.profile-hero-orb {
+    display: none !important;
+}
+
+.profile-hero-grid {
+    display: none !important;
+}
+
+/* سایه گرون آواتار */
+.profile-avatar {
+    box-shadow: none !important;
+}
+
+/* تنظیمات — حذف انیمیشن‌های بی‌مصرف */
+.settings-section {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+.settings-row-icon {
+    transition: none !important;
+}
+
+.settings-row:hover .settings-row-icon {
+    transform: none !important;
+}
+
+.settings-color:hover {
+    transform: none !important;
+}
+
+.settings-color::before {
+    filter: none !important;
+}
+
+.settings-footer svg {
+    animation: none !important;
+}
+
+/* ================= FULL PLAYER ================= */
+
+.full-player {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: color-mix(in srgb, var(--bg-primary) 92%, transparent) !important;
+}
+
+.full-player-cover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* چرخش conic-gradient روی کاور رو بکش */
+.full-player-cover::before {
+    display: none !important;
+}
+
+.full-player-cover svg {
+    filter: none !important;
+}
+
+.full-play-btn {
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 30%, transparent) !important;
+}
+
+/* انیمیشن‌های loading */
+.full-player.is-loading .full-progress-fill,
+.full-player.is-loading .full-player-cover::after,
+.full-player.is-loading .full-play-btn::after {
+    animation: none !important;
+}
+
+/* انیمیشن ورود پلیر سریع‌تر */
+.full-player-content {
+    transition: transform 0.25s ease !important;
+}
+
+/* ================= RELOAD OVERLAY ================= */
+
+.reload-overlay {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: color-mix(in srgb, var(--bg-primary) 92%, transparent) !important;
+}
+
+.reload-icon-btn {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+    transition: background-color 0.2s ease !important;
+}
+
+.reload-icon-btn:hover {
+    transform: none !important;
+}
+
+/* چرخش آیکون reload رو بکش */
+.reload-icon-btn svg {
+    animation: none !important;
+}
+
+.reload-inner {
+    will-change: auto !important;
+}
+
+/* ============================================================
+   ROUTE ERROR PAGE — Beautiful fallback
+   ============================================================ */
+.route-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 70px 24px;
+    text-align: center;
+    min-height: 55vh;
+    animation: routeErrIn 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes routeErrIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.route-error-icon {
+    width: 78px;
+    height: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+    border-radius: 50%;
+    color: var(--accent);
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 18%, transparent);
+    margin-bottom: 4px;
+}
+
+.route-error-icon svg {
+    width: 32px;
+    height: 32px;
+    stroke-width: 2;
+}
+
+.route-error h1 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+}
+
+.route-error p {
+    font-family: var(--font-body);
+    font-size: 0.84rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    opacity: 0.85;
+    max-width: 340px;
+}
+
+.route-error code {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.76rem;
+    padding: 2px 7px;
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+    border-radius: 6px;
+    color: var(--accent);
+    word-break: break-all;
+}
+
+
+/* ============================================================
+   RELOAD OVERLAY — Force visible (fix for content invisibility)
+   ============================================================ */
+.reload-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 99998 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 24px !important;
+    background: rgba(0, 0, 0, 0.62) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.28s ease, visibility 0.28s ease !important;
+    overscroll-behavior: contain !important;
+}
+
+.reload-overlay.open {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Close (X) button */
+.reload-close {
+    position: absolute !important;
+    top: 22px !important;
+    right: 22px !important;
+    width: 42px !important;
+    height: 42px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    border-radius: 50% !important;
+    color: #ffffff !important;
+    cursor: pointer !important;
+    z-index: 5 !important;
+    -webkit-tap-highlight-color: transparent !important;
+    transition: background-color 0.2s ease, transform 0.15s ease !important;
+}
+
+.reload-close:hover {
+    background: rgba(255, 255, 255, 0.24) !important;
+}
+
+.reload-close:active {
+    transform: scale(0.92) !important;
+}
+
+.reload-close svg {
+    display: block !important;
+    width: 16px !important;
+    height: 16px !important;
+    stroke-width: 2.4 !important;
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+}
+
+/* Inner content */
+.reload-inner {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 22px !important;
+    text-align: center !important;
+    position: relative !important;
+    z-index: 4 !important;
+    will-change: auto !important;
+}
+
+/* Reload icon button */
+.reload-icon-btn {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 104px !important;
+    height: 104px !important;
+    padding: 0 !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    border-radius: 50% !important;
+    color: #ffffff !important;
+    cursor: pointer !important;
+    -webkit-tap-highlight-color: transparent !important;
+    transition: background-color 0.25s ease, transform 0.2s ease !important;
+    box-shadow: none !important;
+}
+
+.reload-icon-btn:hover {
+    background: rgba(255, 255, 255, 0.18) !important;
+    transform: scale(1.04) !important;
+}
+
+.reload-icon-btn:active {
+    transform: scale(0.95) !important;
+}
+
+.reload-icon-btn svg {
+    display: block !important;
+    width: 38px !important;
+    height: 38px !important;
+    stroke-width: 2 !important;
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+    animation: reloadSpin 3s linear infinite !important;
+}
+
+@keyframes reloadSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Title */
+.reload-title {
+    display: block !important;
+    margin: 0 !important;
+    font-family: var(--font-display) !important;
+    font-size: 1.08rem !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.015em !important;
+    color: #ffffff !important;
+}
+
+/* Hint */
+.reload-hint {
+    display: block !important;
+    margin: 0 !important;
+    font-family: var(--font-body) !important;
+    font-size: 0.68rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.18em !important;
+    text-transform: uppercase !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* ============================================================
+   RELOAD OVERLAY — Final polish
+   ============================================================ */
+
+/* پس‌زمینه تیره‌تر + بلور */
+.reload-overlay {
+    background: rgba(0, 0, 0, 0.8) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+}
+
+/* دکمه ریلود — بوردر با رنگ تم */
+.reload-icon-btn {
+    border: 2px solid var(--accent) !important;
+    background: color-mix(in srgb, var(--accent) 15%, transparent) !important;
+}
+
+.reload-icon-btn svg {
+    color: var(--accent) !important;
+    stroke: var(--accent) !important;
+}
+
+/* دکمه X — بوردر نرم با رنگ تم */
+.reload-close {
+    border: 1px solid color-mix(in srgb, var(--accent) 60%, transparent) !important;
+}
+
+.reload-close:hover {
+    background: color-mix(in srgb, var(--accent) 30%, transparent) !important;
+}
+
+/* ============================================================
+   RELOAD OVERLAY — Refined (lighter, no spin, tap-to-close)
+   ============================================================ */
+
+/* پس‌زمینه روشن‌تر */
+.reload-overlay {
+    background: rgba(0, 0, 0, 0.45) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+}
+
+/* دکمه ریلود — فقط بوردر آبی، بدون چرخش */
+.reload-icon-btn {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 2px solid var(--accent) !important;
+    box-shadow: none !important;
+}
+
+.reload-icon-btn:hover {
+    background: color-mix(in srgb, var(--accent) 12%, transparent) !important;
+    transform: none !important;
+}
+
+.reload-icon-btn:active {
+    transform: scale(0.96) !important;
+}
+
+/* آیکون همرنگ accent ولی ثابت (بدون چرخش) */
+.reload-icon-btn svg {
+    color: var(--accent) !important;
+    stroke: var(--accent) !important;
+    animation: none !important;
+}
+
+/* دکمه X — بوردر نرم با رنگ تم */
+.reload-close {
+    border: 1px solid color-mix(in srgb, var(--accent) 60%, transparent) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.reload-close:hover {
+    background: color-mix(in srgb, var(--accent) 25%, transparent) !important;
+}
+
+/* متن‌ها خوانا */
+.reload-title {
+    color: #ffffff !important;
+}
+
+.reload-hint {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* ============================================================
+   RELOAD OVERLAY — Thinner border + zero lag
+   ============================================================ */
+
+/* حذف backdrop-filter (باعث لگ میشه) */
+.reload-overlay {
+    background: rgba(0, 0, 0, 0.50) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    transition: opacity 0.2s ease, visibility 0.2s !important;
+}
+
+/* انیمیشن ورودی رو حذف کن */
+.reload-icon-btn {
+    border-width: 1px !important;
+    transition: background-color 0.15s ease !important;
+    will-change: auto !important;
+}
+
+.reload-close {
+    transition: background-color 0.15s ease !important;
+}
+
+/* هیچ will-change روی inner نمونه */
+.reload-inner {
+    will-change: auto !important;
+    transition: none !important;
+}
+
+/* ============================================================
+   FIX: gap on dynamically-rendered feed content
+   ============================================================ */
+.feed-content,
+.feed,
+.saved-list,
+.comments-list,
+.pv-feed {
+    gap: 10px !important;
+}
+
+.feed-content {
+    display: flex;
+    flex-direction: column;
+}

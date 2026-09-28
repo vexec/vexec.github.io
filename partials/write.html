@@ -1,0 +1,185 @@
+<section class="write">
+
+  <!-- ========== HERO ========== -->
+  <header class="write-hero">
+    <div class="write-hero-text">
+      <h1>Write as Unknown</h1>
+      <p>Say the thing you've been holding in.</p>
+    </div>
+    <div class="write-anon-badge">
+      <i data-lucide="venetian-mask"></i>
+      <span>Anonymous</span>
+    </div>
+  </header>
+
+  <!-- ========== INSPIRATION ========== -->
+  <div class="write-inspiration">
+    <i data-lucide="sparkles"></i>
+    <span class="write-inspiration-text" id="write-inspiration-text"></span>
+  </div>
+
+  <!-- ========== EDITOR ========== -->
+  <div class="write-editor" id="write-editor">
+    <textarea
+      class="write-textarea"
+      id="write-textarea"
+      placeholder="What's the truth you've never said out loud?"
+      maxlength="500"
+      spellcheck="false"
+    ></textarea>
+
+    <div class="write-editor-footer">
+      <div class="write-counter" id="write-counter">
+        <svg viewBox="0 0 36 36" class="write-counter-ring">
+          <circle class="write-counter-track" cx="18" cy="18" r="15.5" />
+          <circle class="write-counter-bar" cx="18" cy="18" r="15.5" />
+        </svg>
+        <span class="write-counter-num" id="write-counter-num">500</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== PREVIEW ========== -->
+  <div class="write-preview" id="write-preview" hidden>
+    <div class="write-preview-card">
+      <div class="write-preview-head">
+        <div class="write-preview-avatar"><i data-lucide="user-round"></i></div>
+        <div>
+          <span class="write-preview-name">Anonymous</span>
+          <span class="write-preview-handle">@you · now</span>
+        </div>
+      </div>
+      <p class="write-preview-text" id="write-preview-text"></p>
+      <div class="write-preview-attachments" id="write-preview-attachments"></div>
+    </div>
+  </div>
+
+  <!-- ========== ATTACHMENTS ========== -->
+  <div class="write-attachments" id="write-attachments"></div>
+
+  <!-- ========== TOOLBAR ========== -->
+  <div class="write-toolbar">
+    <div class="write-toolbar-left">
+      <button class="write-tool" type="button" data-attach="image" aria-label="Image" title="Image">
+        <i data-lucide="image"></i>
+      </button>
+      <button class="write-tool" type="button" data-attach="audio" aria-label="Audio" title="Audio">
+        <i data-lucide="music"></i>
+      </button>
+      <button class="write-tool" type="button" data-attach="document" aria-label="Document" title="Document">
+        <i data-lucide="file-text"></i>
+      </button>
+      <button class="write-tool write-tool-camera" type="button" data-attach="camera" aria-label="Camera" title="Camera">
+        <i data-lucide="camera"></i>
+      </button>
+      <button class="write-tool" type="button" data-action="emoji" aria-label="Emoji" title="Emoji">
+        <i data-lucide="smile"></i>
+      </button>
+    </div>
+
+    <div class="write-toolbar-right">
+      <button class="write-tool write-tool-preview" type="button" data-action="toggle-preview" aria-label="Preview" title="Preview">
+        <i data-lucide="eye"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ========== SETTINGS ========== -->
+  <div class="write-settings">
+    <h2 class="write-settings-title">
+      <i data-lucide="sliders-horizontal"></i>
+      <span>Whisper Settings</span>
+    </h2>
+
+    <div class="write-setting">
+      <div class="write-setting-icon" data-tint="violet">
+        <i data-lucide="shuffle"></i>
+      </div>
+      <div class="write-setting-body">
+        <span class="write-setting-title">Random delay</span>
+        <span class="write-setting-sub" id="write-delay-sub">Post between 10 min – 2 hours</span>
+      </div>
+      <button class="settings-switch" type="button" role="switch" aria-checked="false" data-write-toggle="randomDelay"><span></span></button>
+    </div>
+
+    <div class="write-setting">
+      <div class="write-setting-icon" data-tint="rose">
+        <i data-lucide="flame"></i>
+      </div>
+      <div class="write-setting-body">
+        <span class="write-setting-title">Burn after 24h</span>
+        <span class="write-setting-sub">Self-destructs after one day</span>
+      </div>
+      <button class="settings-switch" type="button" role="switch" aria-checked="false" data-write-toggle="burnAfter"><span></span></button>
+    </div>
+
+    <div class="write-setting">
+      <div class="write-setting-icon" data-tint="blue">
+        <i data-lucide="message-circle"></i>
+      </div>
+      <div class="write-setting-body">
+        <span class="write-setting-title">Allow comments</span>
+        <span class="write-setting-sub">Let strangers reply</span>
+      </div>
+      <button class="settings-switch" type="button" role="switch" aria-checked="true" data-write-toggle="allowComments"><span></span></button>
+    </div>
+
+    <div class="write-setting">
+      <div class="write-setting-icon" data-tint="emerald">
+        <i data-lucide="bookmark"></i>
+      </div>
+      <div class="write-setting-body">
+        <span class="write-setting-title">Allow saves</span>
+        <span class="write-setting-sub">Others can keep this</span>
+      </div>
+      <button class="settings-switch" type="button" role="switch" aria-checked="true" data-write-toggle="allowSaves"><span></span></button>
+    </div>
+
+    <div class="write-setting">
+      <div class="write-setting-icon" data-tint="amber">
+        <i data-lucide="eye-off"></i>
+      </div>
+      <div class="write-setting-body">
+        <span class="write-setting-title">Sensitive content</span>
+        <span class="write-setting-sub">Blur media behind a warning</span>
+      </div>
+      <button class="settings-switch" type="button" role="switch" aria-checked="false" data-write-toggle="sensitive"><span></span></button>
+    </div>
+
+    <div class="write-setting">
+      <div class="write-setting-icon" data-tint="rose">
+        <i data-lucide="triangle-alert"></i>
+      </div>
+      <div class="write-setting-body">
+        <span class="write-setting-title">Content warning</span>
+        <span class="write-setting-sub">Add a warning label</span>
+      </div>
+      <button class="settings-switch" type="button" role="switch" aria-checked="false" data-write-toggle="contentWarning"><span></span></button>
+    </div>
+
+    <div class="write-cw-input" id="write-cw-input" hidden>
+      <i data-lucide="pencil"></i>
+      <input type="text" id="write-cw-text" placeholder="e.g. mentions of loss" maxlength="60" />
+    </div>
+
+    <div class="write-setting">
+      <div class="write-setting-icon" data-tint="cyan">
+        <i data-lucide="pin"></i>
+      </div>
+      <div class="write-setting-body">
+        <span class="write-setting-title">Pin to profile</span>
+        <span class="write-setting-sub">Keep this whisper on top</span>
+      </div>
+      <button class="settings-switch" type="button" role="switch" aria-checked="false" data-write-toggle="pinToProfile"><span></span></button>
+    </div>
+  </div>
+
+  <!-- ========== SEND ========== -->
+  <div class="write-send-wrap">
+    <button class="write-send" id="write-send" type="button">
+      <i data-lucide="send-horizontal"></i>
+      <span class="write-send-label">Whisper</span>
+    </button>
+  </div>
+
+</section>

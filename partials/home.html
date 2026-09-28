@@ -1,0 +1,1527 @@
+<section class="home">
+  <header class="home-header">
+    <div class="search-wrap">
+      <div class="search-box">
+        <i data-lucide="search" class="search-icon"></i>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search whispers..."
+          aria-label="Search"
+        />
+      </div>
+      <div class="search-filter" data-filter="post">
+        <button class="search-filter-btn" type="button" aria-haspopup="listbox">
+          <span class="search-filter-label">
+            <span class="search-filter-prefix">by</span>
+            <span class="search-filter-value">Post</span>
+          </span>
+          <i data-lucide="chevron-down" class="search-filter-chevron"></i>
+        </button>
+        <div class="search-filter-menu" role="listbox">
+          <button
+            class="search-filter-item active"
+            data-value="post"
+            role="option"
+          >
+            <i data-lucide="file-text"></i>
+            <span>Post</span>
+          </button>
+          <button class="search-filter-item" data-value="user" role="option">
+            <i data-lucide="user-round"></i>
+            <span>User</span>
+          </button>
+          <button
+            class="search-filter-item"
+            data-value="verified"
+            role="option"
+          >
+            <i data-lucide="badge-check"></i>
+            <span>Verified</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="feed">
+    <div class="feed-skeleton" id="feed-skeleton"></div>
+
+    <!-- Real content (hidden until loaded) -->
+    <div class="feed-content" id="feed-content" hidden>
+      <!-- ==================== Tweet 1 ==================== -->
+      <article class="tweet">
+        <div class="tweet-avatar">
+          <img src="https://i.pravatar.cc/150?img=12" alt="" loading="lazy" />
+        </div>
+        <div class="tweet-body">
+          <div class="tweet-meta">
+            <span class="tweet-name">
+              Silent Fox
+              <svg
+                class="verified"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-label="Verified"
+              >
+                <path
+                  d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z"
+                />
+              </svg>
+            </span>
+            <span class="tweet-handle">@unknown_42</span>
+            <span class="tweet-views">
+              <i data-lucide="eye"></i>
+              1.2K
+            </span>
+          </div>
+          <p class="tweet-text">
+            I wrote something I could never say out loud. Somehow it feels
+            lighter now that a stranger might read it.
+          </p>
+
+          <div class="tweet-media">
+            <img
+              src="https://picsum.photos/seed/vexec1/900/600"
+              alt="Post image"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="tweet-actions">
+            <div class="tweet-actions-left">
+              <button class="tweet-action" data-action="like" aria-label="Like">
+                <i data-lucide="heart"></i>
+                <span>38</span>
+              </button>
+              <button
+                class="tweet-action"
+                data-action="comment"
+                aria-label="Comment"
+              >
+                <i data-lucide="message-circle"></i>
+                <span>12</span>
+              </button>
+            </div>
+            <div class="tweet-actions-right">
+              <button class="tweet-menu-btn" aria-label="More">
+                <i data-lucide="more-horizontal"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="tweet-comments">
+            <div class="tweet-comments-collapse">
+              <div class="tweet-comments-inner">
+                <header class="comments-header">
+                  <span class="comments-title">
+                    <i data-lucide="message-circle"></i>
+                    Comments
+                  </span>
+                  <button
+                    class="comments-close"
+                    type="button"
+                    aria-label="Close comments"
+                  >
+                    <i data-lucide="x"></i>
+                  </button>
+                </header>
+
+                <div class="comments-list">
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=15"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Wandering Ink</span>
+                        <span class="comment-handle">@ghost_ink</span>
+                      </div>
+                      <p class="comment-text">
+                        This is exactly how I feel. Thank you for writing it.
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=32"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Half Light</span>
+                        <span class="comment-handle">@between_worlds</span>
+                      </div>
+                      <p class="comment-text">
+                        I read this three times. It hit something I didn't know
+                        was still there.
+                      </p>
+                      <div class="comment-media">
+                        <img
+                          src="https://picsum.photos/seed/vexec2/500/400"
+                          alt="Comment image"
+                          loading="lazy"
+                        />
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=45"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Paper Ghost</span>
+                        <span class="comment-handle">@no_name</span>
+                      </div>
+                      <p class="comment-text">
+                        Please keep writing. This place needs voices like yours.
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=52"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Quiet Storm</span>
+                        <span class="comment-handle">@unnamed</span>
+                      </div>
+                      <p class="comment-text">
+                        I saved this. I don't know why but it stuck with me.
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=68"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Wandering Ink</span>
+                        <span class="comment-handle">@ghost_ink</span>
+                      </div>
+                      <p class="comment-text">
+                        Anonymous writing hits different because there's no ego
+                        behind it. Just truth.
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=23"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Half Light</span>
+                        <span class="comment-handle">@between_worlds</span>
+                      </div>
+                      <p class="comment-text">
+                        "A stranger might read it" — that's the whole point,
+                        isn't it?
+                      </p>
+                    </div>
+                  </article>
+                </div>
+
+                <button class="comments-see-more" type="button">
+                  <span>See More</span>
+                  <i data-lucide="chevron-down"></i>
+                </button>
+
+                <form class="comment-form" autocomplete="off">
+                  <div class="comment-attach">
+                    <button
+                      class="comment-attach-btn"
+                      type="button"
+                      aria-label="Attach"
+                    >
+                      <i data-lucide="plus"></i>
+                    </button>
+                    <div class="comment-attach-menu">
+                      <button
+                        class="comment-attach-item"
+                        type="button"
+                        data-attach="image"
+                      >
+                        <i data-lucide="image"></i>
+                        <span>Image</span>
+                      </button>
+                      <button
+                        class="comment-attach-item"
+                        type="button"
+                        data-attach="music"
+                      >
+                        <i data-lucide="music"></i>
+                        <span>Music</span>
+                      </button>
+                      <button
+                        class="comment-attach-item"
+                        type="button"
+                        data-attach="document"
+                      >
+                        <i data-lucide="file-text"></i>
+                        <span>Document</span>
+                      </button>
+                      <button
+                        class="comment-attach-item comment-attach-camera"
+                        type="button"
+                        data-attach="camera"
+                      >
+                        <i data-lucide="camera"></i>
+                        <span>Camera</span>
+                      </button>
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    class="comment-input"
+                    placeholder="Write a comment..."
+                    aria-label="Write a comment"
+                  />
+                  <button type="submit" class="comment-send" aria-label="Send">
+                    <i data-lucide="send-horizontal"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tweet-overlay" aria-hidden="true">
+          <div class="tweet-overlay-card">
+            <button class="overlay-action" data-action="save">
+              <i data-lucide="bookmark" class="icon-unsaved"></i>
+              <i data-lucide="bookmark-check" class="icon-saved"></i>
+              <span>Save</span>
+            </button>
+            <button class="overlay-action" data-action="copy">
+              <i data-lucide="link"></i>
+              <span>Copy Link</span>
+            </button>
+            <button class="overlay-action" data-action="report">
+              <i data-lucide="flag"></i>
+              <span>Report</span>
+            </button>
+            <button class="overlay-action overlay-close" data-action="close">
+              <i data-lucide="x"></i>
+              <span>Close</span>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- ==================== Tweet 2 ==================== -->
+      <article class="tweet">
+        <div class="tweet-avatar">
+          <img src="https://i.pravatar.cc/150?img=33" alt="" loading="lazy" />
+        </div>
+        <div class="tweet-body">
+          <div class="tweet-meta">
+            <span class="tweet-name">
+              Midnight Cat
+              <svg
+                class="verified"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-label="Verified"
+              >
+                <path
+                  d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z"
+                />
+              </svg>
+            </span>
+            <span class="tweet-handle">@anonymous_writer</span>
+            <span class="tweet-views">
+              <i data-lucide="eye"></i>
+              842
+            </span>
+          </div>
+          <p class="tweet-text">
+            Being unknown is not the same as being invisible. Here, I can
+            finally be seen for what I think, not who I am.
+          </p>
+          <div class="tweet-actions">
+            <div class="tweet-actions-left">
+              <button class="tweet-action" data-action="like" aria-label="Like">
+                <i data-lucide="heart"></i>
+                <span>94</span>
+              </button>
+              <button
+                class="tweet-action"
+                data-action="comment"
+                aria-label="Comment"
+              >
+                <i data-lucide="message-circle"></i>
+                <span>7</span>
+              </button>
+            </div>
+            <div class="tweet-actions-right">
+              <button class="tweet-menu-btn" aria-label="More">
+                <i data-lucide="more-horizontal"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="tweet-comments">
+            <div class="tweet-comments-collapse">
+              <div class="tweet-comments-inner">
+                <header class="comments-header">
+                  <span class="comments-title">
+                    <i data-lucide="message-circle"></i>
+                    Comments
+                  </span>
+                  <button
+                    class="comments-close"
+                    type="button"
+                    aria-label="Close comments"
+                  >
+                    <i data-lucide="x"></i>
+                  </button>
+                </header>
+
+                <div class="comments-list">
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=60"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Quiet Storm</span>
+                        <span class="comment-handle">@unnamed</span>
+                      </div>
+                      <p class="comment-text">
+                        I needed to hear this today. Thank you for being honest.
+                      </p>
+                    </div>
+                  </article>
+                </div>
+
+                <button class="comments-see-more" type="button">
+                  <span>See More</span>
+                  <i data-lucide="chevron-down"></i>
+                </button>
+
+                <form class="comment-form" autocomplete="off">
+                  <div class="comment-attach">
+                    <button
+                      class="comment-attach-btn"
+                      type="button"
+                      aria-label="Attach"
+                    >
+                      <i data-lucide="plus"></i>
+                    </button>
+                    <div class="comment-attach-menu">
+                      <button
+                        class="comment-attach-item"
+                        type="button"
+                        data-attach="image"
+                      >
+                        <i data-lucide="image"></i>
+                        <span>Image</span>
+                      </button>
+                      <button
+                        class="comment-attach-item"
+                        type="button"
+                        data-attach="music"
+                      >
+                        <i data-lucide="music"></i>
+                        <span>Music</span>
+                      </button>
+                      <button
+                        class="comment-attach-item"
+                        type="button"
+                        data-attach="document"
+                      >
+                        <i data-lucide="file-text"></i>
+                        <span>Document</span>
+                      </button>
+                      <button
+                        class="comment-attach-item comment-attach-camera"
+                        type="button"
+                        data-attach="camera"
+                      >
+                        <i data-lucide="camera"></i>
+                        <span>Camera</span>
+                      </button>
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    class="comment-input"
+                    placeholder="Write a comment..."
+                    aria-label="Write a comment"
+                  />
+                  <button type="submit" class="comment-send" aria-label="Send">
+                    <i data-lucide="send-horizontal"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tweet-overlay" aria-hidden="true">
+          <div class="tweet-overlay-card">
+            <button class="overlay-action" data-action="save">
+              <i data-lucide="bookmark" class="icon-unsaved"></i>
+              <i data-lucide="bookmark-check" class="icon-saved"></i>
+              <span>Save</span>
+            </button>
+            <button class="overlay-action" data-action="copy">
+              <i data-lucide="link"></i>
+              <span>Copy Link</span>
+            </button>
+            <button class="overlay-action" data-action="report">
+              <i data-lucide="flag"></i>
+              <span>Report</span>
+            </button>
+            <button class="overlay-action overlay-close" data-action="close">
+              <i data-lucide="x"></i>
+              <span>Close</span>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- ==================== Tweet 3 ==================== -->
+      <article class="tweet">
+        <div class="tweet-avatar">
+          <img src="https://i.pravatar.cc/150?img=14" alt="" loading="lazy" />
+        </div>
+        <div class="tweet-body">
+          <div class="tweet-meta">
+            <span class="tweet-name">Empty Chair</span>
+            <span class="tweet-handle">@silent_scream</span>
+            <span class="tweet-views">
+              <i data-lucide="eye"></i>
+              2.3K
+            </span>
+          </div>
+          <p class="tweet-text">
+            I've been sitting on this thought for three years. Three entire
+            years of swallowing it back down every time it tried to crawl up my
+            throat. I rehearsed it in the shower, on the bus, at 3am when
+            everyone else was asleep and the only witness was the ceiling. I
+            wrote drafts I never sent, letters I burned, messages I deleted
+            character by character before my thumb could betray me. And tonight,
+            for the first time, I'm letting it exist somewhere outside of my own
+            head. It doesn't have to be perfect. It doesn't have to be read by
+            anyone I know. It just has to be real. And it is. It's the realest
+            thing I've said in a long, long time.
+          </p>
+
+          <div class="tweet-media">
+            <img
+              src="https://picsum.photos/seed/vexec3/900/600"
+              alt="Post image"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="tweet-actions">
+            <div class="tweet-actions-left">
+              <button class="tweet-action" data-action="like" aria-label="Like">
+                <i data-lucide="heart"></i>
+                <span>412</span>
+              </button>
+              <button
+                class="tweet-action"
+                data-action="comment"
+                aria-label="Comment"
+              >
+                <i data-lucide="message-circle"></i>
+                <span>57</span>
+              </button>
+            </div>
+            <div class="tweet-actions-right">
+              <button class="tweet-menu-btn" aria-label="More">
+                <i data-lucide="more-horizontal"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="tweet-comments">
+            <div class="tweet-comments-collapse">
+              <div class="tweet-comments-inner">
+                <header class="comments-header">
+                  <span class="comments-title">
+                    <i data-lucide="message-circle"></i>
+                    Comments
+                  </span>
+                  <button
+                    class="comments-close"
+                    type="button"
+                    aria-label="Close comments"
+                  >
+                    <i data-lucide="x"></i>
+                  </button>
+                </header>
+
+                <div class="comments-list">
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=27"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Paper Ghost</span>
+                        <span class="comment-handle">@no_name</span>
+                      </div>
+                      <p class="comment-text">
+                        I feel like you reached into my chest and pulled this
+                        out for me. I'm saving it.
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=41"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Wandering Ink</span>
+                        <span class="comment-handle">@ghost_ink</span>
+                      </div>
+                      <p class="comment-text">
+                        "It just has to be real." That line broke me.
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=58"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Half Light</span>
+                        <span class="comment-handle">@between_worlds</span>
+                      </div>
+                      <p class="comment-text">
+                        Three years is a long time to carry something this
+                        heavy. Proud of you for letting it out.
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=9"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Quiet Storm</span>
+                        <span class="comment-handle">@unnamed</span>
+                      </div>
+                      <p class="comment-text">
+                        This is the most honest thing I've read on here. Thank
+                        you.
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=8"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Paper Ghost</span>
+                        <span class="comment-handle">@no_name</span>
+                      </div>
+                      <p class="comment-text">
+                        Sometimes the hardest thing is just pressing send.
+                      </p>
+                    </div>
+                  </article>
+                </div>
+
+                <button class="comments-see-more" type="button">
+                  <span>See More</span>
+                  <i data-lucide="chevron-down"></i>
+                </button>
+
+                <form class="comment-form" autocomplete="off">
+                  <div class="comment-attach">
+                    <button
+                      class="comment-attach-btn"
+                      type="button"
+                      aria-label="Attach"
+                    >
+                      <i data-lucide="plus"></i>
+                    </button>
+                    <div class="comment-attach-menu">
+                      <button
+                        class="comment-attach-item"
+                        type="button"
+                        data-attach="image"
+                      >
+                        <i data-lucide="image"></i>
+                        <span>Image</span>
+                      </button>
+                      <button
+                        class="comment-attach-item"
+                        type="button"
+                        data-attach="music"
+                      >
+                        <i data-lucide="music"></i>
+                        <span>Music</span>
+                      </button>
+                      <button
+                        class="comment-attach-item"
+                        type="button"
+                        data-attach="document"
+                      >
+                        <i data-lucide="file-text"></i>
+                        <span>Document</span>
+                      </button>
+                      <button
+                        class="comment-attach-item comment-attach-camera"
+                        type="button"
+                        data-attach="camera"
+                      >
+                        <i data-lucide="camera"></i>
+                        <span>Camera</span>
+                      </button>
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    class="comment-input"
+                    placeholder="Write a comment..."
+                    aria-label="Write a comment"
+                  />
+                  <button type="submit" class="comment-send" aria-label="Send">
+                    <i data-lucide="send-horizontal"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tweet-overlay" aria-hidden="true">
+          <div class="tweet-overlay-card">
+            <button class="overlay-action" data-action="save">
+              <i data-lucide="bookmark" class="icon-unsaved"></i>
+              <i data-lucide="bookmark-check" class="icon-saved"></i>
+              <span>Save</span>
+            </button>
+            <button class="overlay-action" data-action="copy">
+              <i data-lucide="link"></i>
+              <span>Copy Link</span>
+            </button>
+            <button class="overlay-action" data-action="report">
+              <i data-lucide="flag"></i>
+              <span>Report</span>
+            </button>
+            <button class="overlay-action overlay-close" data-action="close">
+              <i data-lucide="x"></i>
+              <span>Close</span>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- ==================== Tweet 4 ==================== -->
+      <article class="tweet">
+        <div class="tweet-avatar">
+          <img src="https://i.pravatar.cc/150?img=5" alt="" loading="lazy" />
+        </div>
+        <div class="tweet-body">
+          <div class="tweet-meta">
+            <span class="tweet-name">
+              Wandering Ink
+              <svg
+                class="verified"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-label="Verified"
+              >
+                <path
+                  d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z"
+                />
+              </svg>
+            </span>
+            <span class="tweet-handle">@ghost_ink</span>
+            <span class="tweet-views">
+              <i data-lucide="eye"></i>
+              4.7K
+            </span>
+          </div>
+          <p class="tweet-text">
+            Made this at 2am. Sometimes words fail and only sound can carry the
+            weight.
+          </p>
+
+          <div
+            class="comment-audio"
+            data-audio-url="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+            data-audio-name="SoundHelix - Song 1.mp3"
+            data-audio-size="8421337"
+            data-audio-cover="https://picsum.photos/seed/album1/300/300"
+          >
+            <div class="comment-audio-cover">
+              <img
+                src="https://picsum.photos/seed/album1/300/300"
+                alt=""
+                loading="lazy"
+              />
+            </div>
+            <div class="comment-audio-info">
+              <span class="comment-audio-name">SoundHelix - Song 1.mp3</span>
+              <span class="comment-audio-meta">8.42 MB</span>
+            </div>
+            <button
+              class="comment-audio-download"
+              type="button"
+              aria-label="Download"
+            >
+              <i data-lucide="download"></i>
+            </button>
+            <button class="comment-audio-play" type="button" aria-label="Play">
+              <i data-lucide="play" class="icon-play"></i>
+              <i data-lucide="pause" class="icon-pause"></i>
+            </button>
+            <div class="comment-audio-loading">
+              <i data-lucide="loader-circle"></i>
+            </div>
+          </div>
+
+          <div class="tweet-actions">
+            <div class="tweet-actions-left">
+              <button class="tweet-action" data-action="like" aria-label="Like">
+                <i data-lucide="heart"></i>
+                <span>203</span>
+              </button>
+              <button
+                class="tweet-action"
+                data-action="comment"
+                aria-label="Comment"
+              >
+                <i data-lucide="message-circle"></i>
+                <span>18</span>
+              </button>
+            </div>
+            <div class="tweet-actions-right">
+              <button class="tweet-menu-btn" aria-label="More">
+                <i data-lucide="more-horizontal"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="tweet-comments">
+            <div class="tweet-comments-collapse">
+              <div class="tweet-comments-inner">
+                <header class="comments-header">
+                  <span class="comments-title">
+                    <i data-lucide="message-circle"></i>
+                    Comments
+                  </span>
+                  <button
+                    class="comments-close"
+                    type="button"
+                    aria-label="Close comments"
+                  >
+                    <i data-lucide="x"></i>
+                  </button>
+                </header>
+
+                <div class="comments-list">
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=65"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Quiet Storm</span>
+                        <span class="comment-handle">@unnamed</span>
+                      </div>
+                      <p class="comment-text">
+                        This is beautiful. What did you use to make it?
+                      </p>
+
+                      <div
+                        class="comment-audio"
+                        data-audio-url="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+                        data-audio-name="SoundHelix - Song 2.mp3"
+                        data-audio-size="9137245"
+                        data-audio-cover="https://picsum.photos/seed/album2/300/300"
+                      >
+                        <div class="comment-audio-cover">
+                          <img
+                            src="https://picsum.photos/seed/album2/300/300"
+                            alt=""
+                            loading="lazy"
+                          />
+                        </div>
+                        <div class="comment-audio-info">
+                          <span class="comment-audio-name"
+                            >SoundHelix - Song 2.mp3</span
+                          >
+                          <span class="comment-audio-meta">9.14 MB</span>
+                        </div>
+                        <button
+                          class="comment-audio-download"
+                          type="button"
+                          aria-label="Download"
+                        >
+                          <i data-lucide="download"></i>
+                        </button>
+                        <button
+                          class="comment-audio-play"
+                          type="button"
+                          aria-label="Play"
+                        >
+                          <i data-lucide="play" class="icon-play"></i>
+                          <i data-lucide="pause" class="icon-pause"></i>
+                        </button>
+                        <div class="comment-audio-loading">
+                          <i data-lucide="loader-circle"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=22"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Paper Ghost</span>
+                        <span class="comment-handle">@no_name</span>
+                      </div>
+                      <p class="comment-text">
+                        Saved. This one hits different at 3am.
+                      </p>
+                    </div>
+                  </article>
+                </div>
+
+                <button class="comments-see-more" type="button">
+                  <span>See More</span>
+                  <i data-lucide="chevron-down"></i>
+                </button>
+
+                <form class="comment-form" autocomplete="off">
+                  <div class="comment-attach">
+                    <button
+                      class="comment-attach-btn"
+                      type="button"
+                      aria-label="Attach"
+                    >
+                      <i data-lucide="plus"></i>
+                    </button>
+                    <div class="comment-attach-menu">
+                      <button
+                        class="comment-attach-item"
+                        type="button"
+                        data-attach="image"
+                      >
+                        <i data-lucide="image"></i>
+                        <span>Image</span>
+                      </button>
+                      <button
+                        class="comment-attach-item"
+                        type="button"
+                        data-attach="music"
+                      >
+                        <i data-lucide="music"></i>
+                        <span>Music</span>
+                      </button>
+                      <button
+                        class="comment-attach-item"
+                        type="button"
+                        data-attach="document"
+                      >
+                        <i data-lucide="file-text"></i>
+                        <span>Document</span>
+                      </button>
+                      <button
+                        class="comment-attach-item comment-attach-camera"
+                        type="button"
+                        data-attach="camera"
+                      >
+                        <i data-lucide="camera"></i>
+                        <span>Camera</span>
+                      </button>
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    class="comment-input"
+                    placeholder="Write a comment..."
+                    aria-label="Write a comment"
+                  />
+                  <button type="submit" class="comment-send" aria-label="Send">
+                    <i data-lucide="send-horizontal"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tweet-overlay" aria-hidden="true">
+          <div class="tweet-overlay-card">
+            <button class="overlay-action" data-action="save">
+              <i data-lucide="bookmark" class="icon-unsaved"></i>
+              <i data-lucide="bookmark-check" class="icon-saved"></i>
+              <span>Save</span>
+            </button>
+            <button class="overlay-action" data-action="copy">
+              <i data-lucide="link"></i>
+              <span>Copy Link</span>
+            </button>
+            <button class="overlay-action" data-action="report">
+              <i data-lucide="flag"></i>
+              <span>Report</span>
+            </button>
+            <button class="overlay-action overlay-close" data-action="close">
+              <i data-lucide="x"></i>
+              <span>Close</span>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- ==================== Tweet 5 ==================== -->
+      <article class="tweet">
+        <div class="tweet-avatar">
+          <img src="https://i.pravatar.cc/150?img=36" alt="" loading="lazy" />
+        </div>
+        <div class="tweet-body">
+          <div class="tweet-meta">
+            <span class="tweet-name">Half Light</span>
+            <span class="tweet-handle">@between_worlds</span>
+            <span class="tweet-views">
+              <i data-lucide="eye"></i>
+              6.1K
+            </span>
+          </div>
+          <p class="tweet-text">
+            There's a specific kind of loneliness that only exists in the space
+            between two people who used to know each other. It's not the sharp
+            sting of a breakup, not the hollow ache of missing someone who left.
+            It's quieter than that. It's the way you both laugh at the same
+            inside joke and then remember you're not supposed to anymore. It's
+            the pause before you say their name, wondering if you still have the
+            right. It's seeing them across a room and realizing you know exactly
+            how they take their coffee, how they sound when they're tired, which
+            songs make them cry, and none of it matters anymore because the
+            version of you that knew those things doesn't exist either. You both
+            became strangers wearing familiar faces. And the worst part? There's
+            no word for it. No closure. No dramatic ending. Just two people
+            slowly becoming the background of each other's lives.
+          </p>
+          <div class="tweet-actions">
+            <div class="tweet-actions-left">
+              <button class="tweet-action" data-action="like" aria-label="Like">
+                <i data-lucide="heart"></i>
+                <span>887</span>
+              </button>
+              <button
+                class="tweet-action"
+                data-action="comment"
+                aria-label="Comment"
+              >
+                <i data-lucide="message-circle"></i>
+                <span>124</span>
+              </button>
+            </div>
+            <div class="tweet-actions-right">
+              <button class="tweet-menu-btn" aria-label="More">
+                <i data-lucide="more-horizontal"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="tweet-comments">
+            <div class="tweet-comments-collapse">
+              <div class="tweet-comments-inner">
+                <header class="comments-header">
+                  <span class="comments-title">
+                    <i data-lucide="message-circle"></i>
+                    Comments
+                  </span>
+                  <button
+                    class="comments-close"
+                    type="button"
+                    aria-label="Close comments"
+                  >
+                    <i data-lucide="x"></i>
+                  </button>
+                </header>
+
+                <div class="comments-list">
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=44"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Wandering Ink</span>
+                        <span class="comment-handle">@ghost_ink</span>
+                      </div>
+                      <p class="comment-text">
+                        "Strangers wearing familiar faces." That's the whole
+                        thing in five words.
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=48"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Quiet Storm</span>
+                        <span class="comment-handle">@unnamed</span>
+                      </div>
+                      <p class="comment-text">
+                        I'm going through this right now. You described the part
+                        I couldn't put into words.
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=11"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Half Light</span>
+                        <span class="comment-handle">@between_worlds</span>
+                      </div>
+                      <p class="comment-text">
+                        The "no closure" part is what hurts the most.
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=70"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Paper Ghost</span>
+                        <span class="comment-handle">@no_name</span>
+                      </div>
+                      <p class="comment-text">
+                        I've never been able to explain this feeling. Now I can.
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=29"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Wandering Ink</span>
+                        <span class="comment-handle">@ghost_ink</span>
+                      </div>
+                      <p class="comment-text">
+                        This should be required reading for anyone going through
+                        a slow fade.
+                      </p>
+                    </div>
+                  </article>
+                </div>
+
+                <button class="comments-see-more" type="button">
+                  <span>See More</span>
+                  <i data-lucide="chevron-down"></i>
+                </button>
+
+                <form class="comment-form" autocomplete="off">
+                  <div class="comment-attach">
+                    <button
+                      class="comment-attach-btn"
+                      type="button"
+                      aria-label="Attach"
+                    >
+                      <i data-lucide="plus"></i>
+                    </button>
+                    <div class="comment-attach-menu">
+                      <button
+                        class="comment-attach-item"
+                        type="button"
+                        data-attach="image"
+                      >
+                        <i data-lucide="image"></i>
+                        <span>Image</span>
+                      </button>
+                      <button
+                        class="comment-attach-item"
+                        type="button"
+                        data-attach="music"
+                      >
+                        <i data-lucide="music"></i>
+                        <span>Music</span>
+                      </button>
+                      <button
+                        class="comment-attach-item"
+                        type="button"
+                        data-attach="document"
+                      >
+                        <i data-lucide="file-text"></i>
+                        <span>Document</span>
+                      </button>
+                      <button
+                        class="comment-attach-item comment-attach-camera"
+                        type="button"
+                        data-attach="camera"
+                      >
+                        <i data-lucide="camera"></i>
+                        <span>Camera</span>
+                      </button>
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    class="comment-input"
+                    placeholder="Write a comment..."
+                    aria-label="Write a comment"
+                  />
+                  <button type="submit" class="comment-send" aria-label="Send">
+                    <i data-lucide="send-horizontal"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tweet-overlay" aria-hidden="true">
+          <div class="tweet-overlay-card">
+            <button class="overlay-action" data-action="save">
+              <i data-lucide="bookmark" class="icon-unsaved"></i>
+              <i data-lucide="bookmark-check" class="icon-saved"></i>
+              <span>Save</span>
+            </button>
+            <button class="overlay-action" data-action="copy">
+              <i data-lucide="link"></i>
+              <span>Copy Link</span>
+            </button>
+            <button class="overlay-action" data-action="report">
+              <i data-lucide="flag"></i>
+              <span>Report</span>
+            </button>
+            <button class="overlay-action overlay-close" data-action="close">
+              <i data-lucide="x"></i>
+              <span>Close</span>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- ==================== Tweet 6 ==================== -->
+      <article class="tweet">
+        <div class="tweet-avatar">
+          <img src="https://i.pravatar.cc/150?img=25" alt="" loading="lazy" />
+        </div>
+        <div class="tweet-body">
+          <div class="tweet-meta">
+            <span class="tweet-name">Quiet Storm</span>
+            <span class="tweet-handle">@unnamed</span>
+            <span class="tweet-views">
+              <i data-lucide="eye"></i>
+              128
+            </span>
+          </div>
+          <p class="tweet-text">
+            I've been reading here for months. Today, I finally wrote my first
+            sentence. Small step, but it's mine.
+          </p>
+
+          <div
+            class="comment-audio"
+            data-audio-url="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+            data-audio-name="Midnight.mp3"
+            data-audio-size="7639215"
+            data-audio-cover="https://picsum.photos/seed/album3/300/300"
+          >
+            <div class="comment-audio-cover">
+              <img
+                src="https://picsum.photos/seed/album3/300/300"
+                alt=""
+                loading="lazy"
+              />
+            </div>
+            <div class="comment-audio-info">
+              <span class="comment-audio-name">Midnight.mp3</span>
+              <span class="comment-audio-meta">7.64 MB</span>
+            </div>
+            <button
+              class="comment-audio-download"
+              type="button"
+              aria-label="Download"
+            >
+              <i data-lucide="download"></i>
+            </button>
+            <button class="comment-audio-play" type="button" aria-label="Play">
+              <i data-lucide="play" class="icon-play"></i>
+              <i data-lucide="pause" class="icon-pause"></i>
+            </button>
+            <div class="comment-audio-loading">
+              <i data-lucide="loader-circle"></i>
+            </div>
+          </div>
+
+          <div class="tweet-actions">
+            <div class="tweet-actions-left">
+              <button class="tweet-action" data-action="like" aria-label="Like">
+                <i data-lucide="heart"></i>
+                <span>76</span>
+              </button>
+              <button
+                class="tweet-action"
+                data-action="comment"
+                aria-label="Comment"
+              >
+                <i data-lucide="message-circle"></i>
+                <span>5</span>
+              </button>
+            </div>
+            <div class="tweet-actions-right">
+              <button class="tweet-menu-btn" aria-label="More">
+                <i data-lucide="more-horizontal"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="tweet-comments">
+            <div class="tweet-comments-collapse">
+              <div class="tweet-comments-inner">
+                <header class="comments-header">
+                  <span class="comments-title">
+                    <i data-lucide="message-circle"></i>
+                    Comments
+                  </span>
+                  <button
+                    class="comments-close"
+                    type="button"
+                    aria-label="Close comments"
+                  >
+                    <i data-lucide="x"></i>
+                  </button>
+                </header>
+
+                <div class="comments-list">
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=17"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Half Light</span>
+                        <span class="comment-handle">@between_worlds</span>
+                      </div>
+                      <p class="comment-text">
+                        Welcome. The first sentence is always the hardest one.
+                      </p>
+                    </div>
+                  </article>
+
+                  <article class="comment">
+                    <div class="comment-avatar">
+                      <img
+                        src="https://i.pravatar.cc/150?img=3"
+                        alt=""
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="comment-body">
+                      <div class="comment-meta">
+                        <span class="comment-name">Paper Ghost</span>
+                        <span class="comment-handle">@no_name</span>
+                      </div>
+                      <p class="comment-text">
+                        Small step, but it's yours. That's what matters.
+                      </p>
+                    </div>
+                  </article>
+                </div>
+
+                <button class="comments-see-more" type="button">
+                  <span>See More</span>
+                  <i data-lucide="chevron-down"></i>
+                </button>
+
+                <form class="comment-form" autocomplete="off">
+                  <div class="comment-attach">
+                    <button
+                      class="comment-attach-btn"
+                      type="button"
+                      aria-label="Attach"
+                    >
+                      <i data-lucide="plus"></i>
+                    </button>
+                    <div class="comment-attach-menu">
+                      <button
+                        class="comment-attach-item"
+                        type="button"
+                        data-attach="image"
+                      >
+                        <i data-lucide="image"></i>
+                        <span>Image</span>
+                      </button>
+                      <button
+                        class="comment-attach-item"
+                        type="button"
+                        data-attach="music"
+                      >
+                        <i data-lucide="music"></i>
+                        <span>Music</span>
+                      </button>
+                      <button
+                        class="comment-attach-item"
+                        type="button"
+                        data-attach="document"
+                      >
+                        <i data-lucide="file-text"></i>
+                        <span>Document</span>
+                      </button>
+                      <button
+                        class="comment-attach-item comment-attach-camera"
+                        type="button"
+                        data-attach="camera"
+                      >
+                        <i data-lucide="camera"></i>
+                        <span>Camera</span>
+                      </button>
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    class="comment-input"
+                    placeholder="Write a comment..."
+                    aria-label="Write a comment"
+                  />
+                  <button type="submit" class="comment-send" aria-label="Send">
+                    <i data-lucide="send-horizontal"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tweet-overlay" aria-hidden="true">
+          <div class="tweet-overlay-card">
+            <button class="overlay-action" data-action="save">
+              <i data-lucide="bookmark" class="icon-unsaved"></i>
+              <i data-lucide="bookmark-check" class="icon-saved"></i>
+              <span>Save</span>
+            </button>
+            <button class="overlay-action" data-action="copy">
+              <i data-lucide="link"></i>
+              <span>Copy Link</span>
+            </button>
+            <button class="overlay-action" data-action="report">
+              <i data-lucide="flag"></i>
+              <span>Report</span>
+            </button>
+            <button class="overlay-action overlay-close" data-action="close">
+              <i data-lucide="x"></i>
+              <span>Close</span>
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

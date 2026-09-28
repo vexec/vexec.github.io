@@ -1,0 +1,933 @@
+<section class="profile">
+  <!-- ================================================== -->
+  <!--                   PROFILE HERO                     -->
+  <!-- ================================================== -->
+  <div class="profile-hero">
+    <div class="profile-hero-bg" aria-hidden="true">
+      <div class="profile-hero-orb orb-1"></div>
+      <div class="profile-hero-orb orb-2"></div>
+      <div class="profile-hero-orb orb-3"></div>
+      <div class="profile-hero-grid"></div>
+
+      <!-- Corner glows (clipped by parent's overflow:hidden) -->
+      <div class="profile-hero-glow glow-tl"></div>
+      <div class="profile-hero-glow glow-br"></div>
+    </div>
+    <div class="profile-hero-content">
+      <!-- Avatar -->
+      <div class="profile-avatar-wrap" id="profile-avatar-wrap">
+        <button
+          class="profile-avatar"
+          id="profile-avatar"
+          type="button"
+          aria-label="Change avatar"
+        >
+          <img id="profile-avatar-img" src="" alt="" />
+          <div class="profile-avatar-placeholder">
+            <i data-lucide="user-round"></i>
+          </div>
+          <div class="profile-avatar-overlay">
+            <i data-lucide="camera"></i>
+          </div>
+          <span class="profile-avatar-ring" aria-hidden="true"></span>
+        </button>
+
+        <!-- Avatar dropdown -->
+        <div
+          class="profile-avatar-menu"
+          id="profile-avatar-menu"
+          aria-hidden="true"
+          role="menu"
+        >
+          <div class="profile-avatar-menu-arrow"></div>
+          <button
+            class="profile-avatar-menu-item"
+            type="button"
+            role="menuitem"
+            data-avatar-action="upload"
+          >
+            <span class="profile-avatar-menu-icon"
+              ><i data-lucide="image-up"></i
+            ></span>
+            <span class="profile-avatar-menu-text">
+              <span class="profile-avatar-menu-title">Choose from device</span>
+              <span class="profile-avatar-menu-sub">JPG, PNG, WebP</span>
+            </span>
+            <i
+              data-lucide="chevron-right"
+              class="profile-avatar-menu-chevron"
+            ></i>
+          </button>
+          <button
+            class="profile-avatar-menu-item profile-avatar-menu-camera"
+            type="button"
+            role="menuitem"
+            data-avatar-action="camera"
+          >
+            <span class="profile-avatar-menu-icon"
+              ><i data-lucide="camera"></i
+            ></span>
+            <span class="profile-avatar-menu-text">
+              <span class="profile-avatar-menu-title">Take a photo</span>
+              <span class="profile-avatar-menu-sub">Use device camera</span>
+            </span>
+            <i
+              data-lucide="chevron-right"
+              class="profile-avatar-menu-chevron"
+            ></i>
+          </button>
+          <div class="profile-avatar-menu-divider"></div>
+          <button
+            class="profile-avatar-menu-item profile-avatar-menu-danger"
+            type="button"
+            role="menuitem"
+            data-avatar-action="remove"
+          >
+            <span class="profile-avatar-menu-icon"
+              ><i data-lucide="trash-2"></i
+            ></span>
+            <span class="profile-avatar-menu-text">
+              <span class="profile-avatar-menu-title">Remove photo</span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Identity -->
+      <div class="profile-identity">
+        <div class="profile-name-row">
+          <h1
+            class="profile-display-name"
+            contenteditable="true"
+            data-field="displayName"
+            spellcheck="false"
+            data-placeholder="Your display name"
+          >
+            Anonymous Voice
+          </h1>
+          <span
+            class="profile-verified"
+            id="profile-verified"
+            aria-label="Verified"
+            hidden
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z"
+              />
+            </svg>
+          </span>
+        </div>
+        <div class="profile-username-wrap">
+          <span class="profile-username-at">@</span>
+          <span
+            class="profile-username"
+            contenteditable="true"
+            data-field="username"
+            spellcheck="false"
+            data-placeholder="username"
+            >vexec_user</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Bio -->
+    <div
+      class="profile-bio"
+      contenteditable="true"
+      data-field="bio"
+      data-placeholder="Write something anonymous…"
+      spellcheck="false"
+    >
+      Some thoughts are meant to be shared without a name.
+    </div>
+
+    <!-- Summary bar -->
+    <div class="profile-summary">
+      <div class="profile-summary-item">
+        <span class="profile-summary-value">24</span>
+        <span class="profile-summary-label">Posts</span>
+      </div>
+      <div class="profile-summary-divider"></div>
+      <div class="profile-summary-item">
+        <span class="profile-summary-value">1.2K</span>
+        <span class="profile-summary-label">Likes</span>
+      </div>
+      <div class="profile-summary-divider"></div>
+      <div class="profile-summary-item">
+        <span class="profile-summary-value">8.4K</span>
+        <span class="profile-summary-label">Views</span>
+      </div>
+      <div class="profile-summary-divider"></div>
+      <div class="profile-summary-item">
+        <span class="profile-summary-value">Mar 2024</span>
+        <span class="profile-summary-label">Since</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section header bar — above settings -->
+  <div class="profile-section-header">
+    <div class="profile-section-icon">
+      <i data-lucide="sliders-horizontal"></i>
+    </div>
+    <div class="profile-section-titles">
+      <span class="profile-section-title">Settings</span>
+      <span class="profile-section-sub">Customize your experience</span>
+    </div>
+    <span class="profile-section-count" id="profile-settings-count">12</span>
+  </div>
+
+  <!-- ================================================== -->
+  <!--                    SETTINGS                        -->
+  <!-- ================================================== -->
+  <div class="settings">
+    <!-- ============== APPEARANCE ============== -->
+    <section class="settings-section" data-anim>
+      <header class="settings-section-header">
+        <div class="settings-section-icon" data-tint="violet">
+          <i data-lucide="palette"></i>
+        </div>
+        <div class="settings-section-titles">
+          <h2 class="settings-section-title">Appearance</h2>
+          <p class="settings-section-desc">Make it feel like yours</p>
+        </div>
+      </header>
+
+      <div class="settings-list">
+        <!-- Theme -->
+        <div class="settings-row settings-row-group">
+          <div class="settings-row-head">
+            <div class="settings-row-icon"><i data-lucide="sun-moon"></i></div>
+            <div class="settings-row-body">
+              <span class="settings-row-title">Theme</span>
+              <span class="settings-row-sub">Light, dark, or system</span>
+            </div>
+          </div>
+          <div class="settings-segmented" data-setting="theme">
+            <button type="button" data-value="light">
+              <i data-lucide="sun"></i><span>Light</span>
+            </button>
+            <button type="button" data-value="dark">
+              <i data-lucide="moon"></i><span>Dark</span>
+            </button>
+            <button type="button" data-value="auto">
+              <i data-lucide="monitor-smartphone"></i><span>Auto</span>
+            </button>
+            <span class="settings-segmented-thumb" aria-hidden="true"></span>
+          </div>
+        </div>
+
+        <!-- Font family -->
+        <div class="settings-row settings-row-group">
+          <div class="settings-row-head">
+            <div class="settings-row-icon"><i data-lucide="type"></i></div>
+            <div class="settings-row-body">
+              <span class="settings-row-title">Font family</span>
+              <span class="settings-row-sub"
+                >Pick a voice for the interface</span
+              >
+            </div>
+          </div>
+          <div class="settings-fonts" data-setting="fontFamily">
+            <button type="button" class="settings-font-card" data-value="Inter">
+              <span
+                class="settings-font-sample"
+                style="font-family: &quot;Inter&quot;, sans-serif"
+                >Aa</span
+              >
+              <span class="settings-font-name">Inter</span>
+              <span class="settings-font-check"
+                ><i data-lucide="check"></i
+              ></span>
+            </button>
+            <button
+              type="button"
+              class="settings-font-card"
+              data-value="Space Grotesk"
+            >
+              <span
+                class="settings-font-sample"
+                style="font-family: &quot;Space Grotesk&quot;, sans-serif"
+                >Aa</span
+              >
+              <span class="settings-font-name">Space Grotesk</span>
+              <span class="settings-font-check"
+                ><i data-lucide="check"></i
+              ></span>
+            </button>
+            <button
+              type="button"
+              class="settings-font-card"
+              data-value="Georgia"
+            >
+              <span
+                class="settings-font-sample"
+                style="font-family: Georgia, serif"
+                >Aa</span
+              >
+              <span class="settings-font-name">Georgia</span>
+              <span class="settings-font-check"
+                ><i data-lucide="check"></i
+              ></span>
+            </button>
+            <button
+              type="button"
+              class="settings-font-card"
+              data-value="ui-monospace"
+            >
+              <span
+                class="settings-font-sample"
+                style="font-family: ui-monospace, monospace"
+                >Aa</span
+              >
+              <span class="settings-font-name">Mono</span>
+              <span class="settings-font-check"
+                ><i data-lucide="check"></i
+              ></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Font size -->
+        <div class="settings-row settings-row-group">
+          <div class="settings-row-head">
+            <div class="settings-row-icon">
+              <i data-lucide="text-cursor-input"></i>
+            </div>
+            <div class="settings-row-body">
+              <span class="settings-row-title">Text size</span>
+              <span class="settings-row-sub" data-font-size-label>Medium</span>
+            </div>
+          </div>
+          <div class="settings-slider" data-setting="fontSize">
+            <input
+              type="range"
+              min="85"
+              max="120"
+              step="5"
+              value="100"
+              aria-label="Text size"
+            />
+            <div class="settings-slider-preview">
+              <span style="font-size: 0.7rem">A</span>
+              <span class="settings-slider-preview-mid">A</span>
+              <span style="font-size: 1.2rem">A</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accent -->
+        <div class="settings-row settings-row-group">
+          <div class="settings-row-head">
+            <div class="settings-row-icon"><i data-lucide="droplet"></i></div>
+            <div class="settings-row-body">
+              <span class="settings-row-title">Accent color</span>
+              <span class="settings-row-sub"
+                >Used for highlights and buttons</span
+              >
+            </div>
+          </div>
+          <div class="settings-colors" data-setting="accentColor">
+            <button
+              type="button"
+              class="settings-color"
+              data-value="#3b82f6"
+              style="--c: #3b82f6"
+              aria-label="Blue"
+            >
+              <span></span>
+            </button>
+            <button
+              type="button"
+              class="settings-color"
+              data-value="#8b5cf6"
+              style="--c: #8b5cf6"
+              aria-label="Violet"
+            >
+              <span></span>
+            </button>
+            <button
+              type="button"
+              class="settings-color"
+              data-value="#ec4899"
+              style="--c: #ec4899"
+              aria-label="Pink"
+            >
+              <span></span>
+            </button>
+            <button
+              type="button"
+              class="settings-color"
+              data-value="#f43f5e"
+              style="--c: #f43f5e"
+              aria-label="Rose"
+            >
+              <span></span>
+            </button>
+            <button
+              type="button"
+              class="settings-color"
+              data-value="#f59e0b"
+              style="--c: #f59e0b"
+              aria-label="Amber"
+            >
+              <span></span>
+            </button>
+            <button
+              type="button"
+              class="settings-color"
+              data-value="#10b981"
+              style="--c: #10b981"
+              aria-label="Emerald"
+            >
+              <span></span>
+            </button>
+            <button
+              type="button"
+              class="settings-color"
+              data-value="#06b6d4"
+              style="--c: #06b6d4"
+              aria-label="Cyan"
+            >
+              <span></span>
+            </button>
+            <button
+              type="button"
+              class="settings-color"
+              data-value="#64748b"
+              style="--c: #64748b"
+              aria-label="Slate"
+            >
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== ACCOUNT ============== -->
+    <section class="settings-section" data-anim>
+      <header class="settings-section-header">
+        <div class="settings-section-icon" data-tint="blue">
+          <i data-lucide="user-round-cog"></i>
+        </div>
+        <div class="settings-section-titles">
+          <h2 class="settings-section-title">Account</h2>
+          <p class="settings-section-desc">Your anonymous identity</p>
+        </div>
+      </header>
+
+      <div class="settings-list">
+        <button
+          class="settings-row"
+          type="button"
+          data-action="focus-field"
+          data-target="displayName"
+        >
+          <div class="settings-row-icon"><i data-lucide="badge"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Display name</span>
+            <span class="settings-row-sub">Shown on your posts</span>
+          </div>
+          <span class="settings-row-value" data-bind="displayName"
+            >Anonymous Voice</span
+          >
+          <i data-lucide="pencil" class="settings-row-chevron"></i>
+        </button>
+
+        <button
+          class="settings-row"
+          type="button"
+          data-action="focus-field"
+          data-target="username"
+        >
+          <div class="settings-row-icon"><i data-lucide="at-sign"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Username</span>
+            <span class="settings-row-sub">Your unique handle</span>
+          </div>
+          <span class="settings-row-value" data-bind="username"
+            >@vexec_user</span
+          >
+          <i data-lucide="pencil" class="settings-row-chevron"></i>
+        </button>
+
+        <button
+          class="settings-row"
+          type="button"
+          data-action="focus-field"
+          data-target="bio"
+        >
+          <div class="settings-row-icon">
+            <i data-lucide="message-square-quote"></i>
+          </div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Bio</span>
+            <span class="settings-row-sub">A few words about you</span>
+          </div>
+          <i data-lucide="pencil" class="settings-row-chevron"></i>
+        </button>
+
+        <button class="settings-row" type="button" data-route="/my-posts">
+          <div class="settings-row-icon"><i data-lucide="layers"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">My Whispers</span>
+            <span class="settings-row-sub"
+              >Manage, pin, and delete your posts</span
+            >
+          </div>
+          <i data-lucide="chevron-right" class="settings-row-chevron"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============== PRIVACY & SECURITY ============== -->
+    <section class="settings-section" data-anim>
+      <header class="settings-section-header">
+        <div class="settings-section-icon" data-tint="emerald">
+          <i data-lucide="shield-check"></i>
+        </div>
+        <div class="settings-section-titles">
+          <h2 class="settings-section-title">Privacy &amp; Security</h2>
+          <p class="settings-section-desc">Stay in control</p>
+        </div>
+      </header>
+
+      <div class="settings-list">
+        <div class="settings-row">
+          <div class="settings-row-icon">
+            <i data-lucide="lock-keyhole"></i>
+          </div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Passcode lock</span>
+            <span class="settings-row-sub"
+              >Require a code when opening the app</span
+            >
+          </div>
+          <button
+            class="settings-switch"
+            type="button"
+            role="switch"
+            aria-checked="false"
+            data-toggle="passcode"
+          >
+            <span></span>
+          </button>
+        </div>
+
+        <button
+          class="settings-row"
+          type="button"
+          data-action="show-info"
+          data-info="Two-step verification adds an extra layer of protection to your account."
+        >
+          <div class="settings-row-icon"><i data-lucide="fingerprint"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Two-step verification</span>
+            <span class="settings-row-sub"
+              >Extra protection for your account</span
+            >
+          </div>
+          <span class="settings-row-badge settings-row-badge-warn">Off</span>
+          <i data-lucide="chevron-right" class="settings-row-chevron"></i>
+        </button>
+
+        <button
+          class="settings-row"
+          type="button"
+          data-action="show-info"
+          data-info="You have 1 active session on this device."
+        >
+          <div class="settings-row-icon">
+            <i data-lucide="monitor-smartphone"></i>
+          </div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Active sessions</span>
+            <span class="settings-row-sub">Devices that are signed in</span>
+          </div>
+          <span class="settings-row-badge">1</span>
+          <i data-lucide="chevron-right" class="settings-row-chevron"></i>
+        </button>
+
+        <button
+          class="settings-row"
+          type="button"
+          data-action="show-info"
+          data-info="You haven't blocked anyone."
+        >
+          <div class="settings-row-icon"><i data-lucide="user-x"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Blocked users</span>
+            <span class="settings-row-sub"
+              >People who can't see your posts</span
+            >
+          </div>
+          <span class="settings-row-badge">0</span>
+          <i data-lucide="chevron-right" class="settings-row-chevron"></i>
+        </button>
+
+        <div class="settings-row">
+          <div class="settings-row-icon"><i data-lucide="eye-off"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Hide read receipts</span>
+            <span class="settings-row-sub">Nobody sees when you read</span>
+          </div>
+          <button
+            class="settings-switch"
+            type="button"
+            role="switch"
+            aria-checked="true"
+            data-toggle="hideRead"
+          >
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== NOTIFICATIONS ============== -->
+    <section class="settings-section" data-anim>
+      <header class="settings-section-header">
+        <div class="settings-section-icon" data-tint="amber">
+          <i data-lucide="bell"></i>
+        </div>
+        <div class="settings-section-titles">
+          <h2 class="settings-section-title">Notifications</h2>
+          <p class="settings-section-desc">Only what matters</p>
+        </div>
+      </header>
+
+      <div class="settings-list">
+        <div class="settings-row">
+          <div class="settings-row-icon"><i data-lucide="bell-ring"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Push notifications</span>
+            <span class="settings-row-sub">Get notified about activity</span>
+          </div>
+          <button
+            class="settings-switch"
+            type="button"
+            role="switch"
+            aria-checked="true"
+            data-toggle="push"
+          >
+            <span></span>
+          </button>
+        </div>
+
+        <div class="settings-row">
+          <div class="settings-row-icon"><i data-lucide="volume-2"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Sound</span>
+            <span class="settings-row-sub">Play a sound for new activity</span>
+          </div>
+          <button
+            class="settings-switch"
+            type="button"
+            role="switch"
+            aria-checked="true"
+            data-toggle="sound"
+          >
+            <span></span>
+          </button>
+        </div>
+
+        <div class="settings-row">
+          <div class="settings-row-icon"><i data-lucide="at-sign"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Mentions</span>
+            <span class="settings-row-sub">When someone @s you</span>
+          </div>
+          <button
+            class="settings-switch"
+            type="button"
+            role="switch"
+            aria-checked="true"
+            data-toggle="mentions"
+          >
+            <span></span>
+          </button>
+        </div>
+
+        <div class="settings-row">
+          <div class="settings-row-icon">
+            <i data-lucide="message-circle"></i>
+          </div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Replies</span>
+            <span class="settings-row-sub">When someone replies to you</span>
+          </div>
+          <button
+            class="settings-switch"
+            type="button"
+            role="switch"
+            aria-checked="true"
+            data-toggle="replies"
+          >
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== DATA & STORAGE ============== -->
+    <section class="settings-section" data-anim>
+      <header class="settings-section-header">
+        <div class="settings-section-icon" data-tint="cyan">
+          <i data-lucide="hard-drive"></i>
+        </div>
+        <div class="settings-section-titles">
+          <h2 class="settings-section-title">Data &amp; Storage</h2>
+          <p class="settings-section-desc">Manage what lives on your device</p>
+        </div>
+      </header>
+
+      <div class="settings-list">
+        <div class="settings-row">
+          <div class="settings-row-icon"><i data-lucide="database"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Cache size</span>
+            <span class="settings-row-sub">Media &amp; temporary files</span>
+          </div>
+          <span class="settings-row-value" data-cache-size>—</span>
+        </div>
+
+        <div class="settings-row">
+          <div class="settings-row-icon"><i data-lucide="wifi"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Auto-download</span>
+            <span class="settings-row-sub">Save media when available</span>
+          </div>
+          <button
+            class="settings-switch"
+            type="button"
+            role="switch"
+            aria-checked="false"
+            data-toggle="autoDownload"
+          >
+            <span></span>
+          </button>
+        </div>
+
+        <div class="settings-row">
+          <div class="settings-row-icon"><i data-lucide="radio-tower"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Wi-Fi only</span>
+            <span class="settings-row-sub"
+              >Don't use mobile data for downloads</span
+            >
+          </div>
+          <button
+            class="settings-switch"
+            type="button"
+            role="switch"
+            aria-checked="true"
+            data-toggle="wifiOnly"
+          >
+            <span></span>
+          </button>
+        </div>
+
+        <button
+          class="settings-row settings-row-danger"
+          type="button"
+          data-action="clear-cache"
+        >
+          <div class="settings-row-icon"><i data-lucide="eraser"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Clear cache</span>
+            <span class="settings-row-sub">Free up space on this device</span>
+          </div>
+          <i data-lucide="chevron-right" class="settings-row-chevron"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============== LANGUAGE (LOCKED) ============== -->
+    <section class="settings-section" data-anim>
+      <header class="settings-section-header">
+        <div class="settings-section-icon" data-tint="rose">
+          <i data-lucide="languages"></i>
+        </div>
+        <div class="settings-section-titles">
+          <h2 class="settings-section-title">Language</h2>
+          <p class="settings-section-desc">Speak your language</p>
+        </div>
+      </header>
+
+      <div class="settings-list settings-list-locked">
+        <button
+          class="settings-row"
+          type="button"
+          data-action="select-language"
+          disabled
+        >
+          <div class="settings-row-icon"><i data-lucide="globe"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">App language</span>
+            <span class="settings-row-sub">Change the display language</span>
+          </div>
+          <span class="settings-row-value" data-lang-label>English</span>
+          <i data-lucide="chevron-right" class="settings-row-chevron"></i>
+        </button>
+
+        <div class="settings-row">
+          <div class="settings-row-icon"><i data-lucide="sparkles"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Auto-translate</span>
+            <span class="settings-row-sub"
+              >Translate posts from other languages</span
+            >
+          </div>
+          <button
+            class="settings-switch"
+            type="button"
+            role="switch"
+            aria-checked="false"
+            data-toggle="autoTranslate"
+            disabled
+          >
+            <span></span>
+          </button>
+        </div>
+
+        <div class="settings-lock-overlay">
+          <div class="settings-lock-inner">
+            <div class="settings-lock-icon">
+              <i data-lucide="lock-keyhole"></i>
+            </div>
+            <span class="settings-lock-title">Coming Soon</span>
+            <small class="settings-lock-sub"
+              >This feature will be added in upcoming versions.</small
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== ABOUT ============== -->
+    <section class="settings-section" data-anim>
+      <header class="settings-section-header">
+        <div class="settings-section-icon" data-tint="slate">
+          <i data-lucide="info"></i>
+        </div>
+        <div class="settings-section-titles">
+          <h2 class="settings-section-title">About</h2>
+          <p class="settings-section-desc">Everything Vexec</p>
+        </div>
+      </header>
+
+      <div class="settings-list">
+        <div class="settings-row">
+          <div class="settings-row-icon"><i data-lucide="tag"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Version</span>
+            <span class="settings-row-sub">You're up to date</span>
+          </div>
+          <span class="settings-row-value">1.0.0</span>
+        </div>
+
+        <button
+          class="settings-row"
+          type="button"
+          data-action="show-info"
+          data-info="Terms of Service — the rules of staying anonymous on Vexec."
+        >
+          <div class="settings-row-icon"><i data-lucide="scroll-text"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Terms of Service</span>
+          </div>
+          <i data-lucide="chevron-right" class="settings-row-chevron"></i>
+        </button>
+
+        <button
+          class="settings-row"
+          type="button"
+          data-action="show-info"
+          data-info="Privacy Policy — we never collect personal information. Ever."
+        >
+          <div class="settings-row-icon"><i data-lucide="shield"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Privacy Policy</span>
+          </div>
+          <i data-lucide="chevron-right" class="settings-row-chevron"></i>
+        </button>
+
+        <button
+          class="settings-row"
+          type="button"
+          data-action="show-info"
+          data-info="Thanks for the love! Your rating helps us grow."
+        >
+          <div class="settings-row-icon"><i data-lucide="star"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Rate Vexec</span>
+            <span class="settings-row-sub">Enjoying the app? Let us know</span>
+          </div>
+          <i data-lucide="chevron-right" class="settings-row-chevron"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============== DANGER ZONE ============== -->
+    <section class="settings-section settings-section-danger" data-anim>
+      <header class="settings-section-header">
+        <div class="settings-section-icon" data-tint="rose">
+          <i data-lucide="triangle-alert"></i>
+        </div>
+        <div class="settings-section-titles">
+          <h2 class="settings-section-title">Danger zone</h2>
+          <p class="settings-section-desc">These actions cannot be undone</p>
+        </div>
+      </header>
+
+      <div class="settings-list">
+        <button
+          class="settings-row settings-row-danger"
+          type="button"
+          data-action="clear-local"
+        >
+          <div class="settings-row-icon"><i data-lucide="trash-2"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Clear local data</span>
+            <span class="settings-row-sub"
+              >Removes saved items &amp; preferences from this device</span
+            >
+          </div>
+          <i data-lucide="chevron-right" class="settings-row-chevron"></i>
+        </button>
+
+        <button
+          class="settings-row settings-row-danger settings-row-danger-hard"
+          type="button"
+          data-action="delete-account"
+        >
+          <div class="settings-row-icon"><i data-lucide="user-x"></i></div>
+          <div class="settings-row-body">
+            <span class="settings-row-title">Delete account</span>
+            <span class="settings-row-sub"
+              >Permanently remove your anonymous identity</span
+            >
+          </div>
+          <i data-lucide="chevron-right" class="settings-row-chevron"></i>
+        </button>
+      </div>
+    </section>
+
+    <p class="settings-footer">
+      Made with <i data-lucide="heart"></i> for the unseen
+    </p>
+  </div>
+</section>
+
+<!-- Hidden inputs for avatar picker -->
+<input type="file" id="profile-avatar-file" accept="image/*" hidden />
+<input
+  type="file"
+  id="profile-avatar-camera"
+  accept="image/*"
+  capture="environment"
+  hidden
+/>

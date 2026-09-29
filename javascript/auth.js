@@ -1055,6 +1055,10 @@
 
     showCodeModal(code);
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 8eb15df9b261f9e522d88239c23f1213550675a3
     /*
       NOTE: We do NOT dispatch "vexec:login-success" here anymore.
       The event is dispatched by hideCodeModal() after the code modal
@@ -1062,6 +1066,11 @@
       the code modal, which was blocking it from ever showing.
     */
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
+>>>>>>> 8eb15df9b261f9e522d88239c23f1213550675a3
     submit.classList.remove("is-loading");
     if (lbl) lbl.textContent = "Create identity";
   }
@@ -1109,11 +1118,20 @@
     modal.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
     pendingCode = null;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 8eb15df9b261f9e522d88239c23f1213550675a3
 
     /* Now show the Tor warning (a bit later) */
     setTimeout(() => {
       document.dispatchEvent(new CustomEvent("vexec:login-success"));
     }, 800);
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
+>>>>>>> 8eb15df9b261f9e522d88239c23f1213550675a3
   }
 
   /* ============================================================
@@ -1314,8 +1332,16 @@
       /* Refresh auth-guard so navbar appears */
       if (window.VexecAuthGuard) window.VexecAuthGuard.refresh();
 
+<<<<<<< HEAD
       document.dispatchEvent(new CustomEvent("vexec:login-success"));
 
+=======
+<<<<<<< HEAD
+      document.dispatchEvent(new CustomEvent("vexec:login-success"));
+
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
+>>>>>>> 8eb15df9b261f9e522d88239c23f1213550675a3
       setTimeout(function () {
         if (window.router) window.router.navigate("/");
         else window.location.href = "/";
@@ -1487,6 +1513,25 @@
   });
 
   /* ============================================================
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+     VISIBILITY — purge on prolonged inactivity (optional)
+     Uncomment to auto-logout after 7 days of no use.
+     ============================================================ */
+  // document.addEventListener("visibilitychange", function () {
+  //   if (document.visibilityState === "visible") {
+  //     try {
+  //       const meta = JSON.parse(localStorage.getItem(CODE_META_KEY) || "{}");
+  //       if (meta.ts && Date.now() - meta.ts > 7 * 86400e3) purgeSensitive();
+  //     } catch (_) {}
+  //   }
+  // });
+
+  /* ============================================================
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
+>>>>>>> 8eb15df9b261f9e522d88239c23f1213550675a3
      ROUTE HOOKS
      ============================================================ */
   document.addEventListener("route:change", function (e) {

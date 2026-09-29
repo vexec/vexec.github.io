@@ -469,10 +469,22 @@ img {
 /* ================= RELOAD OVERLAY ================= */
 
 .reload-overlay {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 8eb15df9b261f9e522d88239c23f1213550675a3
     background: rgba(0, 0, 0, 0.78) !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     transition: opacity 0.2s ease, visibility 0.2s !important;
+<<<<<<< HEAD
+=======
+=======
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: color-mix(in srgb, var(--bg-primary) 92%, transparent) !important;
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
+>>>>>>> 8eb15df9b261f9e522d88239c23f1213550675a3
 }
 
 .reload-icon-btn {
@@ -717,10 +729,22 @@ img {
 
 /* پس‌زمینه تیره‌تر + بلور */
 .reload-overlay {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 8eb15df9b261f9e522d88239c23f1213550675a3
     background: rgba(0, 0, 0, 0.78) !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     transition: opacity 0.2s ease, visibility 0.2s !important;
+<<<<<<< HEAD
+=======
+=======
+    background: rgba(0, 0, 0, 0.8) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
+>>>>>>> 8eb15df9b261f9e522d88239c23f1213550675a3
 }
 
 /* دکمه ریلود — بوردر با رنگ تم */
@@ -749,11 +773,25 @@ img {
 
 /* پس‌زمینه روشن‌تر */
 .reload-overlay {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 8eb15df9b261f9e522d88239c23f1213550675a3
     background: rgba(0, 0, 0, 0.78) !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     transition: opacity 0.2s ease, visibility 0.2s !important;
 }
+<<<<<<< HEAD
+=======
+=======
+    background: rgba(0, 0, 0, 0.45) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+}
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
+>>>>>>> 8eb15df9b261f9e522d88239c23f1213550675a3
 /* دکمه ریلود — فقط بوردر آبی، بدون چرخش */
 .reload-icon-btn {
     background: rgba(255, 255, 255, 0.06) !important;
@@ -802,7 +840,15 @@ img {
 
 /* حذف backdrop-filter (باعث لگ میشه) */
 .reload-overlay {
+<<<<<<< HEAD
     background: rgba(0, 0, 0, 0.78) !important;
+=======
+<<<<<<< HEAD
+    background: rgba(0, 0, 0, 0.78) !important;
+=======
+    background: rgba(0, 0, 0, 0.50) !important;
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
+>>>>>>> 8eb15df9b261f9e522d88239c23f1213550675a3
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     transition: opacity 0.2s ease, visibility 0.2s !important;

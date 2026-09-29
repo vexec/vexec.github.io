@@ -4386,6 +4386,10 @@ html::-webkit-scrollbar-corner {
 /* 6) تضمین کن لیست کامنت‌ها هم فضای کافی داره */
 .comments-list {
     padding: 6px 8px !important;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 8eb15df9b261f9e522d88239c23f1213550675a3
 }
 
 /* ============================================================
@@ -4459,4 +4463,9 @@ html::-webkit-scrollbar-corner {
 .comment-audio-play.is-ended .icon-replay {
     display: block !important;
     margin-left: 0;
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
+>>>>>>> 8eb15df9b261f9e522d88239c23f1213550675a3
 }

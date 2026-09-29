@@ -1,4 +1,8 @@
 /* ============================================================
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 8eb15df9b261f9e522d88239c23f1213550675a3
    PV — Secret Inbox (received + sent + ignored + reported)
    ============================================================ */
 
@@ -650,14 +654,45 @@
         if (window.lucide) window.lucide.createIcons();
         loadInbox();
       }, 40);
+<<<<<<< HEAD
+=======
+=======
+   PV — Direct Messages (coming soon)
+   Minimal: just re-render lucide icons on route entry.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  function setupPv() {
+    if (!document.querySelector(".pv")) return;
+    if (window.lucide) window.lucide.createIcons();
+  }
+
+  document.addEventListener("route:change", (e) => {
+    if (e.detail && e.detail.path === "/pv") {
+      setTimeout(setupPv, 60);
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
+>>>>>>> 8eb15df9b261f9e522d88239c23f1213550675a3
     }
   });
 
   document.addEventListener("DOMContentLoaded", () => {
     if (window.location.pathname.endsWith("/pv")) {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 8eb15df9b261f9e522d88239c23f1213550675a3
       setTimeout(loadInbox, 120);
     }
   });
 
   window.VexecPV = { load: loadInbox };
+<<<<<<< HEAD
+=======
+=======
+      setTimeout(setupPv, 100);
+    }
+  });
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
+>>>>>>> 8eb15df9b261f9e522d88239c23f1213550675a3
 })();

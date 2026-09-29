@@ -7,7 +7,11 @@
 
    TO SWAP TO REAL BACKEND:
      1. Set API_CONFIG.useMock = false
+<<<<<<< HEAD
      2. Set API_CONFIG.baseURL = "http://localhost:8080"
+=======
+     2. Set API_CONFIG.baseURL = "http://localhost:8080" (if cross-origin)
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
      3. Done. All pages keep working.
    ============================================================ */
 
@@ -36,7 +40,10 @@
      MOCK DATA
      ============================================================ */
   const MOCK = {
+<<<<<<< HEAD
     /* ---------- FEED ---------- */
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     feed: [
       {
         id: "post_001",
@@ -148,7 +155,10 @@
       },
     ],
 
+<<<<<<< HEAD
     /* ---------- SAVED ---------- */
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     saved: {
       audios: [
         { id: "audio_s01", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", name: "Midnight Whispers.mp3", artist: "Silent Fox", size: 8421337, cover: "https://picsum.photos/seed/vexec-audio1/300/300", sourceUrl: "/home", sourceLabel: "Silent Fox", saved_at: "2026-09-25T10:30:00Z" },
@@ -163,7 +173,10 @@
       ],
     },
 
+<<<<<<< HEAD
     /* ---------- USERS (for /u/:username) ---------- */
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     users: {
       unknown_42: {
         name: "Silent Fox",
@@ -196,7 +209,10 @@
       },
     },
 
+<<<<<<< HEAD
     /* ---------- MY POSTS ---------- */
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     myPosts: [
       { id: "mp1", text: "I wrote something I could never say out loud.", images: ["https://picsum.photos/seed/mp1/900/600"], audios: [], files: [], views: 1247, likes: 38, comments: 12, saves: 4, createdAt: "2 hours ago", timestamp: Date.now() - 2 * 3600e3 },
       { id: "mp2", text: "Made this at 2am.", images: [], audios: [{ url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", name: "Midnight Whispers.mp3", size: 8421337, cover: "https://picsum.photos/seed/mp2a/300/300" }], files: [], views: 8734, likes: 203, comments: 18, saves: 41, createdAt: "yesterday", timestamp: Date.now() - 26 * 3600e3 },
@@ -205,7 +221,10 @@
       { id: "mp5", text: "The quiet ones have the loudest thoughts.", images: [], audios: [], files: [], views: 412, likes: 18, comments: 3, saves: 2, createdAt: "5 days ago", timestamp: Date.now() - 5 * 86400e3 },
     ],
 
+<<<<<<< HEAD
     /* ---------- PROFILE (me) ---------- */
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     profile: {
       displayName: "Anonymous Voice",
       username: "vexec_user",
@@ -214,7 +233,10 @@
       verified: true,
     },
 
+<<<<<<< HEAD
     /* ---------- AUTH ---------- */
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     auth: {
       register: (username, displayName) => ({
         user: { username, displayName, createdAt: new Date().toISOString() },
@@ -224,6 +246,7 @@
         }).join(""),
       }),
     },
+<<<<<<< HEAD
 
     /* ---------- SECRET INBOX ---------- */
     secretInbox: [
@@ -414,12 +437,15 @@
       { username: "vexec_user", name: "Anonymous Voice", avatar: null, verified: false },
       { username: "quiet_fire", name: "Quiet Fire", avatar: "https://i.pravatar.cc/150?img=8", verified: false },
     ],
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   };
 
   /* ============================================================
      MOCK ROUTES
      ============================================================ */
   const MOCK_ROUTES = [
+<<<<<<< HEAD
     /* ---------- FEED ---------- */
     { method: "GET",    path: "/api/feed",                 handler: () => ({ data: MOCK.feed }) },
 
@@ -430,6 +456,14 @@
 
     /* ---------- USER PROFILE ---------- */
     { method: "GET",    path: "/api/u/:username",          handler: ({ username }) => {
+=======
+    { method: "GET",    path: "/api/feed",             handler: () => ({ data: MOCK.feed }) },
+    { method: "GET",    path: "/api/saved",            handler: () => ({ data: MOCK.saved }) },
+    { method: "DELETE", path: "/api/saved/:id",        handler: ({ id }) => ({ data: { id } }) },
+    { method: "POST",   path: "/api/saved",            handler: ({ body }) => ({ data: body }) },
+
+    { method: "GET",    path: "/api/u/:username",      handler: ({ username }) => {
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
         const u = MOCK.users[username];
         if (!u) {
           const err = new Error("User not found");
@@ -439,6 +473,7 @@
         return { data: u };
       } },
 
+<<<<<<< HEAD
     /* ---------- MY POSTS ---------- */
     { method: "GET",    path: "/api/me/posts",             handler: () => ({ data: MOCK.myPosts }) },
     { method: "DELETE", path: "/api/me/posts/:id",         handler: ({ id }) => ({ data: { id } }) },
@@ -451,6 +486,17 @@
     /* ---------- AUTH ---------- */
     { method: "POST",   path: "/api/auth/register",        handler: ({ body }) => ({ data: MOCK.auth.register(body.username, body.displayName) }) },
     { method: "POST",   path: "/api/auth/login",           handler: ({ body }) => {
+=======
+    { method: "GET",    path: "/api/me/posts",         handler: () => ({ data: MOCK.myPosts }) },
+    { method: "DELETE", path: "/api/me/posts/:id",     handler: ({ id }) => ({ data: { id } }) },
+    { method: "PATCH",  path: "/api/me/posts/:id/pin", handler: ({ id, body }) => ({ data: { id, pinned: !!(body && body.pinned) } }) },
+
+    { method: "GET",    path: "/api/profile",          handler: () => ({ data: MOCK.profile }) },
+    { method: "PATCH",  path: "/api/profile",          handler: ({ body }) => ({ data: { ...MOCK.profile, ...body } }) },
+
+    { method: "POST",   path: "/api/auth/register",    handler: ({ body }) => ({ data: MOCK.auth.register(body.username, body.displayName) }) },
+    { method: "POST",   path: "/api/auth/login",       handler: ({ body }) => {
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
         const stored = localStorage.getItem("vexec:auth:code:v1");
         if (!stored || stored !== body.code) {
           const err = new Error("Invalid code");
@@ -459,6 +505,7 @@
         }
         return { data: { ok: true } };
       } },
+<<<<<<< HEAD
 
     /* ---------- SECRET MESSAGES (inbox + sent) ---------- */
     { method: "GET",    path: "/api/secret/inbox",         handler: () => ({ data: MOCK.secretInbox }) },
@@ -488,6 +535,10 @@
   /* ============================================================
      Route matcher
      ============================================================ */
+=======
+  ];
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   function matchMock(method, path) {
     for (const r of MOCK_ROUTES) {
       if (r.method !== method) continue;
@@ -511,9 +562,12 @@
     return min + Math.random() * (max - min);
   }
 
+<<<<<<< HEAD
   /* ============================================================
      Envelope (matches Go backend format)
      ============================================================ */
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   function envelope(status, message, code, data) {
     return {
       status: status,
@@ -528,7 +582,10 @@
      REQUEST
      ============================================================ */
   async function request(method, path, { body, query, headers } = {}) {
+<<<<<<< HEAD
     /* ---- MOCK MODE ---- */
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     if (API_CONFIG.useMock) {
       const match = matchMock(method, path);
       if (!match) {
@@ -549,7 +606,10 @@
       }
     }
 
+<<<<<<< HEAD
     /* ---- REAL BACKEND ---- */
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     let url = API_CONFIG.baseURL + path;
     if (query) {
       const qs = new URLSearchParams(query).toString();
@@ -587,7 +647,10 @@
     let json = null;
     try { json = await res.json(); } catch (_) { json = null; }
 
+<<<<<<< HEAD
     /* Envelope-style error */
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     if (!res.ok) {
       const msg = (json && json.message) || `HTTP ${res.status}`;
       const e = new Error(msg);
@@ -623,9 +686,12 @@
     isMock: () => API_CONFIG.useMock,
   };
 
+<<<<<<< HEAD
   /* ============================================================
      withSkeleton — small helper for loading states
      ============================================================ */
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   window.withSkeleton = async function (skeletonEl, contentEl, loader, render) {
     if (skeletonEl) skeletonEl.hidden = false;
     if (contentEl)  contentEl.hidden = true;

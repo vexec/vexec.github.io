@@ -17,9 +17,12 @@ document.addEventListener("DOMContentLoaded", () => {
     .get("/information", "partials/information.html", "Vexec – About")
     .get("/info", "partials/information.html", "Vexec – About")
     .get("/about", "partials/information.html", "Vexec – About")
+<<<<<<< HEAD
     .get("/tor-support", "partials/tor-support.html", "Vexec – Tor Support")
     .get("/pv", "partials/pv.html", "Vexec – Secret Inbox")
     .get("/pv/new", "partials/pv-new.html", "Vexec – Send Secret")
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     .get(
       "/u/:username",
       "partials/profile_view.html",

@@ -39,6 +39,26 @@
       .replace(/'/g, "&#039;");
   }
 
+<<<<<<< HEAD
+=======
+  function formatBytes(bytes) {
+    if (!bytes) return "0 B";
+    if (bytes < 1024) return bytes + " B";
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+    if (bytes < 1024 * 1024 * 1024) return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+    return (bytes / (1024 * 1024 * 1024)).toFixed(2) + " GB";
+  }
+
+  function iconForFileType(type, name) {
+    const n = (name || "").toLowerCase();
+    if (type === "pdf" || n.endsWith(".pdf")) return "file-text";
+    if (/\.(docx?|rtf|odt)$/.test(n)) return "file-text";
+    if (/\.(xlsx?|csv|ods)$/.test(n)) return "file-spreadsheet";
+    if (/\.(zip|rar|7z|tar|gz)$/.test(n)) return "file-archive";
+    return "file";
+  }
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   /* ============================================================
      STATE
      ============================================================ */
@@ -134,7 +154,11 @@
   }
 
   /* ============================================================
+<<<<<<< HEAD
      RENDER TWEETS FEED — via unified renderer
+=======
+     RENDER TWEETS FEED
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
      ============================================================ */
   function renderTweets(posts, user) {
     const container = document.getElementById("pv-posts");
@@ -154,6 +178,7 @@
       return;
     }
 
+<<<<<<< HEAD
     /* Normalize posts to unified shape */
     const normalized = posts.map((p) => ({
       id: p.id,
@@ -175,6 +200,191 @@
     VexecTweet.afterRender(container);
   }
 
+=======
+    container.innerHTML = posts.map((p) => renderTweet(p, user)).join("");
+    if (window.lucide) window.lucide.createIcons({ root: container });
+    if (window.VexecImageLoader) setTimeout(() => window.VexecImageLoader.scan(container), 30);
+  }
+
+function renderTweet(p, user) {
+  const avatarWrap = `
+    <div class="avatar-wrap ${user.verified ? "is-verified" : ""}" data-size="md">
+      <div class="tweet-avatar">
+        ${user.avatar ? `<img src="${escapeHTML(user.avatar)}" alt="" loading="lazy" />` : ""}
+      </div>
+    </div>
+  `;
+
+  const verified = user.verified
+    ? `<svg class="verified" viewBox="0 0 24 24" fill="currentColor" aria-label="Verified"><path d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z"/></svg>`
+    : "";
+
+  const attachmentsHTML = renderAttachments(p);
+  const commentsHTML = (p.commentsList || []).map(renderComment).join("");
+
+  return `
+    <article class="tweet" data-post-id="${escapeHTML(p.id)}">
+      ${avatarWrap}
+      <div class="tweet-body">
+        <div class="tweet-meta">
+          <span class="tweet-name">${escapeHTML(user.name || "Anonymous")}${verified}</span>
+          <span class="tweet-handle">${escapeHTML(user.handle || "")}</span>
+          <span class="tweet-views"><i data-lucide="eye"></i>${escapeHTML(String(p.views || "0"))}</span>
+        </div>
+        <p class="tweet-text">${escapeHTML(p.text || "")}</p>
+        <div class="tweet-attachments">${attachmentsHTML}</div>
+        <div class="tweet-actions">
+          <div class="tweet-actions-left">
+            <button class="tweet-action" data-action="like" aria-label="Like">
+              <i data-lucide="heart"></i><span>${formatNum(p.likes || 0)}</span>
+            </button>
+            <button class="tweet-action" data-action="comment" aria-label="Comment">
+              <i data-lucide="message-circle"></i><span>${formatNum(p.comments || 0)}</span>
+            </button>
+          </div>
+          <div class="tweet-actions-right">
+            <button class="tweet-menu-btn" aria-label="More"><i data-lucide="more-horizontal"></i></button>
+          </div>
+        </div>
+        <div class="tweet-comments">
+          <div class="tweet-comments-collapse">
+            <div class="tweet-comments-inner">
+              <header class="comments-header">
+                <span class="comments-title"><i data-lucide="message-circle"></i>Comments</span>
+                <button class="comments-close" type="button" aria-label="Close comments"><i data-lucide="x"></i></button>
+              </header>
+              <div class="comments-list">${commentsHTML}</div>
+              <button class="comments-see-more" type="button"><span>See More</span><i data-lucide="chevron-down"></i></button>
+              <form class="comment-form" autocomplete="off">
+                <div class="comment-attach">
+                  <button class="comment-attach-btn" type="button" aria-label="Attach"><i data-lucide="plus"></i></button>
+                  <div class="comment-attach-menu">
+                    <button class="comment-attach-item" type="button" data-attach="image"><i data-lucide="image"></i><span>Image</span></button>
+                    <button class="comment-attach-item" type="button" data-attach="music"><i data-lucide="music"></i><span>Music</span></button>
+                    <button class="comment-attach-item" type="button" data-attach="document"><i data-lucide="file-text"></i><span>Document</span></button>
+                    <button class="comment-attach-item comment-attach-camera" type="button" data-attach="camera"><i data-lucide="camera"></i><span>Camera</span></button>
+                  </div>
+                </div>
+                <input type="text" class="comment-input" placeholder="Write a comment..." aria-label="Write a comment" />
+                <button type="submit" class="comment-send" aria-label="Send"><i data-lucide="send-horizontal"></i></button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tweet-overlay" aria-hidden="true">
+        <div class="tweet-overlay-card">
+          <button class="overlay-action" data-action="save">
+            <i data-lucide="bookmark" class="icon-unsaved"></i>
+            <i data-lucide="bookmark-check" class="icon-saved"></i>
+            <span>Save</span>
+          </button>
+          <button class="overlay-action" data-action="copy"><i data-lucide="link"></i><span>Copy Link</span></button>
+          <button class="overlay-action" data-action="report"><i data-lucide="flag"></i><span>Report</span></button>
+          <button class="overlay-action overlay-close" data-action="close"><i data-lucide="x"></i><span>Close</span></button>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+  /* ============================================================
+     ATTACHMENTS
+     ============================================================ */
+  function renderAttachments(p) {
+    const parts = [];
+    const images = p.images || (p.image ? [p.image] : []);
+    const audios = p.audios || (p.audio ? [p.audio] : []);
+    const files = p.files || [];
+
+    if (images.length) parts.push(renderImageGrid(images));
+    for (const a of audios) parts.push(renderAudioCard(a));
+    for (const f of files) parts.push(renderFileCard(f));
+    return parts.join("");
+  }
+
+  function renderImageGrid(images) {
+    const visibleCount = Math.min(images.length, 5);
+    const extra = images.length - 5;
+    const cells = images
+      .slice(0, visibleCount)
+      .map((src, i) => {
+        const isLastAndMore = i === 4 && extra > 0;
+        return `<div class="tweet-image ${isLastAndMore ? "is-more" : ""}"
+                     ${isLastAndMore ? `data-more="${extra}"` : ""}
+                     data-index="${i}">
+                  <img src="${escapeHTML(src)}" alt="" loading="lazy" />
+                </div>`;
+      })
+      .join("");
+    return `<div class="tweet-images" data-count="${visibleCount}">${cells}</div>`;
+  }
+
+  function renderAudioCard(a) {
+    const coverHTML = a.cover
+      ? `<img src="${escapeHTML(a.cover)}" alt="" loading="lazy" />`
+      : `<i data-lucide="music"></i>`;
+    return `
+      <div class="comment-audio"
+           data-audio-url="${escapeHTML(a.url)}"
+           data-audio-name="${escapeHTML(a.name)}"
+           data-audio-size="${a.size || 0}"
+           data-audio-cover="${escapeHTML(a.cover || "")}">
+        <div class="comment-audio-cover">${coverHTML}</div>
+        <div class="comment-audio-info">
+          <span class="comment-audio-name">${escapeHTML(a.name)}</span>
+          <span class="comment-audio-meta">${formatBytes(a.size || 0)}</span>
+        </div>
+        <button class="comment-audio-download" type="button" aria-label="Download"><i data-lucide="download"></i></button>
+        <button class="comment-audio-play" type="button" aria-label="Play">
+          <i data-lucide="play" class="icon-play"></i>
+          <i data-lucide="pause" class="icon-pause"></i>
+          <i data-lucide="rotate-ccw" class="icon-replay"></i>
+        </button>
+        <div class="comment-audio-loading"><i data-lucide="loader-circle"></i></div>
+      </div>
+    `;
+  }
+
+  function renderFileCard(f) {
+    const icon = iconForFileType(f.type, f.name);
+    return `
+      <div class="tweet-file" data-file-url="${escapeHTML(f.url)}" data-file-name="${escapeHTML(f.name)}">
+        <div class="tweet-file-icon"><i data-lucide="${icon}"></i></div>
+        <div class="tweet-file-info">
+          <span class="tweet-file-name">${escapeHTML(f.name)}</span>
+          <span class="tweet-file-meta">${formatBytes(f.size || 0)}</span>
+        </div>
+        <button class="tweet-file-download" type="button" aria-label="Download"><i data-lucide="download"></i></button>
+      </div>
+    `;
+  }
+
+function renderComment(c) {
+  const avatarInner = c.avatar
+    ? `<img src="${escapeHTML(c.avatar)}" alt="" loading="lazy" />`
+    : "";
+  const imageHTML = c.image
+    ? `<div class="comment-media"><img src="${escapeHTML(c.image)}" alt="" loading="lazy" /></div>`
+    : "";
+  return `
+    <article class="comment">
+      <div class="avatar-wrap" data-size="sm">
+        <div class="comment-avatar">${avatarInner}</div>
+      </div>
+      <div class="comment-body">
+        <div class="comment-meta">
+          <span class="comment-name">${escapeHTML(c.name || "Anonymous")}</span>
+          <span class="comment-handle">${escapeHTML(c.handle || "")}</span>
+        </div>
+        <p class="comment-text">${escapeHTML(c.text || "")}</p>
+        ${imageHTML}
+      </div>
+    </article>
+  `;
+}
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   /* ============================================================
      MAIN LOAD
      ============================================================ */
@@ -200,6 +410,15 @@
       renderUser(user, username);
       showContent();
       document.title = `${user.name || "@" + username} – Vexec`;
+<<<<<<< HEAD
+=======
+
+      if (typeof setupAttachments === "function") setupAttachments();
+      if (typeof setupAudioPlayButtons === "function") setupAudioPlayButtons();
+      if (typeof setupMediaLoaders === "function") setupMediaLoaders();
+      if (typeof setupCameraAvailability === "function") setupCameraAvailability();
+      if (typeof setupCommentEmoji === "function") setupCommentEmoji();
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     } catch (err) {
       if (token !== requestToken) return;
       console.error("[profile_view] load error:", err);
@@ -264,7 +483,10 @@
     if (action === "whisper") { e.stopPropagation(); console.log("[profile_view] whisper to:", currentUsername); return; }
   });
 
+<<<<<<< HEAD
   /* Image lightbox — home.js handles [data-lightbox] globally */
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   document.addEventListener("click", (e) => {
     const cell = e.target.closest(".tweet-image");
     if (!cell) return;

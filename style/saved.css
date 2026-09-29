@@ -1027,6 +1027,7 @@
   border: none !important;
   position: relative;
   z-index: 1;
+<<<<<<< HEAD
 }
 
 /* ============================================================
@@ -1093,4 +1094,6 @@
 
 .saved-download-pct.is-done {
   color: #10b981;
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 }

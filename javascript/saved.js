@@ -48,8 +48,12 @@ async function loadSavedFromAPI() {
 }
 
 /* ============================================================
+<<<<<<< HEAD
    Click handling — only Saved-specific
    (audio play + audio download handled by home.js)
+=======
+   Click handling
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
    ============================================================ */
 document.addEventListener("click", (e) => {
   const filterBtn = e.target.closest(".saved-filter-btn");
@@ -78,15 +82,34 @@ document.addEventListener("click", (e) => {
     filterRoot.classList.remove("open");
   }
 
+<<<<<<< HEAD
+=======
+  const postAudio = e.target.closest(".saved-post-audio");
+  if (postAudio) {
+    e.stopPropagation();
+    const url = postAudio.dataset.audioUrl;
+    const name = postAudio.dataset.audioName || "Audio";
+    const size = parseInt(postAudio.dataset.audioSize || "0", 10);
+    const cover = postAudio.dataset.audioCover || null;
+    if (url && window.VexecPlayer) {
+      window.VexecPlayer.play(url, name, size, cover, null);
+    }
+    return;
+  }
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   const viewBtn = e.target.closest(".saved-post-view");
   if (viewBtn) {
     e.stopPropagation();
     return;
   }
 
+<<<<<<< HEAD
   /* ---- Saved audio item (card on the list) — toggle or play ----
      home.js does NOT handle .saved-item[data-type=audio],
      so we handle it here with toggle support. */
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   const audioItem = e.target.closest('.saved-item[data-type="audio"]');
   if (
     audioItem &&
@@ -94,11 +117,15 @@ document.addEventListener("click", (e) => {
     !e.target.closest(".saved-item-source")
   ) {
     e.stopPropagation();
+<<<<<<< HEAD
     e.preventDefault();
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     const url = audioItem.dataset.url;
     const name = audioItem.dataset.name || "Audio";
     const size = parseInt(audioItem.dataset.size || "0", 10);
     const cover = audioItem.dataset.cover || null;
+<<<<<<< HEAD
     if (!url || !window.VexecPlayer) return;
 
     /* If this item is already the current track → toggle */
@@ -106,6 +133,10 @@ document.addEventListener("click", (e) => {
       window.VexecPlayer.toggle();
     } else {
       window.VexecPlayer.play(url, name, size, cover, audioItem);
+=======
+    if (url && window.VexecPlayer) {
+      window.VexecPlayer.play(url, name, size, cover, null);
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     }
     return;
   }
@@ -124,6 +155,10 @@ document.addEventListener("click", (e) => {
       savedData.posts = savedData.posts.filter((p) => p.id !== id);
     }
 
+<<<<<<< HEAD
+=======
+    /* Fire-and-forget API call */
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     API.delete(`/api/saved/${encodeURIComponent(id)}`).catch((err) => {
       console.warn("[saved] delete failed", err);
     });

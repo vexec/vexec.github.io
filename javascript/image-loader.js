@@ -10,6 +10,7 @@
 
   /* ---- Icon chooser based on context ---- */
   function pickIcon(img) {
+<<<<<<< HEAD
     /* ---------- Audio covers → music note ---------- */
     if (
       img.closest(
@@ -46,20 +47,50 @@
     }
 
     /* ---------- Default: broken image ---------- */
+=======
+    // Audio covers → music note
+    if (
+      img.closest(
+        ".comment-audio-cover, .saved-post-audio-cover, .full-player-cover, .mini-cover",
+      )
+    )
+      return "music";
+
+    // Saved audio items
+    if (img.closest(".saved-item-cover")) return "music";
+
+    // Avatars
+    if (
+      img.closest(
+        ".tweet-avatar, .comment-avatar, .saved-post-avatar, .profile-avatar",
+      )
+    )
+      return "user-round";
+
+    // Default: broken image icon
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     return "image-off";
   }
 
   /* ---- Apply loader to a single <img> ---- */
   function applyLoader(img) {
     if (!img || img.dataset.imgLoader === "1") return;
+<<<<<<< HEAD
     if (img.closest(".img-loader")) return;
+=======
+    if (img.closest(".img-loader")) return; // skip our own icons
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 
     img.dataset.imgLoader = "1";
 
     const parent = img.parentElement;
     if (!parent) return;
 
+<<<<<<< HEAD
     /* ensure relative positioning for overlay */
+=======
+    // ensure relative positioning for overlay
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     if (getComputedStyle(parent).position === "static") {
       parent.style.position = "relative";
     }
@@ -94,14 +125,27 @@
       }
     };
 
+<<<<<<< HEAD
     /* Already-resolved states */
+=======
+    /* ---- Already-resolved states ---- */
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     if (img.complete) {
       if (img.naturalWidth > 0) {
         finish(false);
         return;
+<<<<<<< HEAD
       } else if (img.src || img.currentSrc) {
         finish(true);
         return;
+=======
+      } else {
+        // already errored before we could attach
+        if (img.src || img.currentSrc) {
+          finish(true);
+          return;
+        }
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
       }
     }
 
@@ -114,7 +158,11 @@
         }
         finish(false);
       },
+<<<<<<< HEAD
       { once: true }
+=======
+      { once: true },
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     );
 
     img.addEventListener(
@@ -122,7 +170,11 @@
       () => {
         finish(true);
       },
+<<<<<<< HEAD
       { once: true }
+=======
+      { once: true },
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     );
   }
 
@@ -130,12 +182,24 @@
   function scan(root) {
     const scope = root || document;
     scope.querySelectorAll("img:not([data-img-loader])").forEach((img) => {
+<<<<<<< HEAD
       if (!img.getAttribute("src") && !img.getAttribute("srcset")) return;
+=======
+      // Skip if no src at all
+      if (!img.getAttribute("src") && !img.getAttribute("srcset")) {
+        // If parent has empty-state fallback, skip
+        return;
+      }
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
       applyLoader(img);
     });
   }
 
+<<<<<<< HEAD
   /* ---- MutationObserver ---- */
+=======
+  /* ---- MutationObserver: catch dynamically added images ---- */
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   const observer = new MutationObserver((mutations) => {
     let shouldScan = false;
     for (const m of mutations) {
@@ -154,6 +218,10 @@
       if (shouldScan) break;
     }
     if (shouldScan) {
+<<<<<<< HEAD
+=======
+      // debounce
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
       clearTimeout(observer._t);
       observer._t = setTimeout(() => scan(), 40);
     }
@@ -178,5 +246,9 @@
     setTimeout(init, 50);
   });
 
+<<<<<<< HEAD
+=======
+  // Fallback: also run immediately (in case DOMContentLoaded already fired)
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   setTimeout(init, 120);
 })();

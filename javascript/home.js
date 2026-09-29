@@ -7,8 +7,20 @@ if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
    ============================================================ */
 const pendingFiles = new WeakMap();
 
+<<<<<<< HEAD
 function hasSavedAPI() { return typeof window.SavedAPI !== "undefined"; }
 function hasAudioCache() { return typeof window.AudioCache !== "undefined"; }
+=======
+/* ============================================================
+   Guards
+   ============================================================ */
+function hasSavedAPI() {
+  return typeof window.SavedAPI !== "undefined";
+}
+function hasAudioCache() {
+  return typeof window.AudioCache !== "undefined";
+}
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 
 /* ============================================================
    Config
@@ -23,6 +35,10 @@ window.VexecConfig = window.VexecConfig || {
   },
   logos: {},
 };
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 const configLimits = window.VexecConfig.limits;
 
 (async () => {
@@ -33,7 +49,13 @@ const configLimits = window.VexecConfig.limits;
       if (data.limits) Object.assign(configLimits, data.limits);
       if (data.logos) window.VexecConfig.logos = data.logos;
     }
+<<<<<<< HEAD
   } catch (err) {}
+=======
+  } catch (err) {
+    console.info("[config] using default limits");
+  }
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 })();
 
 /* ============================================================
@@ -49,7 +71,11 @@ function hashText(str) {
 }
 
 /* ============================================================
+<<<<<<< HEAD
    FEED
+=======
+   FEED LOAD — API + Skeleton
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
    ============================================================ */
 function buildTweetSkeleton() {
   return Array(3).fill(0).map(() => `
@@ -73,16 +99,156 @@ function renderFeedFromAPI(posts) {
   const container = document.getElementById("feed-content");
   if (!container) return;
 
+<<<<<<< HEAD
   container.innerHTML = VexecTweet.renderList(posts, { variant: "home" });
   VexecTweet.afterRender(container);
+=======
+  container.innerHTML = posts.map((p) => {
+    const avatarWrap = `
+      <div class="avatar-wrap ${p.verified ? "is-verified" : ""}" data-size="md">
+        <div class="tweet-avatar">
+          <img src="${p.avatar}" alt="" loading="lazy" />
+        </div>
+      </div>
+    `;
+
+    const images = (p.images || []).map((src) =>
+      `<div class="tweet-media"><img src="${src}" alt="" loading="lazy" /></div>`
+    ).join("");
+
+    const audios = (p.audios || []).map((a) => `
+      <div class="comment-audio"
+           data-audio-url="${a.url}"
+           data-audio-name="${a.name}"
+           data-audio-size="${a.size || 0}"
+           data-audio-cover="${a.cover || ""}">
+        <div class="comment-audio-cover">
+          ${a.cover ? `<img src="${a.cover}" alt="" loading="lazy" />` : `<i data-lucide="music"></i>`}
+        </div>
+        <div class="comment-audio-info">
+          <span class="comment-audio-name">${a.name}</span>
+          <span class="comment-audio-meta">${((a.size || 0) / 1024 / 1024).toFixed(2)} MB</span>
+        </div>
+        <button class="comment-audio-download" type="button" aria-label="Download"><i data-lucide="download"></i></button>
+        <button class="comment-audio-play" type="button" aria-label="Play">
+          <i data-lucide="play" class="icon-play"></i>
+          <i data-lucide="pause" class="icon-pause"></i>
+          <i data-lucide="rotate-ccw" class="icon-replay"></i>
+        </button>
+        <div class="comment-audio-loading"><i data-lucide="loader-circle"></i></div>
+      </div>
+    `).join("");
+
+    const comments = (p.commentsList || []).map((c) => {
+      const commentAvatar = c.avatar
+        ? `<div class="comment-avatar"><img src="${c.avatar}" alt="" loading="lazy" /></div>`
+        : "";
+      const commentImage = c.image
+        ? `<div class="comment-media"><img src="${c.image}" alt="" loading="lazy" /></div>`
+        : "";
+      return `
+        <article class="comment">
+          <div class="avatar-wrap" data-size="sm">${commentAvatar}</div>
+          <div class="comment-body">
+            <div class="comment-meta">
+              <span class="comment-name">${c.name}</span>
+              <span class="comment-handle">${c.handle}</span>
+            </div>
+            <p class="comment-text">${c.text}</p>
+            ${commentImage}
+          </div>
+        </article>
+      `;
+    }).join("");
+
+    const verified = p.verified
+      ? `<svg class="verified" viewBox="0 0 24 24" fill="currentColor"><path d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z"/></svg>`
+      : "";
+
+    return `
+      <article class="tweet" data-post-id="${p.id}">
+        ${avatarWrap}
+        <div class="tweet-body">
+          <div class="tweet-meta">
+            <span class="tweet-name">${p.name}${verified}</span>
+            <span class="tweet-handle">${p.handle}</span>
+            <span class="tweet-views"><i data-lucide="eye"></i>${p.views || "0"}</span>
+          </div>
+          <p class="tweet-text">${p.text}</p>
+          ${images}
+          ${audios}
+          <div class="tweet-actions">
+            <div class="tweet-actions-left">
+              <button class="tweet-action" data-action="like" aria-label="Like"><i data-lucide="heart"></i><span>${p.likes || 0}</span></button>
+              <button class="tweet-action" data-action="comment" aria-label="Comment"><i data-lucide="message-circle"></i><span>${p.comments || 0}</span></button>
+            </div>
+            <div class="tweet-actions-right">
+              <button class="tweet-menu-btn" aria-label="More"><i data-lucide="more-horizontal"></i></button>
+            </div>
+          </div>
+          <div class="tweet-comments">
+            <div class="tweet-comments-collapse">
+              <div class="tweet-comments-inner">
+                <header class="comments-header">
+                  <span class="comments-title"><i data-lucide="message-circle"></i>Comments</span>
+                  <button class="comments-close" type="button" aria-label="Close"><i data-lucide="x"></i></button>
+                </header>
+                <div class="comments-list">${comments}</div>
+                <button class="comments-see-more" type="button"><span>See More</span><i data-lucide="chevron-down"></i></button>
+                <form class="comment-form" autocomplete="off">
+                  <div class="comment-attach">
+                    <button class="comment-attach-btn" type="button" aria-label="Attach"><i data-lucide="plus"></i></button>
+                    <div class="comment-attach-menu">
+                      <button class="comment-attach-item" type="button" data-attach="image"><i data-lucide="image"></i><span>Image</span></button>
+                      <button class="comment-attach-item" type="button" data-attach="music"><i data-lucide="music"></i><span>Music</span></button>
+                      <button class="comment-attach-item" type="button" data-attach="document"><i data-lucide="file-text"></i><span>Document</span></button>
+                      <button class="comment-attach-item comment-attach-camera" type="button" data-attach="camera"><i data-lucide="camera"></i><span>Camera</span></button>
+                    </div>
+                  </div>
+                  <input type="text" class="comment-input" placeholder="Write a comment..." />
+                  <button type="submit" class="comment-send" aria-label="Send"><i data-lucide="send-horizontal"></i></button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tweet-overlay" aria-hidden="true">
+          <div class="tweet-overlay-card">
+            <button class="overlay-action" data-action="save"><i data-lucide="bookmark" class="icon-unsaved"></i><i data-lucide="bookmark-check" class="icon-saved"></i><span>Save</span></button>
+            <button class="overlay-action" data-action="copy"><i data-lucide="link"></i><span>Copy Link</span></button>
+            <button class="overlay-action" data-action="report"><i data-lucide="flag"></i><span>Report</span></button>
+            <button class="overlay-action overlay-close" data-action="close"><i data-lucide="x"></i><span>Close</span></button>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  if (window.lucide) window.lucide.createIcons();
+  if (window.VexecImageLoader) setTimeout(() => window.VexecImageLoader.scan(), 30);
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 }
 
 async function loadFeed() {
   const feedEl = document.querySelector(".feed");
   if (!feedEl) return;
+<<<<<<< HEAD
   if (feedEl.dataset.loading === "1") return;
   feedEl.dataset.loading = "1";
   if (!feedEl.dataset.backupHtml) feedEl.dataset.backupHtml = feedEl.innerHTML;
+=======
+
+  /* Prevent double-loading */
+  if (feedEl.dataset.loading === "1") return;
+  feedEl.dataset.loading = "1";
+
+  /* Backup static content once */
+  if (!feedEl.dataset.backupHtml) {
+    feedEl.dataset.backupHtml = feedEl.innerHTML;
+  }
+
+  /* Show skeleton */
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   feedEl.innerHTML = `<div class="feed-skeleton">${buildTweetSkeleton()}</div><div class="feed-content" id="feed-content" hidden></div>`;
 
   try {
@@ -91,6 +257,11 @@ async function loadFeed() {
     renderFeedFromAPI(data);
     feedEl.querySelector(".feed-skeleton").hidden = true;
     feedEl.querySelector(".feed-content").hidden = false;
+<<<<<<< HEAD
+=======
+
+    /* Re-bind runtime helpers */
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     if (typeof setupAttachments === "function") setupAttachments();
     if (typeof setupAudioPlayButtons === "function") setupAudioPlayButtons();
     if (typeof setupMediaLoaders === "function") setupMediaLoaders();
@@ -98,6 +269,10 @@ async function loadFeed() {
     if (typeof setupCommentEmoji === "function") setupCommentEmoji();
   } catch (err) {
     console.error("[feed]", err);
+<<<<<<< HEAD
+=======
+    /* Fallback to static content */
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     feedEl.innerHTML = feedEl.dataset.backupHtml;
     if (window.lucide) window.lucide.createIcons();
     if (window.VexecImageLoader) setTimeout(() => window.VexecImageLoader.scan(), 30);
@@ -116,18 +291,32 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ============================================================
+<<<<<<< HEAD
    Setup helpers
+=======
+   Setup attachments container
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
    ============================================================ */
 function setupAttachments() {
   document.querySelectorAll(".comment-form").forEach((form) => {
     const prev = form.previousElementSibling;
     if (prev && prev.classList.contains("comment-attachments")) return;
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     const container = document.createElement("div");
     container.className = "comment-attachments";
     form.parentElement.insertBefore(container, form);
   });
 }
 
+<<<<<<< HEAD
+=======
+/* ============================================================
+   Setup audio play buttons
+   ============================================================ */
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 function setupAudioPlayButtons() {
   document.querySelectorAll(".comment-audio-play").forEach((btn) => {
     const hasPlay = btn.querySelector('[data-lucide="play"]');
@@ -142,15 +331,31 @@ function setupAudioPlayButtons() {
   if (window.lucide) window.lucide.createIcons();
 }
 
+<<<<<<< HEAD
+=======
+/* ============================================================
+   Play button state
+   ============================================================ */
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 function setPlayButtonState(btn, state) {
   if (!btn) return;
   btn.classList.remove("is-playing", "is-paused", "is-ended");
   btn.classList.add("is-" + state);
 }
 
+<<<<<<< HEAD
 function showLimitModal({ title, message, icon = "alert-circle" }) {
   const existing = document.getElementById("limit-modal");
   if (existing) existing.remove();
+=======
+/* ============================================================
+   Limit Modal
+   ============================================================ */
+function showLimitModal({ title, message, icon = "alert-circle" }) {
+  const existing = document.getElementById("limit-modal");
+  if (existing) existing.remove();
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   const modal = document.createElement("div");
   modal.id = "limit-modal";
   modal.className = "limit-modal";
@@ -161,25 +366,51 @@ function showLimitModal({ title, message, icon = "alert-circle" }) {
     `<p class="limit-modal-message">${message}</p>` +
     '<button class="limit-modal-close" type="button">Got it</button>' +
     "</div>";
+<<<<<<< HEAD
   document.body.appendChild(modal);
   requestAnimationFrame(() => modal.classList.add("open"));
   if (window.lucide) window.lucide.createIcons();
+=======
+
+  document.body.appendChild(modal);
+  requestAnimationFrame(() => modal.classList.add("open"));
+  if (window.lucide) window.lucide.createIcons();
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   const close = () => {
     modal.classList.remove("open");
     setTimeout(() => modal.remove(), 280);
   };
   modal.querySelector(".limit-modal-close").addEventListener("click", close);
+<<<<<<< HEAD
   modal.addEventListener("click", (e) => { if (e.target === modal) close(); });
   const escHandler = (e) => {
     if (e.key === "Escape") { close(); document.removeEventListener("keydown", escHandler); }
+=======
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) close();
+  });
+  const escHandler = (e) => {
+    if (e.key === "Escape") {
+      close();
+      document.removeEventListener("keydown", escHandler);
+    }
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   };
   document.addEventListener("keydown", escHandler);
 }
 
 /* ============================================================
+<<<<<<< HEAD
    Lightbox
    ============================================================ */
 let lightboxEl = null;
+=======
+   Image Lightbox
+   ============================================================ */
+let lightboxEl = null;
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 function ensureLightbox() {
   if (lightboxEl) return lightboxEl;
   const el = document.createElement("div");
@@ -194,6 +425,7 @@ function ensureLightbox() {
     '<img class="lightbox-image" alt="" />' +
     '<span class="lightbox-hint">Esc or click outside to close</span>';
   document.body.appendChild(el);
+<<<<<<< HEAD
   if (window.lucide) window.lucide.createIcons({ root: el });
 
   el.addEventListener("click", (e) => {
@@ -212,6 +444,12 @@ function ensureLightbox() {
   lightboxEl = el;
   return el;
 }
+=======
+  lightboxEl = el;
+  return el;
+}
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 function openLightbox(src, alt) {
   const el = ensureLightbox();
   const img = el.querySelector(".lightbox-image");
@@ -219,13 +457,20 @@ function openLightbox(src, alt) {
   img.alt = alt || "image";
   el.classList.add("open");
   document.body.style.overflow = "hidden";
+<<<<<<< HEAD
 }
+=======
+  if (window.lucide) window.lucide.createIcons();
+}
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 function closeLightbox() {
   if (!lightboxEl) return;
   lightboxEl.classList.remove("open");
   lightboxEl.querySelector(".lightbox-image").src = "";
   document.body.style.overflow = "";
 }
+<<<<<<< HEAD
 window.openLightbox = openLightbox;
 
 /* ============================================================
@@ -246,6 +491,99 @@ function downloadAsFile(url, filename) {
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
+=======
+
+window.openLightbox = openLightbox;
+
+/* ============================================================
+   Download
+   ============================================================ */
+async function downloadAsFile(url, filename) {
+  if (!url) return;
+
+  if (url.startsWith("blob:") || url.startsWith("data:")) {
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename || "file";
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    return;
+  }
+
+  try {
+    const response = await fetch(url, { mode: "cors" });
+    if (!response.ok) throw new Error("Network error");
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = blobUrl;
+    a.download = filename || "file";
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
+  } catch (err) {
+    console.warn("[download] fallback", err);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename || "file";
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+}
+
+/* ============================================================
+   File download with progress
+   ============================================================ */
+const downloadState = new WeakMap();
+
+function startFileDownload(chip) {
+  if (downloadState.get(chip) === "downloading") return;
+  downloadState.set(chip, "downloading");
+
+  const url = chip.dataset.fileUrl;
+  const name = chip.dataset.fileName || "file";
+  if (!url) {
+    downloadState.delete(chip);
+    return;
+  }
+
+  chip.classList.add("downloading");
+  const bar = chip.querySelector(".comment-file-progress .bar");
+  const pctEl = chip.querySelector(".comment-file-progress .pct");
+  const DASH = 100.5;
+  const DURATION = 1500;
+  const start = performance.now();
+
+  function tick(now) {
+    const progress = Math.min((now - start) / DURATION, 1);
+    if (bar) bar.style.strokeDashoffset = String(DASH * (1 - progress));
+    if (pctEl) pctEl.textContent = Math.round(progress * 100) + "%";
+
+    if (progress < 1) requestAnimationFrame(tick);
+    else {
+      setTimeout(() => {
+        chip.classList.remove("downloading");
+        chip.classList.add("downloaded");
+        if (bar) bar.style.strokeDashoffset = String(DASH);
+        if (pctEl) pctEl.textContent = "0%";
+        downloadAsFile(url, name);
+        setTimeout(() => {
+          chip.classList.remove("downloaded");
+          downloadState.delete(chip);
+        }, 1200);
+      }, 220);
+    }
+  }
+  requestAnimationFrame(tick);
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 }
 
 /* ============================================================
@@ -262,12 +600,24 @@ const musicPlayer = {
 
 function ensureMusicPlayer() {
   if (musicPlayer.audio) return musicPlayer.audio;
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   const audio = document.createElement("audio");
   audio.preload = "metadata";
   audio.style.display = "none";
   document.body.appendChild(audio);
   musicPlayer.audio = audio;
 
+<<<<<<< HEAD
+=======
+  musicPlayer.mini = ensureMiniPlayer();
+  musicPlayer.full = ensureFullPlayer();
+
+  if (window.lucide) window.lucide.createIcons();
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   audio.addEventListener("play", () => {
     setBufferingUI(false);
     musicPlayer.mini?.classList.remove("is-ended");
@@ -292,8 +642,19 @@ function ensureMusicPlayer() {
   });
 
   audio.addEventListener("ended", () => {
+<<<<<<< HEAD
     if (musicPlayer.current?.url && hasAudioCache()) AudioCache.warm(musicPlayer.current.url);
     if (musicPlayer.loop) { audio.currentTime = 0; audio.play().catch(() => {}); return; }
+=======
+    if (musicPlayer.current?.url && hasAudioCache()) {
+      AudioCache.warm(musicPlayer.current.url);
+    }
+    if (musicPlayer.loop) {
+      audio.currentTime = 0;
+      audio.play().catch(() => {});
+      return;
+    }
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     musicPlayer.mini?.classList.add("is-ended");
     musicPlayer.full?.classList.add("is-ended");
     setPlayButtonState(musicPlayer.mini?.querySelector(".mini-play"), "ended");
@@ -312,6 +673,10 @@ function ensureMusicPlayer() {
   audio.addEventListener("seeked", () => setBufferingUI(false));
 
   audio.addEventListener("error", () => {
+<<<<<<< HEAD
+=======
+    console.warn("[music] failed to load", audio.src);
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     setBufferingUI(false);
     musicPlayer.mini?.classList.remove("is-playing");
     musicPlayer.full?.classList.remove("is-playing");
@@ -320,6 +685,7 @@ function ensureMusicPlayer() {
     syncActiveCard(false);
   });
 
+<<<<<<< HEAD
   /* Build mini + full players NOW */
   musicPlayer.mini = ensureMiniPlayer();
   musicPlayer.full = ensureFullPlayer();
@@ -330,6 +696,11 @@ function ensureMusicPlayer() {
 /* ============================================================
    Mini player (with direct listeners)
    ============================================================ */
+=======
+  return audio;
+}
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 function ensureMiniPlayer() {
   let el = document.getElementById("mini-player");
   if (el) return el;
@@ -338,6 +709,7 @@ function ensureMiniPlayer() {
   el.id = "mini-player";
   el.className = "mini-player";
   el.innerHTML =
+<<<<<<< HEAD
     '<div class="mini-cover">' +
     '<img class="mini-cover-img" alt="" style="display:none" />' +
     '<i data-lucide="music" class="mini-cover-fallback"></i>' +
@@ -347,10 +719,22 @@ function ensureMiniPlayer() {
     '<div class="mini-progress"><div class="mini-progress-fill"></div></div>' +
     "</div>" +
     '<button class="mini-play is-paused" type="button" aria-label="Play">' +
+=======
+    '<div class="mini-cover" data-player-action="expand">' +
+    '<img class="mini-cover-img" alt="" style="display:none" />' +
+    '<i data-lucide="music" class="mini-cover-fallback"></i>' +
+    "</div>" +
+    '<div class="mini-info" data-player-action="expand">' +
+    '<div class="mini-name">Track</div>' +
+    '<div class="mini-progress"><div class="mini-progress-fill"></div></div>' +
+    "</div>" +
+    '<button class="mini-play is-paused" type="button" data-player-action="toggle" aria-label="Play">' +
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     '<i data-lucide="play" class="icon-play"></i>' +
     '<i data-lucide="pause" class="icon-pause"></i>' +
     '<i data-lucide="rotate-ccw" class="icon-replay"></i>' +
     "</button>" +
+<<<<<<< HEAD
     '<button class="mini-close" type="button" aria-label="Close">' +
     '<i data-lucide="x"></i>' +
     "</button>";
@@ -425,6 +809,16 @@ function expandMusicMini() {
 /* ============================================================
    Full player (with direct listeners)
    ============================================================ */
+=======
+    '<button class="mini-close" type="button" data-player-action="close" aria-label="Close">' +
+    '<i data-lucide="x"></i>' +
+    "</button>";
+
+  document.body.appendChild(el);
+  return el;
+}
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 function ensureFullPlayer() {
   let el = document.getElementById("full-player");
   if (el) return el;
@@ -433,7 +827,11 @@ function ensureFullPlayer() {
   el.id = "full-player";
   el.className = "full-player";
   el.innerHTML =
+<<<<<<< HEAD
     '<button class="full-player-close" type="button" aria-label="Close">' +
+=======
+    '<button class="full-player-close" type="button" data-player-action="close" aria-label="Close">' +
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     '<i data-lucide="x"></i>' +
     "</button>" +
     '<div class="full-player-content">' +
@@ -444,7 +842,11 @@ function ensureFullPlayer() {
     '<span class="full-player-name">Track</span>' +
     '<span class="full-player-sub">Audio</span>' +
     "</div>" +
+<<<<<<< HEAD
     '<div class="full-progress-track">' +
+=======
+    '<div class="full-progress-track" data-player-action="seek">' +
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     '<div class="full-progress-fill"></div>' +
     "</div>" +
     '<div class="full-times">' +
@@ -452,23 +854,36 @@ function ensureFullPlayer() {
     '<span class="full-time-total">0:00</span>' +
     "</div>" +
     '<div class="full-controls">' +
+<<<<<<< HEAD
     '<button class="full-side-btn full-loop-btn" type="button" aria-label="Loop"><i data-lucide="repeat"></i></button>' +
     '<button class="full-play-btn is-paused" type="button" aria-label="Play">' +
+=======
+    '<button class="full-side-btn full-loop-btn" type="button" data-player-action="loop" aria-label="Loop"><i data-lucide="repeat"></i></button>' +
+    '<button class="full-play-btn is-paused" type="button" data-player-action="toggle" aria-label="Play">' +
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     '<i data-lucide="play" class="icon-play"></i>' +
     '<i data-lucide="pause" class="icon-pause"></i>' +
     '<i data-lucide="rotate-ccw" class="icon-replay"></i>' +
     "</button>" +
     '<div class="full-more-wrap">' +
+<<<<<<< HEAD
     '<button class="full-side-btn full-more-btn" type="button" aria-label="More"><i data-lucide="more-horizontal"></i></button>' +
     '<div class="full-more-menu">' +
     '<button class="full-more-item" type="button" data-menu-action="download"><i data-lucide="download"></i><span>Download</span></button>' +
     '<button class="full-more-item" type="button" data-menu-action="save"><i data-lucide="bookmark" class="icon-unsaved"></i><i data-lucide="bookmark-check" class="icon-saved"></i><span>Save</span></button>' +
+=======
+    '<button class="full-side-btn full-more-btn" type="button" data-player-action="more" aria-label="More"><i data-lucide="more-horizontal"></i></button>' +
+    '<div class="full-more-menu">' +
+    '<button class="full-more-item" type="button" data-player-action="download"><i data-lucide="download"></i><span>Download</span></button>' +
+    '<button class="full-more-item" type="button" data-player-action="save"><i data-lucide="bookmark" class="icon-unsaved"></i><i data-lucide="bookmark-check" class="icon-saved"></i><span>Save</span></button>' +
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     "</div>" +
     "</div>" +
     "</div>" +
     "</div>";
 
   document.body.appendChild(el);
+<<<<<<< HEAD
   if (window.lucide) window.lucide.createIcons({ root: el });
 
   /* --- Direct listeners --- */
@@ -555,6 +970,8 @@ function ensureFullPlayer() {
     updatePlayerProgress();
   });
 
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   return el;
 }
 
@@ -568,12 +985,20 @@ function playMusic(url, name, size, coverUrl, cardEl) {
 
   if (musicPlayer.activeCard && musicPlayer.activeCard !== cardEl) {
     musicPlayer.activeCard.classList.remove("is-playing", "is-paused");
+<<<<<<< HEAD
     const prevBtn = musicPlayer.activeCard.querySelector(
       ".comment-audio-play, .pv-audio-play, .saved-post-audio-play, .saved-item-play"
     );
     setPlayButtonState(prevBtn, "paused");
   }
   musicPlayer.activeCard = cardEl || null;
+=======
+    const prevBtn = musicPlayer.activeCard.querySelector(".comment-audio-play");
+    setPlayButtonState(prevBtn, "paused");
+  }
+  musicPlayer.activeCard = cardEl || null;
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   musicPlayer.current = { url, name, size, coverUrl: coverUrl || null };
 
   const miniName = mini.querySelector(".mini-name");
@@ -603,6 +1028,7 @@ function playMusic(url, name, size, coverUrl, cardEl) {
     }
   }
 
+<<<<<<< HEAD
     musicPlayer.activeCard = cardEl || null;
   musicPlayer.current = { url, name, size, coverUrl: coverUrl || null };
 
@@ -616,6 +1042,8 @@ function playMusic(url, name, size, coverUrl, cardEl) {
     if (immediateBtn) setPlayButtonState(immediateBtn, "playing");
   }
 
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   const miniCover = mini.querySelector(".mini-cover");
   if (miniCover) {
     let mImg = miniCover.querySelector(".mini-cover-img");
@@ -632,7 +1060,14 @@ function playMusic(url, name, size, coverUrl, cardEl) {
       mImg.src = coverUrl;
       if (mFb) mFb.style.display = "none";
     } else {
+<<<<<<< HEAD
       if (mImg) { mImg.removeAttribute("src"); mImg.style.display = "none"; }
+=======
+      if (mImg) {
+        mImg.removeAttribute("src");
+        mImg.style.display = "none";
+      }
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
       if (mFb) mFb.style.display = "";
     }
   }
@@ -644,9 +1079,25 @@ function playMusic(url, name, size, coverUrl, cardEl) {
   full.classList.remove("is-ended");
   mini.classList.add("is-playing");
   full.classList.add("is-playing");
+<<<<<<< HEAD
   setPlayButtonState(mini.querySelector(".mini-play"), "playing");
   setPlayButtonState(full.querySelector(".full-play-btn"), "playing");
 
+=======
+
+  setPlayButtonState(mini.querySelector(".mini-play"), "playing");
+  setPlayButtonState(full.querySelector(".full-play-btn"), "playing");
+
+  setTimeout(() => {
+    const saveBtn = full.querySelector('[data-player-action="save"]');
+    if (saveBtn && hasSavedAPI()) {
+      SavedAPI.isAudioSaved(url).then((saved) => {
+        saveBtn.classList.toggle("is-saved", saved);
+      });
+    }
+  }, 0);
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   const setSource = (playbackUrl) => {
     if (audio.src !== playbackUrl) {
       audio.src = playbackUrl;
@@ -654,7 +1105,12 @@ function playMusic(url, name, size, coverUrl, cardEl) {
       audio.load();
     }
     const startPlay = () => {
+<<<<<<< HEAD
       audio.play().catch(() => {
+=======
+      audio.play().catch((err) => {
+        console.warn("[audio] play failed:", err);
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
         mini.classList.remove("is-playing");
         full.classList.remove("is-playing");
         setPlayButtonState(mini.querySelector(".mini-play"), "paused");
@@ -670,7 +1126,13 @@ function playMusic(url, name, size, coverUrl, cardEl) {
   };
 
   if (hasAudioCache()) {
+<<<<<<< HEAD
     AudioCache.getBlobUrl(url).then((b) => setSource(b || url)).catch(() => setSource(url));
+=======
+    AudioCache.getBlobUrl(url)
+      .then((blobUrl) => setSource(blobUrl || url))
+      .catch(() => setSource(url));
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   } else {
     setSource(url);
   }
@@ -678,10 +1140,16 @@ function playMusic(url, name, size, coverUrl, cardEl) {
   mini.classList.add("visible");
   requestAnimationFrame(() => mini.classList.add("show"));
 
+<<<<<<< HEAD
   /* Auto-expand music */
   expandMusicMini();
 
   if (window.VexecImageLoader) setTimeout(() => window.VexecImageLoader.scan(), 30);
+=======
+  if (window.VexecImageLoader) {
+    setTimeout(() => window.VexecImageLoader.scan(), 30);
+  }
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 }
 
 function syncActiveCard(isPlaying) {
@@ -689,6 +1157,7 @@ function syncActiveCard(isPlaying) {
   if (!card) return;
   card.classList.toggle("is-playing", !!isPlaying);
   card.classList.toggle("is-paused", !isPlaying);
+<<<<<<< HEAD
   const playBtn = card.querySelector(
     ".comment-audio-play, .pv-audio-play, .saved-post-audio-play, .saved-item-play"
   );
@@ -697,6 +1166,10 @@ function syncActiveCard(isPlaying) {
     playBtn.classList.toggle("is-paused", !isPlaying);
     setPlayButtonState(playBtn, isPlaying ? "playing" : "paused");
   }
+=======
+  const playBtn = card.querySelector(".comment-audio-play");
+  setPlayButtonState(playBtn, isPlaying ? "playing" : "paused");
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 }
 
 function setBufferingUI(isBuffering) {
@@ -712,6 +1185,7 @@ function updatePlayerProgress() {
   const mini = musicPlayer.mini;
   const full = musicPlayer.full;
   if (!audio || !mini || !full) return;
+<<<<<<< HEAD
   const dur = audio.duration || 0;
   const pct = dur ? (audio.currentTime / dur) * 100 : 0;
   const mFill = mini.querySelector(".mini-progress-fill");
@@ -720,6 +1194,21 @@ function updatePlayerProgress() {
   if (fFill) fFill.style.width = pct + "%";
   const curEl = full.querySelector(".full-time-current");
   if (curEl) curEl.textContent = formatTime(audio.currentTime);
+=======
+
+  const dur = audio.duration || 0;
+  const pct = dur ? (audio.currentTime / dur) * 100 : 0;
+
+  const mFill = mini.querySelector(".mini-progress-fill");
+  if (mFill && !mini.classList.contains("is-loading")) mFill.style.width = pct + "%";
+
+  const fFill = full.querySelector(".full-progress-fill");
+  if (fFill) fFill.style.width = pct + "%";
+
+  const curEl = full.querySelector(".full-time-current");
+  if (curEl) curEl.textContent = formatTime(audio.currentTime);
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   const totEl = full.querySelector(".full-time-total");
   if (totEl) totEl.textContent = formatTime(dur);
 }
@@ -730,12 +1219,20 @@ function openFullPlayer() {
   full.classList.add("open");
   document.body.style.overflow = "hidden";
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 function closeFullPlayer() {
   const full = musicPlayer.full;
   if (!full) return;
   full.classList.remove("open");
   document.body.style.overflow = "";
+<<<<<<< HEAD
   full.querySelectorAll(".full-more-wrap.open").forEach((w) => w.classList.remove("open"));
+=======
+  document.querySelectorAll(".full-more-wrap.open").forEach((w) => w.classList.remove("open"));
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 }
 
 function closeMiniPlayer() {
@@ -749,8 +1246,14 @@ function closeMiniPlayer() {
   }
   musicPlayer.current = null;
   musicPlayer.loop = false;
+<<<<<<< HEAD
   musicPlayer.mini?.classList.remove("is-looping", "is-ended", "is-playing", "is-minimized");
   musicPlayer.full?.classList.remove("is-looping", "is-ended", "is-playing");
+=======
+  musicPlayer.mini?.classList.remove("is-looping", "is-ended", "is-playing");
+  musicPlayer.full?.classList.remove("is-looping", "is-ended", "is-playing");
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   if (musicPlayer.activeCard) {
     musicPlayer.activeCard.classList.remove("is-playing", "is-paused");
     const prevBtn = musicPlayer.activeCard.querySelector(".comment-audio-play");
@@ -759,10 +1262,13 @@ function closeMiniPlayer() {
   musicPlayer.activeCard = null;
   closeFullPlayer();
 
+<<<<<<< HEAD
   window.dispatchEvent(new CustomEvent("vexec:corner", {
     detail: { expanded: "download" },
   }));
 
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   const mini = musicPlayer.mini;
   if (!mini) return;
   mini.classList.remove("show");
@@ -776,18 +1282,39 @@ function formatTime(sec) {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
+<<<<<<< HEAD
+=======
+/* ============================================================
+   Album art
+   ============================================================ */
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 function extractAlbumArt(file) {
   return new Promise((resolve) => {
     if (!window.jsmediatags) return resolve(null);
     if (!file.type.startsWith("audio/")) return resolve(null);
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     window.jsmediatags.read(file, {
       onSuccess: (tag) => {
         const pic = tag.tags.picture;
         if (!pic) return resolve(null);
         try {
+<<<<<<< HEAD
           const base64 = pic.data.reduce((acc, byte) => acc + String.fromCharCode(byte), "");
           resolve(`data:${pic.format};base64,${btoa(base64)}`);
         } catch (e) { resolve(null); }
+=======
+          const base64 = pic.data.reduce(
+            (acc, byte) => acc + String.fromCharCode(byte),
+            "",
+          );
+          resolve(`data:${pic.format};base64,${btoa(base64)}`);
+        } catch (e) {
+          resolve(null);
+        }
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
       },
       onError: () => resolve(null),
     });
@@ -795,6 +1322,7 @@ function extractAlbumArt(file) {
 }
 
 /* ============================================================
+<<<<<<< HEAD
    GLOBAL CLICK — no longer handles mini/full player buttons
    (they have their own direct listeners)
    ============================================================ */
@@ -898,6 +1426,181 @@ document.addEventListener("click", (e) => {
   const filterBtn = e.target.closest(".search-filter-btn");
   const filterItem = e.target.closest(".search-filter-item");
   const filterRoot = document.querySelector(".search-filter");
+=======
+   Click Handler
+   ============================================================ */
+document.addEventListener("click", (e) => {
+  const _userTrigger = e.target.closest(
+    ".tweet-avatar, .tweet-name, .comment-avatar:not(.comment-avatar-me), .comment-name, .saved-post-avatar, .saved-post-name",
+  );
+  if (_userTrigger && !e.target.closest("button, a, [data-action]")) return;
+
+  if (!e.target.closest(".full-more-wrap")) {
+    document.querySelectorAll(".full-more-wrap.open").forEach((el) => el.classList.remove("open"));
+  }
+
+  const playerAction = e.target.closest("[data-player-action]");
+  if (playerAction) {
+    const action = playerAction.dataset.playerAction;
+    const audio = musicPlayer.audio;
+
+    if (action === "more") {
+      e.stopPropagation();
+      const wrap = playerAction.closest(".full-more-wrap");
+      if (wrap) wrap.classList.toggle("open");
+      return;
+    }
+
+    if (action === "toggle" && audio) {
+      e.stopPropagation();
+      const mini = musicPlayer.mini;
+      const full = musicPlayer.full;
+      const ended = mini?.classList.contains("is-ended") || full?.classList.contains("is-ended");
+
+      if (ended) {
+        audio.currentTime = 0;
+        mini?.classList.remove("is-ended");
+        full?.classList.remove("is-ended");
+        setPlayButtonState(mini?.querySelector(".mini-play"), "playing");
+        setPlayButtonState(full?.querySelector(".full-play-btn"), "playing");
+        audio.play().catch(() => {});
+        return;
+      }
+      if (audio.paused) audio.play().catch(() => {});
+      else audio.pause();
+      return;
+    }
+
+    if (action === "download" && musicPlayer.current) {
+      e.stopPropagation();
+      const cur = musicPlayer.current;
+      downloadAsFile(cur.url, cur.name || "audio");
+      document.querySelectorAll(".full-more-wrap.open").forEach((w) => w.classList.remove("open"));
+      return;
+    }
+
+    if (action === "save" && musicPlayer.current) {
+      e.stopPropagation();
+      const cur = musicPlayer.current;
+      if (!hasSavedAPI()) return;
+      SavedAPI.toggleAudio({
+        id: cur.url,
+        url: cur.url,
+        name: cur.name,
+        size: cur.size,
+        cover: cur.coverUrl,
+        sourceUrl: "/home",
+        sourceLabel: "Home",
+      }).then((saved) => {
+        playerAction.classList.toggle("is-saved", saved);
+      });
+      document.querySelectorAll(".full-more-wrap.open").forEach((w) => w.classList.remove("open"));
+      return;
+    }
+
+    if (action === "loop" && audio) {
+      e.stopPropagation();
+      musicPlayer.loop = !musicPlayer.loop;
+      audio.loop = musicPlayer.loop;
+      musicPlayer.full?.classList.toggle("is-looping", musicPlayer.loop);
+      musicPlayer.mini?.classList.toggle("is-looping", musicPlayer.loop);
+      return;
+    }
+
+    if (action === "close") {
+      e.stopPropagation();
+      if (playerAction.closest("#full-player")) closeFullPlayer();
+      else closeMiniPlayer();
+      return;
+    }
+
+    if (action === "expand" && audio) {
+      e.stopPropagation();
+      openFullPlayer();
+      return;
+    }
+
+    if (action === "seek" && audio && audio.duration) {
+      const track = playerAction.getBoundingClientRect();
+      const ratio = Math.max(0, Math.min(1, (e.clientX - track.left) / track.width));
+      audio.currentTime = ratio * audio.duration;
+      updatePlayerProgress();
+      return;
+    }
+  }
+
+  if (e.target === musicPlayer.full) {
+    closeFullPlayer();
+    return;
+  }
+
+  const audioCard = e.target.closest(".comment-audio");
+  if (audioCard) {
+    const url = audioCard.dataset.audioUrl;
+    const name = audioCard.dataset.audioName || "Audio";
+    const size = parseInt(audioCard.dataset.audioSize || "0", 10);
+    const cover = audioCard.dataset.audioCover || null;
+    if (!url) return;
+
+    const dlBtn = e.target.closest(".comment-audio-download");
+    if (dlBtn) {
+      e.stopPropagation();
+      downloadAsFile(url, name);
+      return;
+    }
+
+    const audio = musicPlayer.audio;
+    if (
+      musicPlayer.activeCard === audioCard &&
+      audio &&
+      musicPlayer.current?.url === url
+    ) {
+      if (audio.paused) audio.play().catch(() => {});
+      else audio.pause();
+      return;
+    }
+
+    playMusic(url, name, size, cover, audioCard);
+    return;
+  }
+
+  if (e.target.closest(".image-lightbox")) {
+    const lb = e.target.closest(".image-lightbox");
+    const btn = e.target.closest(".lightbox-btn");
+    if (btn) {
+      e.stopPropagation();
+      const action = btn.dataset.action;
+      const img = lb.querySelector(".lightbox-image");
+      if (action === "close") closeLightbox();
+      if (action === "download" && img.src) {
+        downloadAsFile(img.src, img.alt || "image.jpg");
+      }
+      if (action === "open" && img.src) {
+        window.open(img.src, "_blank", "noopener");
+      }
+      return;
+    }
+    if (e.target === lb) closeLightbox();
+    return;
+  }
+
+  const mediaImg = e.target.closest(".comment-media img, .tweet-media img");
+  if (mediaImg && !mediaImg.classList.contains("media-failed")) {
+    openLightbox(mediaImg.src, mediaImg.alt || "image");
+    return;
+  }
+
+  const fileChip = e.target.closest(".comment-file");
+  if (fileChip && !fileChip.classList.contains("downloading")) {
+    startFileDownload(fileChip);
+    return;
+  }
+
+  const filterBtn = e.target.closest(".search-filter-btn");
+  const filterItem = e.target.closest(".search-filter-item");
+  const filterRoot = document.querySelector(".search-filter");
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   if (filterBtn) {
     e.stopPropagation();
     filterRoot.classList.toggle("open");
@@ -912,9 +1615,16 @@ document.addEventListener("click", (e) => {
     filterRoot.classList.remove("open");
     return;
   }
+<<<<<<< HEAD
   if (filterRoot && !filterRoot.contains(e.target)) filterRoot.classList.remove("open");
 
   /* ---- Attachment remove ---- */
+=======
+  if (filterRoot && !filterRoot.contains(e.target)) {
+    filterRoot.classList.remove("open");
+  }
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   const removeBtn = e.target.closest(".attach-chip-remove");
   if (removeBtn) {
     e.stopPropagation();
@@ -935,7 +1645,10 @@ document.addEventListener("click", (e) => {
     return;
   }
 
+<<<<<<< HEAD
   /* ---- Attach menu ---- */
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   const attachBtn = e.target.closest(".comment-attach-btn");
   if (attachBtn) {
     e.stopPropagation();
@@ -947,6 +1660,10 @@ document.addEventListener("click", (e) => {
     root.classList.toggle("open");
     return;
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   const attachItem = e.target.closest(".comment-attach-item");
   if (attachItem) {
     e.stopPropagation();
@@ -958,11 +1675,18 @@ document.addEventListener("click", (e) => {
     openFilePicker(kind, form);
     return;
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   if (!e.target.closest(".comment-attach")) {
     document.querySelectorAll(".comment-attach.open").forEach((el) => el.classList.remove("open"));
   }
 
+<<<<<<< HEAD
   /* ---- Tweet menu ---- */
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   const menuBtn = e.target.closest(".tweet-menu-btn");
   if (menuBtn) {
     const tweet = menuBtn.closest(".tweet");
@@ -972,19 +1696,37 @@ document.addEventListener("click", (e) => {
       const saveBtn = tweet.querySelector('.overlay-action[data-action="save"]');
       if (saveBtn && hasSavedAPI()) {
         const postId = tweet.dataset.postId || `tweet_${hashText(tweet.innerText)}`;
+<<<<<<< HEAD
         SavedAPI.isPostSaved(postId).then((saved) => saveBtn.classList.toggle("is-saved", saved));
+=======
+        SavedAPI.isPostSaved(postId).then((saved) => {
+          saveBtn.classList.toggle("is-saved", saved);
+        });
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
       }
       tweet.classList.add("is-open");
     }
     return;
   }
 
+<<<<<<< HEAD
   /* ---- Overlay action ---- */
+=======
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   const overlayAction = e.target.closest(".overlay-action");
   if (overlayAction) {
     const tweet = overlayAction.closest(".tweet");
     const action = overlayAction.dataset.action;
+<<<<<<< HEAD
     if (action === "close") { tweet.classList.remove("is-open"); return; }
+=======
+
+    if (action === "close") {
+      tweet.classList.remove("is-open");
+      return;
+    }
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     if (action === "save") {
       e.stopPropagation();
       if (!hasSavedAPI()) return;
@@ -1002,22 +1744,48 @@ document.addEventListener("click", (e) => {
       });
       return;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     if (action === "copy") {
       const url = window.location.href;
       const done = () => tweet.classList.remove("is-open");
       if (navigator.clipboard?.writeText) {
+<<<<<<< HEAD
         navigator.clipboard.writeText(url).then(done).catch(() => { fallbackCopy(url); done(); });
       } else { fallbackCopy(url); done(); }
       return;
     }
+=======
+        navigator.clipboard.writeText(url).then(done).catch(() => {
+          fallbackCopy(url);
+          done();
+        });
+      } else {
+        fallbackCopy(url);
+        done();
+      }
+      return;
+    }
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     tweet.classList.remove("is-open");
     return;
   }
 
   const overlay = e.target.closest(".tweet-overlay");
+<<<<<<< HEAD
   if (overlay) { overlay.closest(".tweet").classList.remove("is-open"); return; }
 
   /* ---- Comments ---- */
+=======
+  if (overlay) {
+    overlay.closest(".tweet").classList.remove("is-open");
+    return;
+  }
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   const commentBtn = e.target.closest(".tweet-action[data-action='comment']");
   if (commentBtn) {
     const tweet = commentBtn.closest(".tweet");
@@ -1031,6 +1799,10 @@ document.addEventListener("click", (e) => {
     }
     return;
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   const commentsClose = e.target.closest(".comments-close");
   if (commentsClose) {
     const tweet = commentsClose.closest(".tweet");
@@ -1038,6 +1810,10 @@ document.addEventListener("click", (e) => {
     if (comments) comments.classList.remove("is-open");
     return;
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   const seeMoreBtn = e.target.closest(".comments-see-more");
   if (seeMoreBtn) {
     const tweet = seeMoreBtn.closest(".tweet");
@@ -1052,13 +1828,21 @@ document.addEventListener("click", (e) => {
 });
 
 /* ============================================================
+<<<<<<< HEAD
    Submit comment
+=======
+   Submit
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
    ============================================================ */
 document.addEventListener("submit", async (e) => {
   const form = e.target.closest(".comment-form");
   if (!form) return;
   e.preventDefault();
   if (form.dataset.submitting === "1") return;
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   const input = form.querySelector(".comment-input");
   const text = input.value.trim();
   const attachments = (pendingFiles.get(form) || []).slice();
@@ -1066,6 +1850,10 @@ document.addEventListener("submit", async (e) => {
 
   form.dataset.submitting = "1";
   const container = form.previousElementSibling;
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   attachments.forEach((entry) => {
     if (!entry.chipEl) return;
     entry.chipEl.classList.add("uploading");
@@ -1075,20 +1863,34 @@ document.addEventListener("submit", async (e) => {
     entry.chipEl.appendChild(spinner);
   });
   if (window.lucide) window.lucide.createIcons();
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   await new Promise((r) => setTimeout(r, 950));
 
   const list = form.closest(".tweet-comments").querySelector(".comments-list");
   const article = document.createElement("article");
   article.className = "comment";
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   let mediaHTML = "";
   attachments.forEach((entry) => {
     const file = entry.file;
     if (file.type.startsWith("image/")) {
+<<<<<<< HEAD
       mediaHTML += `<div class="comment-media"><img src="${entry.url}" alt="${escapeHTML(file.name)}" /></div>`;
     } else if (file.type.startsWith("audio/")) {
       const coverHTML = entry.coverUrl
         ? `<img src="${entry.coverUrl}" alt="" />`
         : `<i data-lucide="music"></i>`;
+=======
+      mediaHTML += '<div class="comment-media">' + `<img src="${entry.url}" alt="${escapeHTML(file.name)}" />` + "</div>";
+    } else if (file.type.startsWith("audio/")) {
+      const coverHTML = entry.coverUrl ? `<img src="${entry.coverUrl}" alt="" />` : `<i data-lucide="music"></i>`;
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
       mediaHTML +=
         `<div class="comment-audio" data-audio-url="${entry.url}" data-audio-name="${escapeHTML(file.name)}" data-audio-size="${file.size}" data-audio-cover="${entry.coverUrl || ""}">` +
         `<div class="comment-audio-cover">${coverHTML}</div>` +
@@ -1115,6 +1917,13 @@ document.addEventListener("submit", async (e) => {
         "</div>" +
         "</div>" +
         '<div class="comment-file-download-icon"><i data-lucide="download"></i></div>' +
+<<<<<<< HEAD
+=======
+        '<div class="comment-file-progress">' +
+        '<svg viewBox="0 0 36 36"><circle class="track" cx="18" cy="18" r="16" /><circle class="bar" cx="18" cy="18" r="16" /></svg>' +
+        '<span class="pct">0%</span>' +
+        "</div>" +
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
         "</div>";
     }
   });
@@ -1135,28 +1944,55 @@ document.addEventListener("submit", async (e) => {
   list.appendChild(article);
   list.scrollTop = list.scrollHeight;
   input.value = "";
+<<<<<<< HEAD
   if (container && container.classList.contains("comment-attachments")) container.innerHTML = "";
+=======
+  if (container && container.classList.contains("comment-attachments")) {
+    container.innerHTML = "";
+  }
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   pendingFiles.delete(form);
   form.dataset.submitting = "";
   if (window.lucide) window.lucide.createIcons();
 });
 
+<<<<<<< HEAD
 document.addEventListener("keydown", (e) => {
   if (e.key !== "Escape") return;
   if (musicPlayer.full && musicPlayer.full.classList.contains("open")) { closeFullPlayer(); return; }
   if (lightboxEl && lightboxEl.classList.contains("open")) { closeLightbox(); return; }
+=======
+/* ============================================================
+   Escape key
+   ============================================================ */
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Escape") return;
+  if (musicPlayer.full && musicPlayer.full.classList.contains("open")) {
+    closeFullPlayer();
+    return;
+  }
+  if (lightboxEl && lightboxEl.classList.contains("open")) {
+    closeLightbox();
+    return;
+  }
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   document.querySelectorAll(".tweet.is-open").forEach((t) => t.classList.remove("is-open"));
   document.querySelector(".search-filter")?.classList.remove("open");
   document.querySelectorAll(".comment-attach.open").forEach((el) => el.classList.remove("open"));
 });
 
 /* ============================================================
+<<<<<<< HEAD
    File picker
+=======
+   File Picker
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
    ============================================================ */
 function openFilePicker(kind, form) {
   if (!form) return;
   const max = getMaxFiles(form);
   const existing = pendingFiles.get(form) || [];
+<<<<<<< HEAD
   if (existing.length >= max) {
     existing.forEach((entry) => { if (entry.url) URL.revokeObjectURL(entry.url); });
     pendingFiles.delete(form);
@@ -1172,6 +2008,37 @@ function openFilePicker(kind, form) {
   else if (kind === "camera") { input.accept = "image/*"; input.capture = "environment"; }
   input.style.display = "none";
   document.body.appendChild(input);
+=======
+
+  if (existing.length >= max) {
+    existing.forEach((entry) => {
+      if (entry.url) URL.revokeObjectURL(entry.url);
+    });
+    pendingFiles.delete(form);
+    const container = form.previousElementSibling;
+    if (container && container.classList.contains("comment-attachments")) {
+      container.innerHTML = "";
+    }
+  }
+
+  const input = document.createElement("input");
+  input.type = "file";
+  input.multiple = kind !== "camera" && max > 1;
+
+  if (kind === "image") input.accept = "image/*";
+  else if (kind === "document")
+    input.accept = ".pdf,.doc,.docx,.txt,.md,.csv,.xls,.xlsx,.ppt,.pptx,.zip,.rar";
+  else if (kind === "music")
+    input.accept = "audio/*,.mp3,.wav,.ogg,.flac,.m4a,.aac,.opus,.webm";
+  else if (kind === "camera") {
+    input.accept = "image/*";
+    input.capture = "environment";
+  }
+
+  input.style.display = "none";
+  document.body.appendChild(input);
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   input.addEventListener("change", () => {
     const files = Array.from(input.files || []);
     if (files.length) addAttachments(form, files, kind);
@@ -1180,6 +2047,7 @@ function openFilePicker(kind, form) {
   input.click();
 }
 
+<<<<<<< HEAD
 function addAttachments(form, files, pickerKind) {
   const container = form.previousElementSibling;
   if (!container || !container.classList.contains("comment-attachments")) return;
@@ -1191,6 +2059,29 @@ function addAttachments(form, files, pickerKind) {
       : file.type.startsWith("image/") ? "image"
       : file.type.startsWith("audio/") ? "audio"
       : "document";
+=======
+/* ============================================================
+   Add attachments
+   ============================================================ */
+function addAttachments(form, files, pickerKind) {
+  const container = form.previousElementSibling;
+  if (!container || !container.classList.contains("comment-attachments")) return;
+
+  const max = getMaxFiles(form);
+  let list = pendingFiles.get(form) || [];
+
+  const accepted = [];
+  for (const file of files) {
+    const kind =
+      pickerKind === "camera"
+        ? "camera"
+        : file.type.startsWith("image/")
+          ? "image"
+          : file.type.startsWith("audio/")
+            ? "audio"
+            : "document";
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     const limit = configLimits[kind] ?? configLimits.document;
     if (limit && file.size > limit) {
       showLimitModal({
@@ -1201,6 +2092,7 @@ function addAttachments(form, files, pickerKind) {
     }
     accepted.push(file);
   }
+<<<<<<< HEAD
   if (accepted.length === 0) return;
   if (list.length + accepted.length > max) {
     list.forEach((entry) => { if (entry.url) URL.revokeObjectURL(entry.url); });
@@ -1208,28 +2100,74 @@ function addAttachments(form, files, pickerKind) {
     container.innerHTML = "";
   }
   const finalFiles = accepted.slice(0, max);
+=======
+
+  if (accepted.length === 0) return;
+  if (list.length + accepted.length > max) {
+    list.forEach((entry) => {
+      if (entry.url) URL.revokeObjectURL(entry.url);
+    });
+    list = [];
+    container.innerHTML = "";
+  }
+
+  const finalFiles = accepted.slice(0, max);
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   finalFiles.forEach((file) => {
     const isImage = file.type.startsWith("image/");
     const isAudio = file.type.startsWith("audio/");
     const blobUrl = URL.createObjectURL(file);
+<<<<<<< HEAD
     const entry = { id: Math.random().toString(36).slice(2), file, url: blobUrl, width: 0, height: 0, coverUrl: null };
     list.push(entry);
     const chip = document.createElement("div");
     chip.className = "attach-chip";
     chip.dataset.id = entry.id;
+=======
+    const entry = {
+      id: Math.random().toString(36).slice(2),
+      file,
+      url: blobUrl,
+      width: 0,
+      height: 0,
+      coverUrl: null,
+    };
+    list.push(entry);
+
+    const chip = document.createElement("div");
+    chip.className = "attach-chip";
+    chip.dataset.id = entry.id;
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     let preview;
     if (isImage) preview = `<img src="${blobUrl}" alt="" />`;
     else if (isAudio) preview = `<i data-lucide="music"></i>`;
     else preview = `<i data-lucide="${iconForFile(file)}"></i>`;
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     chip.innerHTML =
       `<div class="attach-chip-preview">${preview}</div>` +
       `<button class="attach-chip-remove" type="button" aria-label="Remove"><i data-lucide="x"></i></button>` +
       `<div class="attach-chip-info"></div>`;
+<<<<<<< HEAD
     const infoEl = chip.querySelector(".attach-chip-info");
     infoEl.textContent = isImage ? "…" : formatBytes(file.size);
     container.appendChild(chip);
     entry.chipEl = chip;
     entry.infoEl = infoEl;
+=======
+
+    const infoEl = chip.querySelector(".attach-chip-info");
+    infoEl.textContent = isImage ? "…" : formatBytes(file.size);
+
+    container.appendChild(chip);
+    entry.chipEl = chip;
+    entry.infoEl = infoEl;
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     if (isImage) {
       const img = new Image();
       img.onload = () => {
@@ -1237,9 +2175,18 @@ function addAttachments(form, files, pickerKind) {
         entry.height = img.naturalHeight;
         infoEl.textContent = `${entry.width}×${entry.height}`;
       };
+<<<<<<< HEAD
       img.onerror = () => { infoEl.textContent = formatBytes(file.size); };
       img.src = blobUrl;
     }
+=======
+      img.onerror = () => {
+        infoEl.textContent = formatBytes(file.size);
+      };
+      img.src = blobUrl;
+    }
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     if (isAudio) {
       extractAlbumArt(file).then((dataUrl) => {
         if (dataUrl) {
@@ -1250,6 +2197,10 @@ function addAttachments(form, files, pickerKind) {
       });
     }
   });
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   pendingFiles.set(form, list);
   if (window.lucide) window.lucide.createIcons();
 }
@@ -1264,6 +2215,10 @@ function getMaxFiles(form) {
   const n = parseInt(attr, 10);
   return Number.isFinite(n) && n > 0 ? n : 1;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 function iconForFile(file) {
   const type = file.type;
   const name = file.name.toLowerCase();
@@ -1276,6 +2231,10 @@ function iconForFile(file) {
   if (type.startsWith("audio/")) return "music";
   return "file";
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 function formatBytes(bytes) {
   if (!bytes) return "0 B";
   if (bytes < 1024) return `${bytes} B`;
@@ -1283,11 +2242,24 @@ function formatBytes(bytes) {
   if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
   return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GB`;
 }
+<<<<<<< HEAD
 function escapeHTML(str) {
   return String(str)
     .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;").replace(/'/g, "&#039;");
 }
+=======
+
+function escapeHTML(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 function fallbackCopy(text) {
   const ta = document.createElement("textarea");
   ta.value = text;
@@ -1301,10 +2273,18 @@ function fallbackCopy(text) {
 }
 
 /* ============================================================
+<<<<<<< HEAD
    Search hide on scroll
    ============================================================ */
 (function () {
   let lastY = 0, ticking = false;
+=======
+   Search bar hide on scroll
+   ============================================================ */
+(function () {
+  let lastY = 0;
+  let ticking = false;
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   function onScroll() {
     const header = document.querySelector(".home-header");
     if (!header) { ticking = false; return; }
@@ -1321,6 +2301,12 @@ function fallbackCopy(text) {
   }, { passive: true });
 })();
 
+<<<<<<< HEAD
+=======
+/* ============================================================
+   Media skeleton loaders
+   ============================================================ */
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 function setupMediaLoaders() {
   document.querySelectorAll(".tweet-media img, .comment-media img").forEach((img) => {
     if (img.dataset.loaderReady === "1") return;
@@ -1328,22 +2314,45 @@ function setupMediaLoaders() {
     const parent = img.parentElement;
     if (!parent) return;
     if (img.complete && img.naturalWidth > 0) return;
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     parent.classList.add("is-loading");
     const skeleton = document.createElement("div");
     skeleton.className = "media-skeleton";
     skeleton.innerHTML = '<i data-lucide="refresh-cw"></i>';
     parent.appendChild(skeleton);
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     const done = () => {
       parent.classList.remove("is-loading");
       skeleton.classList.add("hidden");
       setTimeout(() => skeleton.remove(), 450);
     };
+<<<<<<< HEAD
     img.addEventListener("load", done, { once: true });
     img.addEventListener("error", () => { img.classList.add("media-failed"); done(); }, { once: true });
+=======
+
+    img.addEventListener("load", done, { once: true });
+    img.addEventListener("error", () => {
+      img.classList.add("media-failed");
+      done();
+    }, { once: true });
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   });
   if (window.lucide) window.lucide.createIcons();
 }
 
+<<<<<<< HEAD
+=======
+/* ============================================================
+   Camera availability
+   ============================================================ */
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 function setupCameraAvailability() {
   const isMobile = document.body.classList.contains("is-mobile");
   if (isMobile) return;
@@ -1354,12 +2363,25 @@ function setupCameraAvailability() {
   });
 }
 
+<<<<<<< HEAD
+=======
+/* ============================================================
+   Comment Emoji Button
+   ============================================================ */
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 function setupCommentEmoji() {
   document.querySelectorAll(".comment-form").forEach((form) => {
     if (form.dataset.emojiReady === "1") return;
     form.dataset.emojiReady = "1";
+<<<<<<< HEAD
     const sendBtn = form.querySelector(".comment-send");
     if (!sendBtn) return;
+=======
+
+    const sendBtn = form.querySelector(".comment-send");
+    if (!sendBtn) return;
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "comment-emoji-btn";
@@ -1370,6 +2392,12 @@ function setupCommentEmoji() {
   if (window.lucide) window.lucide.createIcons();
 }
 
+<<<<<<< HEAD
+=======
+/* ============================================================
+   Emoji Button click — global
+   ============================================================ */
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 document.addEventListener("click", (e) => {
   const emojiBtn = e.target.closest(".comment-emoji-btn");
   if (!emojiBtn || !window.VexecEmoji) return;
@@ -1379,6 +2407,12 @@ document.addEventListener("click", (e) => {
   if (input) window.VexecEmoji.toggle(input);
 });
 
+<<<<<<< HEAD
+=======
+/* ============================================================
+   Route change + initial run
+   ============================================================ */
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 document.addEventListener("route:change", () => {
   setTimeout(() => {
     setupAttachments();
@@ -1398,7 +2432,11 @@ setTimeout(() => {
 }, 80);
 
 /* ============================================================
+<<<<<<< HEAD
    Reload overlay
+=======
+   Reload Overlay
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
    ============================================================ */
 (function () {
   const overlay = document.getElementById("reload-overlay");
@@ -1407,7 +2445,14 @@ setTimeout(() => {
   const closeBtn = overlay.querySelector(".reload-close");
   const actionBtn = overlay.querySelector(".reload-icon-btn");
   const inner = overlay.querySelector(".reload-inner");
+<<<<<<< HEAD
   let touchStartY = 0, touchCurrentY = 0, dragging = false;
+=======
+  let touchStartY = 0;
+  let touchCurrentY = 0;
+  let dragging = false;
+
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   function open() {
     overlay.classList.add("open");
     overlay.setAttribute("aria-hidden", "false");
@@ -1422,7 +2467,13 @@ setTimeout(() => {
   brandBtn?.addEventListener("click", open);
   closeBtn?.addEventListener("click", close);
   actionBtn?.addEventListener("click", () => window.location.reload());
+<<<<<<< HEAD
   overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
+=======
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) close();
+  });
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
   overlay.addEventListener("touchstart", (e) => {
     touchStartY = e.touches[0].clientY;
     touchCurrentY = touchStartY;
@@ -1451,6 +2502,7 @@ setTimeout(() => {
 })();
 
 /* ============================================================
+<<<<<<< HEAD
    Expose
    ============================================================ */
 window.VexecPlayer = {
@@ -1477,4 +2529,18 @@ window.VexecPlayer = {
     return !!(musicPlayer.current && musicPlayer.current.url === url);
   },
   get current() { return musicPlayer.current; },
+=======
+   Expose player
+   ============================================================ */
+window.VexecPlayer = {
+  play(url, name, size, cover, cardEl) {
+    playMusic(url, name, size, cover, cardEl);
+  },
+  close() {
+    closeMiniPlayer();
+  },
+  get current() {
+    return musicPlayer.current;
+  },
+>>>>>>> fe5a5742073570dc4d4a912f3c8c1dc5ed31f50b
 };

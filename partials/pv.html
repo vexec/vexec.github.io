@@ -1,0 +1,69 @@
+<section class="pv-page">
+  <!-- ============ HEADER ============ -->
+  <header class="pv-header">
+    <div class="pv-header-row">
+      <div class="pv-header-titles">
+        <h1 class="pv-title">
+          <i data-lucide="venetian-mask"></i>
+          <span>Secret Inbox</span>
+        </h1>
+        <p class="pv-subtitle">
+          Messages sent to you anonymously. Nobody knows who sent them —
+          not even us.
+        </p>
+      </div>
+      <button class="pv-new-btn" type="button" data-route="/pv/new">
+        <i data-lucide="send-horizontal"></i>
+        <span>New Secret</span>
+      </button>
+    </div>
+
+    <!-- ============ FILTERS ============ -->
+    <div class="pv-filters">
+      <button class="pv-filter active" type="button" data-filter="all">
+        <i data-lucide="layers"></i>
+        <span>All</span>
+      </button>
+      <button class="pv-filter" type="button" data-filter="unread">
+        <i data-lucide="circle-dot"></i>
+        <span>Unread</span>
+      </button>
+      <button class="pv-filter" type="button" data-filter="ignored">
+        <i data-lucide="eye-off"></i>
+        <span>Ignored</span>
+      </button>
+      <button class="pv-filter" type="button" data-filter="sent">
+        <i data-lucide="send"></i>
+        <span>Sent</span>
+      </button>
+      <button class="pv-filter" type="button" data-filter="media">
+        <i data-lucide="image"></i>
+        <span>Media</span>
+      </button>
+      <button class="pv-filter" type="button" data-filter="reported">
+        <i data-lucide="flag"></i>
+        <span>Reported</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ LIST ============ -->
+  <div class="pv-list" id="pv-list"></div>
+
+  <!-- ============ EMPTY STATE ============ -->
+  <div class="pv-empty" id="pv-empty" hidden>
+    <div class="pv-empty-icon">
+      <i data-lucide="ghost"></i>
+    </div>
+    <h3 class="pv-empty-title" id="pv-empty-title">Nothing here yet</h3>
+    <p class="pv-empty-text" id="pv-empty-text">
+      You haven't received any secret messages. When someone sends one,
+      it will appear here — without their name.
+    </p>
+    <button class="pv-empty-btn" type="button" data-route="/pv/new">
+      <i data-lucide="send-horizontal"></i>
+      <span>Send one yourself</span>
+    </button>
+  </div>
+
+</section>

@@ -1,0 +1,146 @@
+<section class="ps-page">
+  <!-- ============ HERO ============ -->
+  <header class="ps-hero">
+    <div class="ps-hero-bg" aria-hidden="true">
+      <div class="ps-orb ps-orb-1"></div>
+      <div class="ps-orb ps-orb-2"></div>
+      <div class="ps-grid"></div>
+    </div>
+
+    <div class="ps-hero-content">
+      <div class="ps-hero-icon">
+        <i data-lucide="venetian-mask"></i>
+      </div>
+      <h1 class="ps-title">
+        Send a <span class="ps-title-accent">Secret</span>
+      </h1>
+      <p class="ps-desc">
+        One message. One recipient. No name attached. They'll never know it was
+        you — not even if they try.
+      </p>
+      <div class="ps-anon-badge">
+        <i data-lucide="shield-check"></i>
+        <span>Anonymous · Encrypted · Untraceable</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ RECIPIENT SEARCH ============ -->
+  <div class="ps-section">
+    <label class="ps-label">
+      <i data-lucide="at-sign"></i>
+      <span>Recipient</span>
+    </label>
+
+    <div class="ps-search" id="ps-search">
+      <!-- Selected recipient chip -->
+      <div class="ps-recipient" id="ps-recipient" hidden>
+        <div class="ps-recipient-avatar">
+          <img id="ps-recipient-img" alt="" />
+        </div>
+        <div class="ps-recipient-info">
+          <span class="ps-recipient-name" id="ps-recipient-name"></span>
+          <span class="ps-recipient-handle" id="ps-recipient-handle"></span>
+        </div>
+        <button
+          class="ps-recipient-clear"
+          type="button"
+          id="ps-recipient-clear"
+          aria-label="Clear recipient"
+        >
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <!-- Search input -->
+      <div class="ps-search-wrap" id="ps-search-wrap">
+        <span class="ps-search-prefix">@</span>
+        <input
+          type="text"
+          id="ps-search-input"
+          class="ps-search-input"
+          placeholder="Search by username..."
+          autocomplete="off"
+          spellcheck="false"
+          autocapitalize="off"
+        />
+        <div class="ps-search-spinner" id="ps-search-spinner" hidden>
+          <i data-lucide="loader-circle"></i>
+        </div>
+      </div>
+
+      <!-- Live results -->
+      <div class="ps-results" id="ps-results" hidden>
+        <div class="ps-results-inner" id="ps-results-inner"></div>
+      </div>
+    </div>
+
+    <p class="ps-hint" id="ps-hint">
+      Type a username to find the person you want to send to
+    </p>
+  </div>
+
+  <!-- ============ EDITOR ============ -->
+  <div class="ps-section">
+    <label class="ps-label">
+      <i data-lucide="square-pen"></i>
+      <span>Your message</span>
+    </label>
+
+    <div class="ps-editor">
+      <textarea
+        id="ps-textarea"
+        class="ps-textarea"
+        placeholder="Say the thing you can't say with your name attached..."
+        maxlength="2000"
+        spellcheck="false"
+      ></textarea>
+
+      <div class="ps-editor-footer">
+        <span class="ps-counter" id="ps-counter">0 / 2000</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ATTACHMENTS ============ -->
+  <div class="ps-section">
+    <label class="ps-label">
+      <i data-lucide="paperclip"></i>
+      <span>Attachments (optional)</span>
+    </label>
+
+    <div class="ps-attachments" id="ps-attachments"></div>
+
+    <div class="ps-toolbar">
+      <button class="ps-tool" type="button" data-attach="image">
+        <i data-lucide="image"></i>
+        <span>Image</span>
+      </button>
+      <button class="ps-tool" type="button" data-attach="audio">
+        <i data-lucide="music"></i>
+        <span>Audio</span>
+      </button>
+      <button class="ps-tool" type="button" data-attach="document">
+        <i data-lucide="file-text"></i>
+        <span>File</span>
+      </button>
+      <button class="ps-tool ps-tool-camera" type="button" data-attach="camera">
+        <i data-lucide="camera"></i>
+        <span>Camera</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ SEND ============ -->
+  <div class="ps-send-wrap">
+    <button class="ps-send" id="ps-send" type="button" disabled>
+      <i data-lucide="send-horizontal"></i>
+      <span class="ps-send-label">Send Secret</span>
+    </button>
+
+    <p class="ps-send-note">
+      <i data-lucide="lock"></i>
+      <span>Your identity stays hidden. Always.</span>
+    </p>
+  </div>
+</section>

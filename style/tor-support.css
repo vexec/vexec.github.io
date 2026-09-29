@@ -1,0 +1,674 @@
+/* ============================================================
+   TOR SUPPORT PAGE
+   Uses .legal base, adds specific components.
+   ============================================================ */
+
+/* ============================================================
+   Comparison grid
+   ============================================================ */
+.ts-compare {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.ts-compare-card {
+    position: relative;
+    padding: 18px 16px 16px;
+    border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--bg-primary) 45%, transparent);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 0.2s ease, transform 0.18s ease;
+}
+
+.ts-compare-card:hover {
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+    transform: translateY(-2px);
+}
+
+.ts-compare-badge {
+    position: absolute;
+    top: -8px;
+    left: 14px;
+    padding: 2px 8px;
+    background: var(--accent);
+    border-radius: 3px;
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 0.56rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.ts-compare-icon {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    border-radius: 3px;
+    color: var(--accent);
+}
+
+.ts-compare-icon svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2.2;
+}
+
+.ts-compare-title {
+    font-family: var(--font-display);
+    font-size: 0.98rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.ts-compare-text {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.ts-compare-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 8px;
+    border-top: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+}
+
+.ts-compare-list li {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    line-height: 1.45;
+    color: var(--text-primary);
+    opacity: 0.9;
+}
+
+/* ============================================================
+   Steps
+   ============================================================ */
+.ts-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 10px;
+}
+
+.ts-step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.ts-step-num {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+    border-radius: 50%;
+    color: var(--accent);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.86rem;
+    font-weight: 800;
+}
+
+.ts-step-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ts-step-title {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.ts-step-text {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: var(--text-primary);
+    opacity: 0.92;
+    margin: 0;
+}
+
+.ts-step-text b {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.ts-step-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    align-self: flex-start;
+    padding: 5px 11px;
+    margin-top: 2px;
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+    border-radius: 999px;
+    color: var(--accent);
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.ts-step-link:hover {
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+.ts-step-link svg {
+    width: 11px;
+    height: 11px;
+    stroke-width: 2.6;
+}
+
+.ts-step-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px 12px;
+    margin-top: 4px;
+    background: color-mix(in srgb, #f59e0b 8%, transparent);
+    border-left: 3px solid #f59e0b;
+    border-radius: 0 8px 8px 0;
+    font-family: var(--font-body);
+    font-size: 0.74rem;
+    line-height: 1.55;
+    color: var(--text-primary);
+}
+
+.ts-step-note svg {
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    stroke-width: 2.4;
+    color: #f59e0b;
+    margin-top: 3px;
+}
+
+/* ============================================================
+   Onion address
+   ============================================================ */
+.ts-onion {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px 10px 14px;
+    margin-top: 4px;
+    background: color-mix(in srgb, var(--bg-secondary) 60%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.ts-onion code {
+    flex: 1;
+    min-width: 0;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.ts-onion code::-webkit-scrollbar {
+    display: none;
+}
+
+.ts-onion-copy {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    border-radius: 3px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ts-onion-copy:hover {
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.ts-onion-copy.is-copied {
+    color: #10b981;
+    background: color-mix(in srgb, #10b981 12%, transparent);
+}
+
+.ts-onion-copy svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 2.4;
+}
+
+/* ============================================================
+   Callout
+   ============================================================ */
+.ts-callout {
+    display: flex;
+    gap: 12px;
+    padding: 14px 16px;
+    margin-top: 14px;
+    background: color-mix(in srgb, #f59e0b 8%, transparent);
+    border: 1px solid color-mix(in srgb, #f59e0b 30%, transparent);
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+}
+
+.ts-callout svg {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    stroke-width: 2.4;
+    color: #f59e0b;
+    margin-top: 3px;
+}
+
+.ts-callout b {
+    color: #f59e0b;
+}
+
+/* ============================================================
+   Grid (for VPN pros/cons)
+   ============================================================ */
+.ts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 12px 0;
+}
+
+.ts-grid-item {
+    padding: 14px 16px;
+    border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--bg-primary) 45%, transparent);
+}
+
+.ts-grid-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-size: 0.86rem;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+    color: var(--text-primary);
+    margin: 0 0 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+}
+
+.ts-grid-title svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.4;
+}
+
+.ts-grid-item:first-child .ts-grid-title svg {
+    color: #10b981;
+}
+
+.ts-grid-item:last-child .ts-grid-title svg {
+    color: #e11d48;
+}
+
+.ts-grid-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.ts-grid-list li {
+    position: relative;
+    padding-left: 16px;
+    font-family: var(--font-body);
+    font-size: 0.76rem;
+    line-height: 1.5;
+    color: var(--text-primary);
+    opacity: 0.92;
+}
+
+.ts-grid-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px;
+    height: 6px;
+    background: color-mix(in srgb, var(--text-secondary) 60%, transparent);
+    border-radius: 50%;
+}
+
+/* ============================================================
+   Code block
+   ============================================================ */
+.ts-code {
+    margin: 14px 0;
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    border-radius: 4px;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--bg-secondary) 60%, transparent);
+}
+
+.ts-code-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: color-mix(in srgb, var(--bg-primary) 55%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+}
+
+.ts-code-lang {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    opacity: 0.75;
+}
+
+.ts-code-copy {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 9px;
+    background: transparent;
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    border-radius: 3px;
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: 0.66rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ts-code-copy:hover {
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.ts-code-copy.is-copied {
+    color: #10b981;
+    background: color-mix(in srgb, #10b981 12%, transparent);
+}
+
+.ts-code-copy svg {
+    width: 10px;
+    height: 10px;
+    stroke-width: 2.6;
+}
+
+.ts-code pre {
+    margin: 0;
+    padding: 14px 16px;
+    overflow-x: auto;
+}
+
+.ts-code code {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.78rem;
+    line-height: 1.65;
+    color: var(--text-primary);
+    white-space: pre;
+}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.ts-faq {
+    padding: 12px 16px;
+    margin-bottom: 6px;
+    border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--bg-primary) 40%, transparent);
+    transition: border-color 0.2s ease;
+}
+
+.ts-faq[open] {
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+}
+
+.ts-faq summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    list-style: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.005em;
+    padding: 4px 0;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ts-faq summary::-webkit-details-marker {
+    display: none;
+}
+
+.ts-faq summary svg {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.4;
+    color: var(--text-secondary);
+    transition: transform 0.25s ease, color 0.2s ease;
+}
+
+.ts-faq[open] summary svg {
+    transform: rotate(180deg);
+    color: var(--accent);
+}
+
+.ts-faq>p {
+    padding-top: 10px;
+    margin-top: 10px;
+    border-top: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    opacity: 0.92;
+}
+
+/* ============================================================
+   CTA
+   ============================================================ */
+.ts-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 34px 24px 24px;
+    margin-top: 10px;
+    text-align: center;
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--border));
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--accent) 5%, var(--bg-secondary));
+}
+
+.ts-cta-icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg,
+            var(--accent),
+            color-mix(in srgb, var(--accent) 55%, #8b5cf6));
+    border-radius: 50%;
+    color: #ffffff;
+    box-shadow: 0 8px 22px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+.ts-cta-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2.2;
+}
+
+.ts-cta-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.ts-cta-text {
+    font-family: var(--font-body);
+    font-size: 0.84rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    max-width: 460px;
+    margin: 0;
+}
+
+.ts-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    margin-top: 4px;
+    background: linear-gradient(135deg,
+            var(--accent),
+            color-mix(in srgb, var(--accent) 55%, #8b5cf6));
+    border: none;
+    border-radius: 999px;
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 0.86rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.15s ease, filter 0.2s ease;
+    box-shadow: 0 8px 22px color-mix(in srgb, var(--accent) 30%, transparent);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ts-cta-btn:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+}
+
+.ts-cta-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.ts-cta-btn svg {
+    width: 15px;
+    height: 15px;
+    stroke-width: 2.4;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 720px) {
+    .ts-compare {
+        grid-template-columns: 1fr;
+    }
+
+    .ts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 520px) {
+    .ts-step {
+        gap: 12px;
+    }
+
+    .ts-step-num {
+        width: 30px;
+        height: 30px;
+        font-size: 0.78rem;
+    }
+
+    .ts-step-title {
+        font-size: 0.86rem;
+    }
+
+    .ts-step-text {
+        font-size: 0.78rem;
+    }
+
+    .ts-compare-card {
+        padding: 16px 14px;
+    }
+
+    .ts-cta {
+        padding: 28px 18px 20px;
+    }
+
+    .ts-cta-title {
+        font-size: 1rem;
+    }
+
+    .ts-cta-text {
+        font-size: 0.78rem;
+    }
+
+    .ts-cta-btn {
+        padding: 11px 18px;
+        font-size: 0.8rem;
+    }
+
+    .ts-code code {
+        font-size: 0.72rem;
+    }
+}

@@ -1,0 +1,512 @@
+<section class="legal ts-page">
+  <!-- ============ HEADER ============ -->
+  <header class="legal-head">
+    <div class="legal-head-top">
+      <div class="legal-head-icon">
+        <i data-lucide="shield-check"></i>
+      </div>
+      <span class="legal-head-eyebrow">Privacy · Tor Support</span>
+    </div>
+
+    <h1 class="legal-title">Protect your IP</h1>
+
+    <p class="legal-subtitle">
+      Vexec stores nothing about you. But your internet service provider can
+      still see that you visit this site. Here's how to make that impossible.
+    </p>
+
+    <div class="legal-meta">
+      <span class="legal-meta-item">
+        <i data-lucide="clock"></i>
+        <span>5-minute read</span>
+      </span>
+      <span class="legal-meta-item">
+        <i data-lucide="globe"></i>
+        <span>Works everywhere</span>
+      </span>
+      <span class="legal-meta-item">
+        <i data-lucide="lock"></i>
+        <span>Free &amp; open-source tools</span>
+      </span>
+    </div>
+  </header>
+
+  <!-- ============ INTRO ============ -->
+  <div class="legal-intro">
+    <p>
+      When you connect to any website, your device sends its <b>IP address</b>
+      along with the request. This is how the internet works — there's no way to
+      connect without one.
+    </p>
+    <p>
+      Vexec doesn't store your IP. Our servers receive it, process your request,
+      and forget it. But <b>your ISP</b> (the company that provides your
+      internet) also sees every domain you visit. They can't see
+      <em>what</em> you read or write on Vexec — because everything is encrypted
+      — but they can see that you were here.
+    </p>
+    <p>
+      If you want to hide that too, there are three ways. Each has trade-offs.
+      Pick the one that matches your threat model.
+    </p>
+  </div>
+
+  <!-- ============ COMPARISON ============ -->
+  <article class="legal-info legal-block" id="compare">
+    <div class="legal-block-head">
+      <i data-lucide="git-compare"></i>
+      <h2 class="legal-block-title">Three ways to hide your IP</h2>
+    </div>
+    <div class="legal-block-body">
+      <div class="ts-compare">
+        <div class="ts-compare-card ts-compare-tor">
+          <div class="ts-compare-badge">Best</div>
+          <div class="ts-compare-icon">
+            <i data-lucide="shield"></i>
+          </div>
+          <h3 class="ts-compare-title">Tor</h3>
+          <p class="ts-compare-text">
+            Routes your traffic through three random relays. Nobody knows both
+            who you are and what you're doing.
+          </p>
+          <ul class="ts-compare-list">
+            <li>✅ Hides IP from us and your ISP</li>
+            <li>✅ Free, open source</li>
+            <li>✅ Recommended by journalists, activists</li>
+            <li>⚠️ Slightly slower</li>
+          </ul>
+        </div>
+
+        <div class="ts-compare-card ts-compare-vpn">
+          <div class="ts-compare-badge">Easiest</div>
+          <div class="ts-compare-icon">
+            <i data-lucide="globe-lock"></i>
+          </div>
+          <h3 class="ts-compare-title">VPN</h3>
+          <p class="ts-compare-text">
+            Encrypts your traffic to a single provider, who sees your real IP
+            and forwards the traffic on your behalf.
+          </p>
+          <ul class="ts-compare-list">
+            <li>✅ Hides IP from us and your ISP</li>
+            <li>✅ Faster than Tor</li>
+            <li>⚠️ The VPN company knows your IP</li>
+            <li>⚠️ Paid ones are usually more trustworthy</li>
+          </ul>
+        </div>
+
+        <div class="ts-compare-card ts-compare-self">
+          <div class="ts-compare-badge">Most private</div>
+          <div class="ts-compare-icon">
+            <i data-lucide="server"></i>
+          </div>
+          <h3 class="ts-compare-title">Self-host</h3>
+          <p class="ts-compare-text">
+            Run your own copy of Vexec on a server you control. No third party
+            ever sees your traffic.
+          </p>
+          <ul class="ts-compare-list">
+            <li>✅ Zero trust required in anyone</li>
+            <li>✅ Full control</li>
+            <li>⚠️ Requires technical setup</li>
+            <li>⚠️ You pay for the server</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ TOR GUIDE ============ -->
+  <article class="legal-info legal-block" id="tor">
+    <div class="legal-block-head">
+      <i data-lucide="onion"></i>
+      <h2 class="legal-block-title">How to use Tor</h2>
+    </div>
+    <div class="legal-block-body">
+      <p>
+        Tor is a network that bounces your traffic through three random
+        computers around the world before it reaches its destination. No single
+        relay knows both who you are and where you're going.
+      </p>
+
+      <p>
+        It's completely free, run by a nonprofit, and used by journalists,
+        activists, and ordinary people who just want privacy.
+      </p>
+
+      <div class="ts-steps">
+        <div class="ts-step">
+          <div class="ts-step-num">1</div>
+          <div class="ts-step-body">
+            <h4 class="ts-step-title">Download Tor Browser</h4>
+            <p class="ts-step-text">
+              Go to <b>torproject.org</b> and download the Tor Browser for your
+              operating system. It's a modified version of Firefox that routes
+              everything through Tor automatically.
+            </p>
+            <a
+              href="https://www.torproject.org/download/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="ts-step-link"
+            >
+              <i data-lucide="external-link"></i>
+              <span>torproject.org/download</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="ts-step">
+          <div class="ts-step-num">2</div>
+          <div class="ts-step-body">
+            <h4 class="ts-step-title">Install and open it</h4>
+            <p class="ts-step-text">
+              Follow the installer for your OS. No account needed. When you open
+              Tor Browser, it will connect to the Tor network automatically
+              (this may take 10–30 seconds).
+            </p>
+          </div>
+        </div>
+
+        <div class="ts-step">
+          <div class="ts-step-num">3</div>
+          <div class="ts-step-body">
+            <h4 class="ts-step-title">Visit Vexec's .onion address</h4>
+            <p class="ts-step-text">
+              Once connected, enter our <b>.onion</b> address in the Tor Browser
+              address bar. This is a special address that only works inside the
+              Tor network — your ISP can't even see it exists.
+            </p>
+            <div class="ts-onion">
+              <code id="ts-onion-address">vexec7x2k4m.onion</code>
+              <button
+                class="ts-onion-copy"
+                type="button"
+                data-copy="vexec7x2k4m.onion"
+                aria-label="Copy address"
+              >
+                <i data-lucide="copy"></i>
+              </button>
+            </div>
+            <p class="ts-step-note">
+              <i data-lucide="info"></i>
+              <span>
+                Replace the placeholder above with our real .onion address once
+                it's live.
+              </span>
+            </p>
+          </div>
+        </div>
+
+        <div class="ts-step">
+          <div class="ts-step-num">4</div>
+          <div class="ts-step-body">
+            <h4 class="ts-step-title">Log in normally</h4>
+            <p class="ts-step-text">
+              Use your 20-character access code exactly as you would on the
+              regular site. Everything works the same — the only difference is
+              that your IP address is now completely hidden from us, your ISP,
+              and everyone else.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ts-callout">
+        <i data-lucide="alert-triangle"></i>
+        <div>
+          <b>Important:</b> don't log into the same Vexec account on both the
+          regular site and Tor at the same time. If someone is watching, they
+          could link your two sessions together. Pick one and stay with it.
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ VPN GUIDE ============ -->
+  <article class="legal-info legal-block" id="vpn">
+    <div class="legal-block-head">
+      <i data-lucide="globe-lock"></i>
+      <h2 class="legal-block-title">How to use a VPN</h2>
+    </div>
+    <div class="legal-block-body">
+      <p>
+        A VPN (Virtual Private Network) encrypts all your traffic and sends it
+        through a server run by the VPN company. Your ISP only sees that you're
+        connected to the VPN — not which sites you visit.
+      </p>
+
+      <p>
+        The VPN company itself can see your real IP. So the question becomes:
+        <b>do you trust your VPN provider?</b>
+      </p>
+
+      <div class="ts-grid">
+        <div class="ts-grid-item">
+          <h4 class="ts-grid-title">
+            <i data-lucide="check-circle-2"></i>
+            <span>Good signs</span>
+          </h4>
+          <ul class="ts-grid-list">
+            <li>Audited by third parties</li>
+            <li>No-logs policy (proven in court)</li>
+            <li>Open-source clients</li>
+            <li>Payments accepted in crypto</li>
+            <li>Based in privacy-friendly countries</li>
+          </ul>
+        </div>
+
+        <div class="ts-grid-item">
+          <h4 class="ts-grid-title">
+            <i data-lucide="x-circle"></i>
+            <span>Red flags</span>
+          </h4>
+          <ul class="ts-grid-list">
+            <li>"Free forever" VPNs</li>
+            <li>No privacy policy at all</li>
+            <li>Collects device identifiers</li>
+            <li>Owned by ad companies</li>
+            <li>Based in surveillance-heavy countries</li>
+          </ul>
+        </div>
+      </div>
+
+      <p>
+        If you can't decide which VPN to trust, <b>use Tor instead</b>. Tor's
+        architecture doesn't require trusting any single party.
+      </p>
+    </div>
+  </article>
+
+  <!-- ============ SELF HOST ============ -->
+  <article class="legal-info legal-block" id="self-host">
+    <div class="legal-block-head">
+      <i data-lucide="server"></i>
+      <h2 class="legal-block-title">How to self-host Vexec</h2>
+    </div>
+    <div class="legal-block-body">
+      <p>
+        If you don't want to trust <em>anyone</em> — not us, not Tor, not a VPN
+        — you can run Vexec entirely on your own server.
+      </p>
+
+      <p>
+        The frontend is fully open source. The backend is not, but its
+        architecture and protocol are documented. If you're comfortable with
+        servers, you can stand up your own instance in an hour.
+      </p>
+
+      <div class="ts-code">
+        <div class="ts-code-head">
+          <span class="ts-code-lang">bash</span>
+          <button
+            class="ts-code-copy"
+            type="button"
+            data-copy="git clone https://github.com/vexec/client.git&#10;cd client&#10;python3 -m http.server 8080"
+          >
+            <i data-lucide="copy"></i>
+            <span>Copy</span>
+          </button>
+        </div>
+        <pre><code>git clone https://github.com/vexec/client.git
+cd client
+python3 -m http.server 8080</code></pre>
+      </div>
+
+      <p>
+        This runs the frontend locally. To make it usable by others, you'd need
+        to also implement the backend API (documented at
+        <b>vexec.github.io/information</b>) on your own server. Any language works —
+        Go, Python, Rust, Node.js.
+      </p>
+
+      <p class="legal-block-quote">
+        Self-hosting means you don't have to trust anyone. The trade-off is that
+        you're now responsible for your own security, uptime, and legal
+        compliance.
+      </p>
+    </div>
+  </article>
+
+  <!-- ============ VERIFY ============ -->
+  <article class="legal-info legal-block" id="verify">
+    <div class="legal-block-head">
+      <i data-lucide="shield-check"></i>
+      <h2 class="legal-block-title">How to verify it's working</h2>
+    </div>
+    <div class="legal-block-body">
+      <p>
+        Whichever method you use, you should confirm that your IP is actually
+        hidden. Here's how:
+      </p>
+
+      <div class="ts-steps">
+        <div class="ts-step">
+          <div class="ts-step-num">1</div>
+          <div class="ts-step-body">
+            <h4 class="ts-step-title">
+              Check your IP first (without protection)
+            </h4>
+            <p class="ts-step-text">
+              Visit any "what is my IP" site and write down the address you see.
+              This is what the world sees about you right now.
+            </p>
+          </div>
+        </div>
+
+        <div class="ts-step">
+          <div class="ts-step-num">2</div>
+          <div class="ts-step-body">
+            <h4 class="ts-step-title">Turn on your protection</h4>
+            <p class="ts-step-text">
+              Open Tor Browser, or turn on your VPN, or switch to your
+              self-hosted instance.
+            </p>
+          </div>
+        </div>
+
+        <div class="ts-step">
+          <div class="ts-step-num">3</div>
+          <div class="ts-step-body">
+            <h4 class="ts-step-title">Check the IP again</h4>
+            <p class="ts-step-text">
+              Visit the same IP site through your protection. The address should
+              be completely different — and often in a different country.
+            </p>
+          </div>
+        </div>
+
+        <div class="ts-step">
+          <div class="ts-step-num">4</div>
+          <div class="ts-step-body">
+            <h4 class="ts-step-title">Test with Tor's own checker</h4>
+            <p class="ts-step-text">
+              The Tor Project maintains a page that specifically checks for
+              leaks: <b>check.torproject.org</b>. If you're using Tor correctly,
+              it will say so.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ FAQ ============ -->
+  <article class="legal-info legal-block" id="faq">
+    <div class="legal-block-head">
+      <i data-lucide="help-circle"></i>
+      <h2 class="legal-block-title">Frequently asked questions</h2>
+    </div>
+    <div class="legal-block-body">
+      <details class="ts-faq">
+        <summary>
+          <span>Is Tor legal in my country?</span>
+          <i data-lucide="chevron-down"></i>
+        </summary>
+        <p>
+          In most countries, yes. Tor is used by journalists, security
+          researchers, and ordinary people worldwide. A few countries restrict
+          or block it. Check your local laws if you're unsure.
+        </p>
+      </details>
+
+      <details class="ts-faq">
+        <summary>
+          <span>Does Tor slow down Vexec?</span>
+          <i data-lucide="chevron-down"></i>
+        </summary>
+        <p>
+          Slightly. Tor routes your traffic through three random computers, so
+          there's a small delay (usually 200–500ms). For a text-based platform
+          like Vexec, you probably won't notice.
+        </p>
+      </details>
+
+      <details class="ts-faq">
+        <summary>
+          <span>Can I use Tor on my phone?</span>
+          <i data-lucide="chevron-down"></i>
+        </summary>
+        <p>
+          Yes. On Android, install <b>Tor Browser</b> or <b>Orbot</b>
+          from the Play Store (or F-Droid). On iOS, install
+          <b>Onion Browser</b> from the App Store. Both are free.
+        </p>
+      </details>
+
+      <details class="ts-faq">
+        <summary>
+          <span>Do I need a VPN <em>and</em> Tor?</span>
+          <i data-lucide="chevron-down"></i>
+        </summary>
+        <p>
+          No, and combining them can actually weaken your anonymity if done
+          wrong. Pick one. Tor alone is stronger than most VPNs for anonymity
+          purposes.
+        </p>
+      </details>
+
+      <details class="ts-faq">
+        <summary>
+          <span>Will you ever see my real IP?</span>
+          <i data-lucide="chevron-down"></i>
+        </summary>
+        <p>
+          If you connect through Tor, no. If you connect through a VPN, no —
+          we'd see the VPN's IP, not yours. If you connect directly, we see your
+          IP in memory (like every website does) but we never write it to disk.
+        </p>
+      </details>
+
+      <details class="ts-faq">
+        <summary>
+          <span>What if my government blocks Tor?</span>
+          <i data-lucide="chevron-down"></i>
+        </summary>
+        <p>
+          Tor has built-in bridges and pluggable transports designed to bypass
+          censorship. Look for "Bridges" in Tor Browser's settings, or use
+          <b>Snowflake</b> — a browser extension that helps people connect in
+          censored regions.
+        </p>
+      </details>
+
+      <details class="ts-faq">
+        <summary>
+          <span>Does using Tor make me look suspicious to Vexec?</span>
+          <i data-lucide="chevron-down"></i>
+        </summary>
+        <p>
+          No. We don't block, flag, or treat Tor users differently. We don't log
+          IPs at all, so we can't even tell who's using Tor and who isn't.
+        </p>
+      </details>
+    </div>
+  </article>
+
+  <!-- ============ CTA ============ -->
+  <div class="ts-cta">
+    <div class="ts-cta-icon">
+      <i data-lucide="shield"></i>
+    </div>
+    <h3 class="ts-cta-title">Take one step today</h3>
+    <p class="ts-cta-text">
+      You don't have to do all three. Just pick the one that fits how much you
+      care about this and how much effort you're willing to put in.
+    </p>
+    <a
+      href="https://www.torproject.org/download/"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="ts-cta-btn"
+    >
+      <i data-lucide="download"></i>
+      <span>Download Tor Browser</span>
+    </a>
+  </div>
+
+  <!-- Back to top -->
+  <button class="legal-top" type="button" aria-label="Back to top">
+    <i data-lucide="arrow-up"></i>
+  </button>
+</section>

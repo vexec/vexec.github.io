@@ -1,0 +1,164 @@
+<section class="pv-page">
+  <!-- ================= LOADING ================= -->
+  <div class="pv-loading" id="pv-loading">
+    <div class="pv-skeleton-hero">
+      <div class="pv-skeleton pv-sk-avatar"></div>
+      <div class="pv-skeleton pv-sk-line" style="width: 42%"></div>
+      <div class="pv-skeleton pv-sk-line" style="width: 26%"></div>
+      <div class="pv-skeleton pv-sk-line" style="width: 88%; margin-top: 14px"></div>
+      <div class="pv-skeleton pv-sk-line" style="width: 62%"></div>
+      <div class="pv-skeleton-stats">
+        <div class="pv-skeleton pv-sk-stat"></div>
+        <div class="pv-skeleton pv-sk-stat"></div>
+        <div class="pv-skeleton pv-sk-stat"></div>
+        <div class="pv-skeleton pv-sk-stat"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 404 ================= -->
+  <div class="pv-404" id="pv-404" hidden>
+    <div class="pv-404-inner">
+      <div class="pv-404-icon">
+        <i data-lucide="user-x"></i>
+      </div>
+      <span class="pv-404-code">404</span>
+      <h2 class="pv-404-title">User not found</h2>
+      <p class="pv-404-text">
+        We couldn't find anyone named
+        <strong class="pv-404-username" id="pv-404-username"></strong>
+        on Vexec. They may have never existed, or they deleted their identity.
+      </p>
+      <button class="pv-404-btn" type="button" data-route="/">
+        <i data-lucide="house"></i>
+        <span>Back to home</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= CONTENT ================= -->
+  <div class="pv-content" id="pv-content" hidden>
+    <!-- ============ HERO ============ -->
+    <div class="pv-hero">
+      <div class="pv-hero-bg" aria-hidden="true">
+        <div class="pv-orb pv-orb-1"></div>
+        <div class="pv-orb pv-orb-2"></div>
+        <div class="pv-orb pv-orb-3"></div>
+        <div class="pv-hero-grid"></div>
+      </div>
+
+      <!-- Nav: back + home -->
+      <div class="pv-nav">
+        <button
+          class="pv-nav-btn"
+          type="button"
+          data-action="back"
+          aria-label="Back"
+        >
+          <i data-lucide="arrow-left"></i>
+        </button>
+        <button
+          class="pv-nav-btn"
+          type="button"
+          data-route="/"
+          aria-label="Home"
+        >
+          <i data-lucide="house"></i>
+        </button>
+      </div>
+
+      <div class="pv-hero-content">
+        <div class="pv-avatar-wrap" id="pv-avatar-wrap">
+          <div class="pv-avatar" id="pv-avatar">
+            <div class="pv-avatar-fallback">
+              <i data-lucide="user-round"></i>
+            </div>
+          </div>
+          <span class="pv-avatar-ring" aria-hidden="true"></span>
+        </div>
+
+        <div class="pv-identity">
+          <h1 class="pv-name">
+            <span id="pv-name-text">Anonymous</span>
+            <svg
+              class="pv-verified"
+              id="pv-verified"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-label="Verified"
+              hidden
+            >
+              <path
+                d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z"
+              />
+            </svg>
+          </h1>
+          <span class="pv-handle" id="pv-handle">@unknown</span>
+        </div>
+      </div>
+
+      <p class="pv-bio" id="pv-bio"></p>
+
+      <div class="pv-stats">
+        <div class="pv-stat">
+          <span class="pv-stat-value" id="pv-stat-posts">0</span>
+          <span class="pv-stat-label">Posts</span>
+        </div>
+        <div class="pv-stat-divider"></div>
+        <div class="pv-stat">
+          <span class="pv-stat-value" id="pv-stat-likes">0</span>
+          <span class="pv-stat-label">Likes</span>
+        </div>
+        <div class="pv-stat-divider"></div>
+        <div class="pv-stat">
+          <span class="pv-stat-value" id="pv-stat-views">0</span>
+          <span class="pv-stat-label">Views</span>
+        </div>
+        <div class="pv-stat-divider"></div>
+        <div class="pv-stat">
+          <span class="pv-stat-value" id="pv-stat-joined">—</span>
+          <span class="pv-stat-label">Since</span>
+        </div>
+      </div>
+
+      <div class="pv-actions">
+        <button
+          class="pv-action pv-action-primary"
+          type="button"
+          data-action="whisper"
+        >
+          <i data-lucide="send-horizontal"></i>
+          <span>Send Whisper</span>
+        </button>
+        <button
+          class="pv-action pv-action-ghost"
+          type="button"
+          data-action="share"
+          aria-label="Share"
+        >
+          <i data-lucide="share-2"></i>
+        </button>
+        <button
+          class="pv-action pv-action-ghost"
+          type="button"
+          data-action="report"
+          aria-label="Report"
+        >
+          <i data-lucide="flag"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ POSTS HEADER ============ -->
+    <div class="pv-section-header">
+      <h2 class="pv-section-title">
+        <i data-lucide="layers"></i>
+        <span>Posts</span>
+      </h2>
+      <span class="pv-section-count" id="pv-posts-count">0 posts</span>
+    </div>
+
+    <!-- ============ TWEETS FEED ============ -->
+    <div class="feed pv-feed" id="pv-posts"></div>
+  </div>
+</section>

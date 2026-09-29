@@ -1,0 +1,234 @@
+/* ============================================================
+   GLOBAL IMAGE LOADER — spinner + error fallback
+   ============================================================ */
+
+.img-loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-secondary);
+    z-index: 3;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    overflow: hidden;
+}
+
+.img-loader.is-done {
+    opacity: 0;
+}
+
+.img-loader-spinner {
+    width: 22px;
+    height: 22px;
+    border: 2px solid color-mix(in srgb, var(--accent) 22%, transparent);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: imgLoaderSpin 0.8s linear infinite;
+    flex-shrink: 0;
+}
+
+@keyframes imgLoaderSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.img-loader.is-error .img-loader-spinner {
+    display: none;
+}
+
+.img-loader-error {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 4px;
+    max-width: 100%;
+}
+
+.img-loader.is-error .img-loader-error {
+    display: flex;
+}
+
+.img-loader-error svg {
+    width: 22px;
+    height: 22px;
+    stroke-width: 1.8;
+    color: var(--text-secondary);
+    opacity: 0.65;
+    flex-shrink: 0;
+}
+
+.img-loader-error span {
+    font-family: var(--font-body);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--text-secondary);
+    opacity: 0.7;
+    line-height: 1.2;
+}
+
+/* ============================================================
+   Small contexts (avatars) — smaller spinner + no text
+   ============================================================ */
+
+.tweet-avatar .img-loader,
+.comment-avatar .img-loader,
+.saved-post-avatar .img-loader,
+.profile-avatar .img-loader {
+    border-radius: 50%;
+}
+
+.tweet-avatar .img-loader-spinner,
+.comment-avatar .img-loader-spinner,
+.saved-post-avatar .img-loader-spinner,
+.profile-avatar .img-loader-spinner {
+    width: 12px;
+    height: 12px;
+    border-width: 1.5px;
+}
+
+.tweet-avatar .img-loader-error span,
+.comment-avatar .img-loader-error span,
+.saved-post-avatar .img-loader-error span,
+.profile-avatar .img-loader-error span {
+    display: none;
+}
+
+.tweet-avatar .img-loader-error svg,
+.comment-avatar .img-loader-error svg,
+.saved-post-avatar .img-loader-error svg {
+    width: 14px;
+    height: 14px;
+}
+
+.profile-avatar .img-loader-error svg {
+    width: 28px;
+    height: 28px;
+}
+
+/* ============================================================
+   Audio covers — music-note fallback styling
+   ============================================================ */
+
+.comment-audio-cover .img-loader,
+.saved-post-audio-cover .img-loader,
+.saved-item-cover .img-loader,
+.full-player-cover .img-loader,
+.mini-cover .img-loader {
+    background: linear-gradient(135deg,
+            var(--accent),
+            color-mix(in srgb, var(--accent) 55%, #8b5cf6));
+}
+
+.comment-audio-cover .img-loader-spinner,
+.saved-post-audio-cover .img-loader-spinner,
+.saved-item-cover .img-loader-spinner,
+.full-player-cover .img-loader-spinner,
+.mini-cover .img-loader-spinner {
+    border-color: rgba(255, 255, 255, 0.25);
+    border-top-color: #ffffff;
+}
+
+.comment-audio-cover .img-loader-error svg,
+.saved-post-audio-cover .img-loader-error svg,
+.saved-item-cover .img-loader-error svg {
+    color: rgba(255, 255, 255, 0.85);
+    opacity: 1;
+}
+
+.comment-audio-cover .img-loader-error span,
+.saved-post-audio-cover .img-loader-error span,
+.saved-item-cover .img-loader-error span,
+.mini-cover .img-loader-error span,
+.tweet-avatar .img-loader-error span,
+.comment-avatar .img-loader-error span,
+.saved-post-avatar .img-loader-error span,
+.profile-avatar .img-loader-error span {
+    display: none !important;
+}
+
+.comment-audio-cover .img-loader-error svg,
+.saved-post-audio-cover .img-loader-error svg,
+.saved-item-cover .img-loader-error svg {
+    width: 18px;
+    height: 18px;
+    color: rgba(255, 255, 255, 0.9);
+    opacity: 1;
+}
+/* Mini cover — tiny */
+.mini-cover .img-loader-error span {
+    display: none;
+}
+
+.mini-cover .img-loader-error svg {
+    width: 12px;
+    height: 12px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.mini-cover .img-loader-spinner {
+    width: 12px;
+    height: 12px;
+    border-width: 1.5px;
+}
+
+/* Full player — large */
+.full-player-cover .img-loader-error svg {
+    width: 46px;
+    height: 46px;
+    color: rgba(255, 255, 255, 0.9);
+    opacity: 1;
+}
+
+.full-player-cover .img-loader-error span {
+    color: rgba(255, 255, 255, 0.85);
+    opacity: 1;
+}
+
+/* ============================================================
+   Hide broken img icons while loader is active
+   ============================================================ */
+
+img.img-error {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* ============================================================
+   Mini player — actual image support
+   ============================================================ */
+
+.mini-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+}
+
+.mini-cover svg.mini-cover-fallback {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 15px;
+    height: 15px;
+    stroke-width: 2.2;
+    z-index: 0;
+    animation: miniPulse 2s ease-in-out infinite;
+}
+
+.mini-cover img:not([src=""])~svg.mini-cover-fallback {
+    display: none;
+}

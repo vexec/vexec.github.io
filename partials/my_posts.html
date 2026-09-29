@@ -1,0 +1,67 @@
+<section class="mp-page">
+  <!-- ============ HEADER ============ -->
+  <header class="mp-header">
+    <div class="mp-header-top">
+      <button
+        class="mp-nav-btn"
+        type="button"
+        data-route="/profile"
+        aria-label="Back to profile"
+      >
+        <i data-lucide="arrow-left"></i>
+      </button>
+      <div class="mp-header-titles">
+        <h1 class="mp-title">My Whispers</h1>
+        <p class="mp-subtitle">Manage your anonymous posts</p>
+      </div>
+    </div>
+
+    <!-- ============ SUMMARY ============ -->
+    <div class="mp-summary">
+      <div class="mp-summary-item">
+        <span class="mp-summary-value" id="mp-total">0</span>
+        <span class="mp-summary-label">Total</span>
+      </div>
+      <div class="mp-summary-item">
+        <span class="mp-summary-value" id="mp-views">0</span>
+        <span class="mp-summary-label">Views</span>
+      </div>
+      <div class="mp-summary-item">
+        <span class="mp-summary-value" id="mp-likes">0</span>
+        <span class="mp-summary-label">Likes</span>
+      </div>
+      <div class="mp-summary-item">
+        <span class="mp-summary-value" id="mp-pinned">0</span>
+        <span class="mp-summary-label">Pinned</span>
+      </div>
+    </div>
+
+    <!-- ============ FILTER TABS ============ -->
+    <div class="mp-tabs" role="tablist">
+      <button
+        class="mp-tab active"
+        type="button"
+        data-filter="all"
+        role="tab"
+      >
+        <i data-lucide="layers"></i>
+        <span>All</span>
+      </button>
+      <button class="mp-tab" type="button" data-filter="pinned" role="tab">
+        <i data-lucide="pin"></i>
+        <span>Pinned</span>
+      </button>
+      <button class="mp-tab" type="button" data-filter="media" role="tab">
+        <i data-lucide="image"></i>
+        <span>Media</span>
+      </button>
+      <button class="mp-tab" type="button" data-filter="audio" role="tab">
+        <i data-lucide="music"></i>
+        <span>Audio</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ LIST ============ -->
+  <div class="mp-list" id="mp-list"></div>
+</section>

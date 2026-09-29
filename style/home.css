@@ -1,0 +1,4462 @@
+.home {
+    padding: 0 60px;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.home-header {
+    padding: 20px 0 18px;
+    position: sticky;
+    top: var(--brand-h);
+    z-index: 30;
+    background: color-mix(in srgb, var(--bg-primary) 70%, transparent);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+.home-header.hidden {
+    transform: translateY(-120%);
+    pointer-events: none;
+}
+
+.home-header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent,
+            color-mix(in srgb, var(--accent) 40%, transparent) 30%,
+            color-mix(in srgb, var(--accent) 40%, transparent) 70%,
+            transparent);
+    opacity: 0.5;
+}
+
+/* ================= Search Bar ================= */
+.search-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--bg-secondary) 70%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.search-wrap:focus-within {
+    border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.search-box {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    min-width: 0;
+}
+
+.search-icon {
+    width: 14px;
+    height: 14px;
+    color: var(--text-secondary);
+    stroke-width: 2.2;
+    flex-shrink: 0;
+    opacity: 0.7;
+}
+
+.search-input {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.005em;
+}
+
+.search-input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+.search-filter {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.search-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 10px 7px 12px;
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+    border-radius: 999px;
+    color: var(--accent);
+    font-family: inherit;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    white-space: nowrap;
+}
+
+.search-filter-btn:hover {
+    background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+.search-filter-label {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.search-filter-prefix {
+    color: var(--text-secondary);
+    font-weight: 400;
+    opacity: 0.85;
+}
+
+.search-filter-value {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.search-filter-chevron {
+    width: 11px;
+    height: 11px;
+    stroke-width: 2.4;
+    transition: transform 0.2s ease;
+}
+
+.search-filter.open .search-filter-chevron {
+    transform: rotate(180deg);
+}
+
+.search-filter-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    min-width: 140px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: color-mix(in srgb, var(--bg-primary) 85%, transparent);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    border-radius: 14px;
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.25),
+        0 0 0 1px color-mix(in srgb, var(--accent) 8%, transparent);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px) scale(0.96);
+    transform-origin: top right;
+    transition:
+        opacity 0.18s ease,
+        transform 0.18s ease,
+        visibility 0.18s;
+    z-index: 40;
+}
+
+.search-filter.open .search-filter-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.search-filter-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 7px 10px;
+    background: transparent;
+    border: none;
+    border-radius: 9px;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.005em;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.search-filter-item svg {
+    width: 15px;
+    height: 15px;
+    stroke-width: 2.4;
+    color: var(--text-secondary);
+    transition: color 0.15s ease;
+}
+
+.search-filter-item:hover {
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.search-filter-item.active {
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.search-filter-item.active svg {
+    color: var(--accent);
+}
+
+/* ================= Feed ================= */
+.feed {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 12px;
+}
+
+.tweet {
+    position: relative;
+    display: flex;
+    gap: 12px;
+    padding: 16px 18px;
+    border-radius: 18px;
+    background: color-mix(in srgb, var(--bg-secondary) 55%, transparent);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    transition: background-color 0.25s ease, border-color 0.25s ease;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.tweet::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg,
+            var(--accent),
+            color-mix(in srgb, var(--accent) 0%, transparent));
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    z-index: 2;
+}
+
+.tweet:hover::before {
+    opacity: 1;
+}
+
+/* ================= Avatars ================= */
+.tweet-avatar {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border));
+    transition: opacity 0.3s ease;
+    background: var(--bg-secondary);
+}
+
+.tweet-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.tweet-body {
+    flex: 1;
+    min-width: 0;
+    transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.tweet-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+    line-height: 1.2;
+}
+
+.tweet-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 600;
+    font-size: 0.82rem;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+}
+
+.verified {
+    width: 12px;
+    height: 12px;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.tweet-handle {
+    color: var(--text-secondary);
+    font-size: 0.74rem;
+    font-weight: 400;
+    opacity: 0.85;
+}
+
+.tweet-views {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    margin-left: auto;
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.tweet-views svg {
+    width: 10px;
+    height: 10px;
+    stroke-width: 2.2;
+    color: var(--accent);
+    opacity: 0.9;
+}
+
+.tweet-text {
+    font-size: 0.86rem;
+    line-height: 1.55;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    word-wrap: break-word;
+    letter-spacing: -0.005em;
+    white-space: pre-line;
+}
+
+.tweet-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    margin-left: -8px;
+    margin-right: -6px;
+}
+
+.tweet-actions-left {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.tweet-actions-right {
+    display: flex;
+    align-items: center;
+}
+
+.tweet-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 9px;
+    background: transparent;
+    border: none;
+    border-radius: 999px;
+    color: var(--text-secondary);
+    font-family: inherit;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.tweet-action svg {
+    width: 13px;
+    height: 13px;
+    stroke-width: 2.2;
+    transition: color 0.2s ease, transform 0.15s ease;
+}
+
+.tweet-action:active svg {
+    transform: scale(0.85);
+}
+
+.tweet-action[data-action="like"]:hover {
+    color: #f43f5e;
+}
+
+.tweet-action[data-action="comment"]:hover {
+    color: var(--accent);
+}
+
+.tweet-menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.tweet-menu-btn svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.2;
+}
+
+.tweet-menu-btn:hover {
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.tweet-menu-btn:active {
+    transform: scale(0.9);
+}
+
+/* ================= Tweet Media ================= */
+.tweet-media {
+    margin-top: 10px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+    background: var(--bg-secondary);
+    max-width: 100%;
+    aspect-ratio: 16 / 10;
+    max-height: 320px;
+    position: relative;
+}
+
+.tweet-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.tweet-media.is-loading img {
+    opacity: 0;
+}
+
+.tweet:hover .tweet-media img:not(.media-failed) {
+    transform: scale(1.02);
+}
+
+.comment-media {
+    margin-top: 8px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+    background: var(--bg-secondary);
+    max-width: 180px;
+    aspect-ratio: 4 / 3;
+    position: relative;
+}
+
+.comment-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.45s ease;
+}
+
+.comment-media.is-loading img {
+    opacity: 0;
+}
+
+/* ===== Media Skeleton Loader ===== */
+.media-skeleton {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--bg-secondary) 75%, transparent);
+    backdrop-filter: blur(8px) saturate(140%);
+    -webkit-backdrop-filter: blur(8px) saturate(140%);
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease, visibility 0.4s;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.media-skeleton.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.media-skeleton svg {
+    width: 22px;
+    height: 22px;
+    stroke-width: 2;
+    color: var(--accent);
+    opacity: 0.55;
+    animation: mediaSpin 1.4s linear infinite;
+}
+
+@keyframes mediaSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 520px) {
+    .tweet-media {
+        aspect-ratio: 16 / 11;
+        max-height: 280px;
+    }
+
+    .comment-media {
+        max-width: 150px;
+    }
+
+    .media-skeleton svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* ================= Tweet Overlay ================= */
+.tweet-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: color-mix(in srgb, var(--bg-primary) 45%, transparent);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.98);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    z-index: 5;
+    cursor: default;
+}
+
+.tweet.is-open {
+    border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+}
+
+.tweet.is-open .tweet-overlay {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.tweet.is-open .tweet-body,
+.tweet.is-open .tweet-avatar {
+    filter: blur(1.5px);
+    opacity: 0.55;
+}
+
+.tweet-overlay-card {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px;
+    border-radius: 20px;
+    background: color-mix(in srgb, var(--bg-secondary) 90%, transparent);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--border));
+    box-shadow:
+        0 16px 48px rgba(0, 0, 0, 0.3),
+        0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent);
+    transform: translateY(6px);
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.tweet.is-open .tweet-overlay-card {
+    transform: translateY(0);
+}
+
+.overlay-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 68px;
+    padding: 10px 12px;
+    background: transparent;
+    border: none;
+    border-radius: 14px;
+    color: var(--text-secondary);
+    font-family: inherit;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.overlay-action svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+    transition: transform 0.2s ease;
+}
+
+.overlay-action:hover {
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent);
+}
+
+.overlay-action:hover svg {
+    transform: scale(1.1);
+}
+
+.overlay-action:active svg {
+    transform: scale(0.9);
+}
+
+.overlay-action[data-action="report"]:hover {
+    color: #f43f5e;
+    background: color-mix(in srgb, #f43f5e 12%, transparent);
+}
+
+.overlay-action.overlay-close {
+    color: var(--text-secondary);
+}
+
+.overlay-action.overlay-close:hover {
+    color: var(--text-primary);
+    background: color-mix(in srgb, var(--text-primary) 10%, transparent);
+}
+
+/* ================= Comments ================= */
+.tweet-comments {
+    display: grid;
+    grid-template-rows: 0fr;
+    margin-top: 0;
+    border-top: 1px solid transparent;
+    transition:
+        grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        margin-top 0.35s ease,
+        border-color 0.35s ease;
+}
+
+.tweet-comments.is-open {
+    grid-template-rows: 1fr;
+    margin-top: 12px;
+    border-top-color: color-mix(in srgb, var(--border) 70%, transparent);
+}
+
+.tweet-comments-collapse {
+    overflow: hidden;
+    min-height: 0;
+}
+
+.tweet-comments-inner {
+    padding-top: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.comments-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    margin-bottom: 10px;
+}
+
+.comments-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.comments-title svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 2.4;
+    color: var(--accent);
+}
+
+.comments-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.comments-close svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 2.4;
+}
+
+.comments-close:hover {
+    color: var(--text-primary);
+    background: transparent;
+}
+
+.comments-close:active {
+    transform: scale(0.9);
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 12px;
+    max-height: 260px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 6px;
+    scroll-behavior: smooth;
+}
+
+.comments-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.comments-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.comments-list::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--accent) 25%, transparent);
+    border-radius: 999px;
+}
+
+.comments-list::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.comments-list.is-expanded {
+    max-height: none;
+    overflow: visible;
+}
+
+.comments-see-more {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 5px 12px;
+    margin: 8px auto 12px;
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+    border-radius: 999px;
+    color: var(--accent);
+    font-family: inherit;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.comments-see-more svg {
+    width: 10px;
+    height: 10px;
+    stroke-width: 2.4;
+    transition: transform 0.25s ease;
+}
+
+.comments-see-more:hover {
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.comments-see-more:active {
+    transform: scale(0.96);
+}
+
+.comments-see-more.is-expanded svg {
+    transform: rotate(180deg);
+}
+
+/* ================= Comment Item ================= */
+.comment {
+    display: flex;
+    gap: 10px;
+    animation: commentIn 0.3s ease;
+}
+
+@keyframes commentIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.comment-avatar {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border));
+    background: var(--bg-secondary);
+}
+
+.comment-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.comment-avatar-me {
+    background: linear-gradient(135deg,
+            var(--accent),
+            color-mix(in srgb, var(--accent) 60%, #8b5cf6));
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+}
+
+.comment-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.comment-meta {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-bottom: 2px;
+}
+
+.comment-name {
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.005em;
+}
+
+.comment-handle {
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+
+.comment-text {
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--text-primary);
+    word-wrap: break-word;
+    opacity: 0.92;
+}
+
+.comment-media {
+    margin-top: 8px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+    background: var(--bg-secondary);
+    max-width: 220px;
+}
+
+.comment-media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 220px;
+    object-fit: cover;
+}
+
+/* ================= Comment Form ================= */
+.comment-form {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 6px 5px 6px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--bg-primary) 60%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.comment-form:focus-within {
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.comment-attach {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.comment-attach-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    border: none;
+    border-radius: 50%;
+    color: var(--accent);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.comment-attach-btn:hover {
+    background: color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.comment-attach-btn:active {
+    transform: scale(0.9);
+}
+
+.comment-attach-btn svg {
+    width: 13px;
+    height: 13px;
+    stroke-width: 2.6;
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.comment-attach.open .comment-attach-btn svg {
+    transform: rotate(135deg);
+}
+
+.comment-attach-menu {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: -4px;
+    min-width: 152px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    background: color-mix(in srgb, var(--bg-primary) 88%, transparent);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+    border-radius: 14px;
+    box-shadow:
+        0 16px 44px rgba(0, 0, 0, 0.28),
+        0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px) scale(0.94);
+    transform-origin: bottom left;
+    transition:
+        opacity 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+        transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+        visibility 0.2s;
+    z-index: 60;
+}
+
+.comment-attach.open .comment-attach-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.comment-attach-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    padding: 8px 10px;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.005em;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.comment-attach-item svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.2;
+    color: var(--text-secondary);
+    transition: color 0.15s ease;
+}
+
+.comment-attach-item:hover {
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent);
+}
+
+.comment-attach-item:hover svg {
+    color: var(--accent);
+}
+
+.comment-attach-camera {
+    display: flex;
+}
+
+.comment-attach-camera:disabled,
+.comment-attach-camera[aria-disabled="true"] {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+    filter: grayscale(0.7);
+}
+
+.comment-attach-camera:disabled:hover,
+.comment-attach-camera[aria-disabled="true"]:hover {
+    background: transparent;
+    color: var(--text-secondary);
+}
+
+.comment-attach-camera:disabled:hover svg,
+.comment-attach-camera[aria-disabled="true"]:hover svg {
+    color: var(--text-secondary);
+}
+.comment-input {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.78rem;
+    padding: 4px 0;
+}
+
+.comment-input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+.comment-send {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+    border: none;
+    border-radius: 50%;
+    color: var(--accent);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.comment-send svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 2.4;
+}
+
+.comment-send:hover {
+    background: color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+.comment-send:active {
+    transform: scale(0.9);
+}
+
+/* ================= Responsive ================= */
+@media (max-width: 720px) {
+    .home {
+        padding: 0 40px;
+    }
+}
+
+@media (max-width: 520px) {
+    .home {
+        padding: 0 20px;
+    }
+
+    .tweet {
+        padding: 14px 14px;
+        border-radius: 16px;
+    }
+
+    .tweet-avatar {
+        width: 34px;
+        height: 34px;
+    }
+
+    .comment-avatar {
+        width: 24px;
+        height: 24px;
+    }
+
+    .comment-text,
+    .comment-input {
+        font-size: 0.74rem;
+    }
+
+    .search-filter-prefix {
+        display: none;
+    }
+
+    .search-filter-btn {
+        padding: 7px 8px;
+    }
+
+    .overlay-action {
+        min-width: 60px;
+        padding: 9px 10px;
+        font-size: 0.64rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .overlay-action span {
+        display: none;
+    }
+
+    .overlay-action {
+        min-width: auto;
+        padding: 10px;
+    }
+}
+
+/* ================= Comment Attachments (Preview Chips) ================= */
+.comment-attachments {
+    display: flex;
+    gap: 8px;
+    padding: 8px 4px 4px;
+    margin-bottom: 6px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+}
+
+.comment-attachments:empty {
+    display: none;
+}
+
+.comment-attachments::-webkit-scrollbar {
+    height: 5px;
+}
+
+.comment-attachments::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.comment-attachments::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--accent) 25%, transparent);
+    border-radius: 999px;
+}
+
+.comment-attachments::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.attach-chip {
+    position: relative;
+    flex-shrink: 0;
+    width: 62px;
+    height: 62px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--bg-secondary) 70%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    animation: attachIn 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes attachIn {
+    from {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.attach-chip-preview {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.attach-chip-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.attach-chip-preview svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+    color: var(--accent);
+    opacity: 0.85;
+}
+
+.attach-chip-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2px 4px;
+    background: rgba(0, 0, 0, 0.68);
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 0.54rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    line-height: 1.35;
+}
+
+.attach-chip-remove {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(244, 63, 94, 0.95);
+    border: 1.5px solid var(--bg-primary);
+    border-radius: 50%;
+    color: #ffffff;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    z-index: 2;
+}
+
+.attach-chip-remove:hover {
+    transform: scale(1.15);
+    background: #f43f5e;
+}
+
+.attach-chip-remove:active {
+    transform: scale(0.9);
+}
+
+.attach-chip-remove svg {
+    width: 9px;
+    height: 9px;
+    stroke-width: 3;
+    color: #ffffff;
+}
+
+/* Camera button — disable style (وقتی روی دسکتاپ) */
+.comment-attach-camera {
+    display: flex;
+}
+
+.comment-attach-camera:disabled,
+.comment-attach-camera[aria-disabled="true"] {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+    filter: grayscale(0.7);
+}
+
+/* Mobile — چیدمان بهتر */
+@media (max-width: 520px) {
+    .attach-chip {
+        width: 54px;
+        height: 54px;
+        border-radius: 10px;
+    }
+
+    .attach-chip-preview svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .attach-chip-info {
+        font-size: 0.5rem;
+        padding: 1px 3px;
+    }
+
+    .attach-chip-remove {
+        width: 15px;
+        height: 15px;
+        top: 2px;
+        right: 2px;
+    }
+
+    .attach-chip-remove svg {
+        width: 8px;
+        height: 8px;
+    }
+}
+
+/* ================= Comment Attachments (Pending) ================= */
+.comment-attachments {
+    display: flex;
+    gap: 8px;
+    padding: 8px 4px 4px;
+    margin-bottom: 6px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+}
+
+.comment-attachments:empty {
+    display: none;
+}
+
+.comment-attachments::-webkit-scrollbar {
+    height: 5px;
+}
+
+.comment-attachments::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.comment-attachments::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--accent) 25%, transparent);
+    border-radius: 999px;
+}
+
+.comment-attachments::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.attach-chip {
+    position: relative;
+    flex-shrink: 0;
+    width: 62px;
+    height: 62px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--bg-secondary) 70%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    animation: attachIn 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes attachIn {
+    from {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.attach-chip-preview {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: filter 0.25s ease;
+}
+
+.attach-chip-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.attach-chip-preview svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+    color: var(--accent);
+    opacity: 0.85;
+}
+
+.attach-chip-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2px 4px;
+    background: rgba(0, 0, 0, 0.68);
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 0.54rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    line-height: 1.35;
+    z-index: 2;
+}
+
+.attach-chip-remove {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(244, 63, 94, 0.95);
+    border: 1.5px solid var(--bg-primary);
+    border-radius: 50%;
+    color: #ffffff;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    z-index: 3;
+}
+
+.attach-chip-remove:hover {
+    transform: scale(1.15);
+    background: #f43f5e;
+}
+
+.attach-chip-remove:active {
+    transform: scale(0.9);
+}
+
+.attach-chip-remove svg {
+    width: 9px;
+    height: 9px;
+    stroke-width: 3;
+    color: #ffffff;
+}
+
+/* ================= Uploading state on chip ================= */
+.attach-chip.uploading .attach-chip-preview {
+    filter: blur(2px) brightness(0.55);
+}
+
+.attach-chip.uploading .attach-chip-info {
+    opacity: 0.4;
+}
+
+.attach-chip.uploading .attach-chip-remove {
+    display: none;
+}
+
+.attach-chip.uploading::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 1;
+}
+
+.attach-chip-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 22px;
+    height: 22px;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    z-index: 4;
+    animation: chipSpin 1s linear infinite;
+    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 60%, transparent));
+}
+
+.attach-chip-spinner svg {
+    width: 100%;
+    height: 100%;
+    stroke-width: 2.4;
+    color: var(--accent);
+}
+
+@keyframes chipSpin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* ================= Posted comment — file chip ================= */
+.comment-file {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 8px;
+    padding: 8px 12px 8px 10px;
+    background: color-mix(in srgb, var(--bg-secondary) 60%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    border-radius: 12px;
+    max-width: 250px;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.comment-file:hover {
+    background: color-mix(in srgb, var(--bg-secondary) 85%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+}
+
+.comment-file>svg {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--accent);
+    stroke-width: 2;
+}
+
+.comment-file-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+}
+
+.comment-file-name {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 170px;
+    letter-spacing: -0.005em;
+}
+
+.comment-file-size {
+    font-size: 0.6rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    opacity: 0.85;
+    letter-spacing: 0.02em;
+}
+
+/* ================= Camera button disabled ================= */
+.comment-attach-camera {
+    display: flex;
+}
+
+.comment-attach-camera:disabled,
+.comment-attach-camera[aria-disabled="true"] {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+    filter: grayscale(0.7);
+}
+
+/* ================= Responsive ================= */
+@media (max-width: 520px) {
+    .attach-chip {
+        width: 54px;
+        height: 54px;
+        border-radius: 10px;
+    }
+
+    .attach-chip-preview svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .attach-chip-info {
+        font-size: 0.5rem;
+        padding: 1px 3px;
+    }
+
+    .attach-chip-remove {
+        width: 15px;
+        height: 15px;
+        top: 2px;
+        right: 2px;
+    }
+
+    .attach-chip-remove svg {
+        width: 8px;
+        height: 8px;
+    }
+
+    .comment-file {
+        max-width: 200px;
+        padding: 7px 10px 7px 9px;
+    }
+
+    .comment-file>svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .comment-file-name {
+        font-size: 0.68rem;
+        max-width: 130px;
+    }
+
+    .comment-file-size {
+        font-size: 0.56rem;
+    }
+}
+
+/* ================= Image Lightbox ================= */
+.image-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 99997;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px 60px;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.28s ease, visibility 0.28s;
+    cursor: zoom-out;
+}
+
+.image-lightbox.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-image {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 14px;
+    object-fit: contain;
+    box-shadow: 0 24px 72px rgba(0, 0, 0, 0.55);
+    transform: scale(0.92);
+    transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+    user-select: none;
+    -webkit-user-drag: none;
+    cursor: default;
+}
+
+.image-lightbox.open .lightbox-image {
+    transform: scale(1);
+}
+
+.lightbox-toolbar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+}
+
+.lightbox-btn {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 50%;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.lightbox-btn:hover {
+    background: rgba(255, 255, 255, 0.24);
+}
+
+.lightbox-btn:active {
+    transform: scale(0.92);
+}
+
+.lightbox-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.2;
+}
+
+.lightbox-btn[data-action="close"]:hover {
+    background: rgba(244, 63, 94, 0.9);
+    border-color: rgba(244, 63, 94, 0.9);
+}
+
+.lightbox-hint {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 7px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.78);
+    font-family: var(--font-body);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+@media (max-width: 520px) {
+    .lightbox-toolbar {
+        top: 12px;
+        right: 12px;
+        gap: 6px;
+    }
+
+    .lightbox-btn {
+        width: 38px;
+        height: 38px;
+    }
+
+    .lightbox-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .lightbox-hint {
+        font-size: 0.58rem;
+        padding: 6px 12px;
+        bottom: 16px;
+    }
+}
+
+/* ================= Downloadable File Chip ================= */
+.comment-file {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    padding: 9px 12px 9px 10px;
+    background: color-mix(in srgb, var(--bg-secondary) 60%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    border-radius: 12px;
+    max-width: 260px;
+    cursor: pointer;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.15s ease;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.comment-file:hover {
+    background: color-mix(in srgb, var(--bg-secondary) 88%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 32%, var(--border));
+}
+
+.comment-file:active {
+    transform: scale(0.985);
+}
+
+.comment-file-main {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+    flex: 1;
+}
+
+.comment-file-main>svg {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    color: var(--accent);
+    stroke-width: 2;
+}
+
+.comment-file-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+    flex: 1;
+}
+
+.comment-file-name {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 170px;
+    letter-spacing: -0.005em;
+}
+
+.comment-file-size {
+    font-size: 0.6rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    opacity: 0.85;
+    letter-spacing: 0.02em;
+}
+
+.comment-file-download-icon {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    border-radius: 50%;
+    color: var(--accent);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.comment-file-download-icon svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 2.4;
+    transition: transform 0.2s ease;
+}
+
+.comment-file:hover .comment-file-download-icon {
+    background: color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.comment-file:hover .comment-file-download-icon svg {
+    transform: translateY(1px);
+}
+
+/* ================= Download Progress Ring ================= */
+.comment-file-progress {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--bg-primary) 82%, transparent);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: inherit;
+    z-index: 2;
+}
+
+.comment-file.downloading .comment-file-progress {
+    display: flex;
+}
+
+.comment-file-progress svg {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    transform: rotate(-90deg);
+}
+
+.comment-file-progress .track {
+    fill: none;
+    stroke: color-mix(in srgb, var(--accent) 18%, transparent);
+    stroke-width: 3;
+}
+
+.comment-file-progress .bar {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 100.5;
+    stroke-dashoffset: 100.5;
+    transition: stroke-dashoffset 0.15s linear;
+    filter: drop-shadow(0 0 4px color-mix(in srgb, var(--accent) 55%, transparent));
+}
+
+.comment-file-progress .pct {
+    position: absolute;
+    font-family: var(--font-body);
+    font-size: 0.56rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    z-index: 3;
+}
+
+/* حالت پایان دانلود */
+.comment-file.downloaded {
+    border-color: color-mix(in srgb, #10b981 45%, var(--border));
+    background: color-mix(in srgb, #10b981 10%, var(--bg-secondary));
+}
+
+.comment-file.downloaded .comment-file-download-icon {
+    background: #10b981;
+    color: #ffffff;
+}
+
+.comment-file.downloaded .comment-file-download-icon svg {
+    transform: none;
+}
+
+@media (max-width: 520px) {
+    .comment-file {
+        padding: 8px 10px 8px 9px;
+        max-width: 220px;
+        border-radius: 11px;
+    }
+
+    .comment-file-main {
+        gap: 8px;
+    }
+
+    .comment-file-main>svg {
+        width: 19px;
+        height: 19px;
+    }
+
+    .comment-file-name {
+        font-size: 0.68rem;
+        max-width: 130px;
+    }
+
+    .comment-file-size {
+        font-size: 0.56rem;
+    }
+
+    .comment-file-download-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .comment-file-download-icon svg {
+        width: 11px;
+        height: 11px;
+    }
+
+    .comment-file-progress svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .comment-file-progress .pct {
+        font-size: 0.52rem;
+    }
+}
+
+/* ============================================================
+   Comment Attachments (Pending Chips)
+   ============================================================ */
+.comment-attachments {
+    display: flex;
+    gap: 8px;
+    padding: 8px 4px 4px;
+    margin-bottom: 6px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+}
+
+.comment-attachments:empty {
+    display: none;
+}
+
+.comment-attachments::-webkit-scrollbar {
+    height: 5px;
+}
+
+.comment-attachments::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.comment-attachments::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--accent) 25%, transparent);
+    border-radius: 999px;
+}
+
+.comment-attachments::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.attach-chip {
+    position: relative;
+    flex-shrink: 0;
+    width: 62px;
+    height: 62px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--bg-secondary) 70%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    animation: attachIn 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes attachIn {
+    from {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.attach-chip-preview {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: filter 0.25s ease;
+}
+
+.attach-chip-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.attach-chip-preview svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+    color: var(--accent);
+    opacity: 0.85;
+}
+
+.attach-chip-preview svg[data-lucide="music"] {
+    color: var(--accent);
+}
+
+.attach-chip-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2px 4px;
+    background: rgba(0, 0, 0, 0.68);
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 0.54rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    line-height: 1.35;
+    z-index: 2;
+}
+
+.attach-chip-remove {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(244, 63, 94, 0.95);
+    border: 1.5px solid var(--bg-primary);
+    border-radius: 50%;
+    color: #ffffff;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    z-index: 3;
+}
+
+.attach-chip-remove:hover {
+    transform: scale(1.15);
+    background: #f43f5e;
+}
+
+.attach-chip-remove:active {
+    transform: scale(0.9);
+}
+
+.attach-chip-remove svg {
+    width: 9px;
+    height: 9px;
+    stroke-width: 3;
+    color: #ffffff;
+}
+
+/* ============================================================
+   Uploading state on chip
+   ============================================================ */
+.attach-chip.uploading .attach-chip-preview {
+    filter: blur(2px) brightness(0.55);
+}
+
+.attach-chip.uploading .attach-chip-info {
+    opacity: 0.4;
+}
+
+.attach-chip.uploading .attach-chip-remove {
+    display: none;
+}
+
+.attach-chip.uploading::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 1;
+}
+
+.attach-chip-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 22px;
+    height: 22px;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    z-index: 4;
+    animation: chipSpin 1s linear infinite;
+    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 60%, transparent));
+}
+
+.attach-chip-spinner svg {
+    width: 100%;
+    height: 100%;
+    stroke-width: 2.4;
+    color: var(--accent);
+}
+
+@keyframes chipSpin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* ============================================================
+   Posted comment — file chip
+   ============================================================ */
+.comment-file {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    padding: 9px 12px 9px 10px;
+    background: color-mix(in srgb, var(--bg-secondary) 60%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    border-radius: 12px;
+    max-width: 260px;
+    cursor: pointer;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.15s ease;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.comment-file:hover {
+    background: color-mix(in srgb, var(--bg-secondary) 88%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 32%, var(--border));
+}
+
+.comment-file:active {
+    transform: scale(0.985);
+}
+
+.comment-file-main {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+    flex: 1;
+}
+
+.comment-file-main>svg {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    color: var(--accent);
+    stroke-width: 2;
+}
+
+.comment-file-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+    flex: 1;
+}
+
+.comment-file-name {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 170px;
+    letter-spacing: -0.005em;
+}
+
+.comment-file-size {
+    font-size: 0.6rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    opacity: 0.85;
+    letter-spacing: 0.02em;
+}
+
+.comment-file-download-icon {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    border-radius: 50%;
+    color: var(--accent);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.comment-file-download-icon svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 2.4;
+    transition: transform 0.2s ease;
+}
+
+.comment-file:hover .comment-file-download-icon {
+    background: color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.comment-file:hover .comment-file-download-icon svg {
+    transform: translateY(1px);
+}
+
+/* ============================================================
+   Download Progress Ring
+   ============================================================ */
+.comment-file-progress {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--bg-primary) 82%, transparent);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: inherit;
+    z-index: 2;
+}
+
+.comment-file.downloading .comment-file-progress {
+    display: flex;
+}
+
+.comment-file-progress svg {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    transform: rotate(-90deg);
+}
+
+.comment-file-progress .track {
+    fill: none;
+    stroke: color-mix(in srgb, var(--accent) 18%, transparent);
+    stroke-width: 3;
+}
+
+.comment-file-progress .bar {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 100.5;
+    stroke-dashoffset: 100.5;
+    transition: stroke-dashoffset 0.15s linear;
+    filter: drop-shadow(0 0 4px color-mix(in srgb, var(--accent) 55%, transparent));
+}
+
+.comment-file-progress .pct {
+    position: absolute;
+    font-family: var(--font-body);
+    font-size: 0.56rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    z-index: 3;
+}
+
+.comment-file.downloaded {
+    border-color: color-mix(in srgb, #10b981 45%, var(--border));
+    background: color-mix(in srgb, #10b981 10%, var(--bg-secondary));
+}
+
+.comment-file.downloaded .comment-file-download-icon {
+    background: #10b981;
+    color: #ffffff;
+}
+
+.comment-file.downloaded .comment-file-download-icon svg {
+    transform: none;
+}
+
+/* ============================================================
+   Image Lightbox
+   ============================================================ */
+.image-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 99997;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px 60px;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.28s ease, visibility 0.28s;
+    cursor: zoom-out;
+}
+
+.image-lightbox.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-image {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 14px;
+    object-fit: contain;
+    box-shadow: 0 24px 72px rgba(0, 0, 0, 0.55);
+    transform: scale(0.92);
+    transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+    user-select: none;
+    -webkit-user-drag: none;
+    cursor: default;
+}
+
+.image-lightbox.open .lightbox-image {
+    transform: scale(1);
+}
+
+.lightbox-toolbar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+}
+
+.lightbox-btn {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 50%;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.lightbox-btn:hover {
+    background: rgba(255, 255, 255, 0.24);
+}
+
+.lightbox-btn:active {
+    transform: scale(0.92);
+}
+
+.lightbox-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.2;
+}
+
+.lightbox-btn[data-action="close"]:hover {
+    background: rgba(244, 63, 94, 0.9);
+    border-color: rgba(244, 63, 94, 0.9);
+}
+
+.lightbox-hint {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 7px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.78);
+    font-family: var(--font-body);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+/* ============================================================
+   Music Card in Comment
+   ============================================================ */
+.comment-audio {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    padding: 8px 10px 8px 8px;
+    background: color-mix(in srgb, var(--bg-secondary) 60%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    border-radius: 12px;
+    max-width: 280px;
+    cursor: pointer;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.comment-audio:hover {
+    background: color-mix(in srgb, var(--bg-secondary) 90%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+}
+
+.comment-audio:active {
+    transform: scale(0.985);
+}
+
+.comment-audio-cover {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg,
+            var(--accent),
+            color-mix(in srgb, var(--accent) 55%, #8b5cf6));
+    border-radius: 10px;
+    color: #ffffff;
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+.comment-audio-cover svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.2;
+}
+
+.comment-audio-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.comment-audio-name {
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: -0.005em;
+}
+
+.comment-audio-meta {
+    font-size: 0.62rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    opacity: 0.85;
+    letter-spacing: 0.02em;
+}
+
+.comment-audio-play {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    border: none;
+    border-radius: 50%;
+    color: var(--accent);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.comment-audio-play svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 2.6;
+    margin-left: 1px;
+}
+
+.comment-audio:hover .comment-audio-play {
+    background: color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+.comment-audio:active .comment-audio-play {
+    transform: scale(0.9);
+}
+
+/* ============================================================
+   Mini Player
+   ============================================================ */
+.mini-player {
+    position: fixed;
+    bottom: calc(74px + env(safe-area-inset-bottom, 0px));
+    left: 50%;
+    transform: translate(-50%, 20px);
+    width: min(340px, calc(100vw - 32px));
+    padding: 6px 8px 6px 6px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    background: color-mix(in srgb, var(--bg-secondary) 92%, transparent);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--border));
+    border-radius: 999px;
+    box-shadow:
+        0 12px 36px rgba(0, 0, 0, 0.32),
+        0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent);
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+        opacity 0.3s ease,
+        transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
+        visibility 0.3s;
+}
+
+.mini-player.visible {
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.mini-player.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.mini-cover {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg,
+            var(--accent),
+            color-mix(in srgb, var(--accent) 55%, #8b5cf6));
+    border-radius: 50%;
+    color: #ffffff;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+.mini-cover svg {
+    width: 15px;
+    height: 15px;
+    stroke-width: 2.2;
+    animation: miniPulse 2s ease-in-out infinite;
+}
+
+.mini-player.is-playing .mini-cover svg {
+    animation-duration: 1s;
+}
+
+@keyframes miniPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+.mini-info {
+    flex: 1;
+    min-width: 0;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.mini-name {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: -0.005em;
+    margin-bottom: 3px;
+}
+
+.mini-progress {
+    width: 100%;
+    height: 3px;
+    background: color-mix(in srgb, var(--border) 80%, transparent);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.mini-progress-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #8b5cf6);
+    border-radius: 999px;
+    transition: width 0.15s linear;
+}
+
+.mini-play,
+.mini-close {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mini-play {
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.mini-play:hover {
+    background: color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.mini-close:hover {
+    color: var(--text-primary);
+    background: color-mix(in srgb, var(--text-primary) 10%, transparent);
+}
+
+.mini-play:active,
+.mini-close:active {
+    transform: scale(0.9);
+}
+
+.mini-play svg,
+.mini-close svg {
+    width: 13px;
+    height: 13px;
+    stroke-width: 2.4;
+}
+
+.mini-play .icon-pause {
+    display: none;
+}
+
+.mini-player.is-playing .mini-play .icon-play {
+    display: none;
+}
+
+.mini-player.is-playing .mini-play .icon-pause {
+    display: block;
+}
+
+/* ============================================================
+   Full Player
+   ============================================================ */
+.full-player {
+    position: fixed;
+    inset: 0;
+    z-index: 99996;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: color-mix(in srgb, var(--bg-primary) 65%, transparent);
+    backdrop-filter: blur(30px) saturate(160%);
+    -webkit-backdrop-filter: blur(30px) saturate(160%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.32s ease, visibility 0.32s;
+}
+
+.full-player.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.full-player-close {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--bg-secondary) 80%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    border-radius: 50%;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+    z-index: 2;
+}
+
+.full-player-close:hover {
+    color: var(--text-primary);
+    background: color-mix(in srgb, var(--bg-secondary) 100%, transparent);
+}
+
+.full-player-close:active {
+    transform: scale(0.9);
+}
+
+.full-player-close svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.4;
+}
+
+.full-player-content {
+    width: min(400px, 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    transform: translateY(20px) scale(0.94);
+    transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.full-player.open .full-player-content {
+    transform: translateY(0) scale(1);
+}
+
+.full-player-cover {
+    width: 180px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg,
+            var(--accent),
+            color-mix(in srgb, var(--accent) 55%, #8b5cf6));
+    border-radius: 28px;
+    color: #ffffff;
+    box-shadow:
+        0 24px 60px color-mix(in srgb, var(--accent) 40%, transparent),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    position: relative;
+    overflow: hidden;
+}
+
+.full-player-cover::before {
+    content: "";
+    position: absolute;
+    inset: -50%;
+    background: conic-gradient(from 0deg,
+            transparent 0deg,
+            rgba(255, 255, 255, 0.15) 90deg,
+            transparent 180deg,
+            rgba(255, 255, 255, 0.15) 270deg,
+            transparent 360deg);
+    animation: coverRotate 8s linear infinite;
+}
+
+.full-player.is-playing .full-player-cover::before {
+    animation-duration: 3.5s;
+}
+
+@keyframes coverRotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.full-player-cover svg {
+    width: 68px;
+    height: 68px;
+    stroke-width: 1.6;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.28));
+}
+
+.full-player-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+    max-width: 100%;
+}
+
+.full-player-name {
+    font-family: var(--font-display);
+    font-size: 1.18rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.full-player-sub {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    opacity: 0.75;
+}
+
+.full-progress-track {
+    position: relative;
+    width: 100%;
+    height: 6px;
+    background: color-mix(in srgb, var(--border) 80%, transparent);
+    border-radius: 999px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: height 0.15s ease;
+}
+
+.full-progress-track:hover {
+    height: 8px;
+}
+
+.full-progress-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #8b5cf6);
+    border-radius: 999px;
+    transition: width 0.15s linear;
+    position: relative;
+}
+
+.full-progress-fill::after {
+    content: "";
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    width: 12px;
+    height: 12px;
+    transform: translateY(-50%);
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.32);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.full-progress-track:hover .full-progress-fill::after {
+    opacity: 1;
+}
+
+.full-times {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+    opacity: 0.85;
+    margin-top: -14px;
+}
+
+.full-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 6px;
+}
+
+.full-play-btn {
+    width: 68px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg,
+            var(--accent),
+            color-mix(in srgb, var(--accent) 55%, #8b5cf6));
+    border: none;
+    border-radius: 50%;
+    color: #ffffff;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+    box-shadow:
+        0 12px 32px color-mix(in srgb, var(--accent) 40%, transparent),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.full-play-btn:hover {
+    transform: scale(1.06);
+}
+
+.full-play-btn:active {
+    transform: scale(0.94);
+}
+
+.full-play-btn svg {
+    width: 28px;
+    height: 28px;
+    stroke-width: 2.4;
+}
+
+.full-play-btn .icon-play {
+    margin-left: 4px;
+}
+
+.full-play-btn .icon-pause {
+    display: none;
+}
+
+.full-player.is-playing .full-play-btn .icon-play {
+    display: none;
+}
+
+.full-player.is-playing .full-play-btn .icon-pause {
+    display: block;
+    margin-left: 0;
+}
+
+/* ============================================================
+   Camera button disabled state
+   ============================================================ */
+.comment-attach-camera {
+    display: flex;
+}
+
+.comment-attach-camera:disabled,
+.comment-attach-camera[aria-disabled="true"] {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+    filter: grayscale(0.7);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 520px) {
+    .attach-chip {
+        width: 54px;
+        height: 54px;
+        border-radius: 10px;
+    }
+
+    .attach-chip-preview svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .attach-chip-info {
+        font-size: 0.5rem;
+        padding: 1px 3px;
+    }
+
+    .attach-chip-remove {
+        width: 15px;
+        height: 15px;
+        top: 2px;
+        right: 2px;
+    }
+
+    .attach-chip-remove svg {
+        width: 8px;
+        height: 8px;
+    }
+
+    .comment-file {
+        padding: 8px 10px 8px 9px;
+        max-width: 220px;
+        border-radius: 11px;
+    }
+
+    .comment-file-main {
+        gap: 8px;
+    }
+
+    .comment-file-main>svg {
+        width: 19px;
+        height: 19px;
+    }
+
+    .comment-file-name {
+        font-size: 0.68rem;
+        max-width: 130px;
+    }
+
+    .comment-file-size {
+        font-size: 0.56rem;
+    }
+
+    .comment-file-download-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .comment-file-download-icon svg {
+        width: 11px;
+        height: 11px;
+    }
+
+    .comment-file-progress svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .comment-file-progress .pct {
+        font-size: 0.52rem;
+    }
+
+    .lightbox-toolbar {
+        top: 12px;
+        right: 12px;
+        gap: 6px;
+    }
+
+    .lightbox-btn {
+        width: 38px;
+        height: 38px;
+    }
+
+    .lightbox-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .lightbox-hint {
+        font-size: 0.58rem;
+        padding: 6px 12px;
+        bottom: 16px;
+    }
+
+    .comment-audio {
+        padding: 7px 9px 7px 7px;
+        max-width: 240px;
+    }
+
+    .comment-audio-cover {
+        width: 34px;
+        height: 34px;
+        border-radius: 9px;
+    }
+
+    .comment-audio-cover svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .comment-audio-name {
+        font-size: 0.7rem;
+    }
+
+    .comment-audio-meta {
+        font-size: 0.58rem;
+    }
+
+    .comment-audio-play {
+        width: 28px;
+        height: 28px;
+    }
+
+    .comment-audio-play svg {
+        width: 11px;
+        height: 11px;
+    }
+
+    .mini-player {
+        position: fixed;
+        bottom: calc(74px + env(safe-area-inset-bottom, 0px));
+        left: 50%;
+        transform: translate(-50%, 20px);
+        width: min(340px, calc(100vw - 32px));
+        padding: 6px 8px 6px 6px;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        background: color-mix(in srgb, var(--bg-secondary) 92%, transparent);
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--border));
+        border-radius: 16px;
+        box-shadow:
+            0 12px 36px rgba(0, 0, 0, 0.32),
+            0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent);
+        z-index: 9998;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+            opacity 0.3s ease,
+            transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
+            visibility 0.3s;
+    }
+
+    .mini-cover {
+        width: 30px;
+        height: 30px;
+    }
+
+    .mini-name {
+        font-size: 0.66rem;
+    }
+
+    .mini-play,
+    .mini-close {
+        width: 26px;
+        height: 26px;
+    }
+
+    .full-player-cover {
+        width: 150px;
+        height: 150px;
+        border-radius: 24px;
+    }
+
+    .full-player-cover svg {
+        width: 56px;
+        height: 56px;
+    }
+
+    .full-player-name {
+        font-size: 1rem;
+    }
+
+    .full-play-btn {
+        width: 60px;
+        height: 60px;
+    }
+
+    .full-play-btn svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+
+/* ================= Music Loading Spinner on Card ================= */
+.comment-audio-loading {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--bg-secondary) 78%, transparent);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: inherit;
+    z-index: 4;
+}
+
+.comment-audio.is-loading .comment-audio-loading {
+    display: flex;
+}
+
+.comment-audio-loading svg {
+    width: 22px;
+    height: 22px;
+    stroke-width: 2.4;
+    color: var(--accent);
+    animation: audioSpin 0.9s linear infinite;
+    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 55%, transparent));
+}
+
+@keyframes audioSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ================= Download Button in Music Card ================= */
+.comment-audio-download {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.comment-audio-download:hover {
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.comment-audio-download:active {
+    transform: scale(0.9);
+}
+
+.comment-audio-download svg {
+    width: 13px;
+    height: 13px;
+    stroke-width: 2.4;
+}
+
+/* ================= Cover image in comment audio ================= */
+.comment-audio-cover {
+    position: relative;
+    overflow: hidden;
+}
+
+.comment-audio-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.comment-audio-cover-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ================= Full player cover with art ================= */
+.full-player-cover {
+    position: relative;
+    overflow: hidden;
+}
+
+.full-player-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+.full-player-cover-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* ================= Full player controls (with download) ================= */
+.full-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 6px;
+}
+
+.full-side-btn {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--bg-secondary) 70%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    border-radius: 50%;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.full-side-btn:hover {
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+}
+
+.full-side-btn:active {
+    transform: scale(0.92);
+}
+
+.full-side-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.2;
+}
+
+/* ================= Replay state ================= */
+.mini-play .icon-replay,
+.full-play-btn .icon-replay {
+    display: none;
+}
+
+.mini-player.is-ended .mini-play .icon-play,
+.mini-player.is-ended .mini-play .icon-pause {
+    display: none;
+}
+
+.mini-player.is-ended .mini-play .icon-replay {
+    display: block;
+}
+
+.full-player.is-ended .full-play-btn .icon-play,
+.full-player.is-ended .full-play-btn .icon-pause {
+    display: none;
+}
+
+.full-player.is-ended .full-play-btn .icon-replay {
+    display: block;
+    margin-left: 0;
+}
+
+/* ================= Loading progress on mini player ================= */
+.mini-player.is-loading .mini-progress-fill {
+    width: 100% !important;
+    background: linear-gradient(90deg,
+            transparent,
+            var(--accent),
+            color-mix(in srgb, var(--accent) 55%, #8b5cf6),
+            var(--accent),
+            transparent);
+    background-size: 200% 100%;
+    animation: miniLoading 1.4s linear infinite;
+}
+
+@keyframes miniLoading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* ================= Loop button state ================= */
+.full-loop-btn {
+    position: relative;
+}
+
+.full-loop-btn.is-active,
+.full-player.is-looping .full-loop-btn {
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+}
+
+.full-loop-btn.is-active::after,
+.full-player.is-looping .full-loop-btn::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    border: 2px solid color-mix(in srgb, var(--accent) 50%, transparent);
+    animation: loopPulse 1.8s ease-out infinite;
+    pointer-events: none;
+}
+
+@keyframes loopPulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.35);
+        opacity: 0;
+    }
+}
+
+/* ================= Mini player loop indicator ================= */
+.mini-player.is-looping .mini-cover::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    border: 2px solid color-mix(in srgb, #ffffff 55%, transparent);
+    animation: loopPulse 1.8s ease-out infinite;
+    pointer-events: none;
+}
+
+/* ================= Buffering — mini progress animated ================= */
+.mini-player.is-loading .mini-progress-fill {
+    width: 100% !important;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            color-mix(in srgb, var(--accent) 60%, transparent) 20%,
+            var(--accent) 50%,
+            color-mix(in srgb, var(--accent) 60%, transparent) 80%,
+            transparent 100%);
+    background-size: 200% 100%;
+    animation: miniBuffering 1.2s linear infinite;
+    transition: none;
+}
+
+@keyframes miniBuffering {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* ================= Buffering — mini cover pulse ================= */
+.mini-player.is-loading .mini-cover {
+    animation: miniCoverPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes miniCoverPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 12px color-mix(in srgb, var(--accent) 28%, transparent);
+    }
+
+    50% {
+        transform: scale(1.06);
+        box-shadow: 0 6px 20px color-mix(in srgb, var(--accent) 55%, transparent);
+    }
+}
+
+.mini-player.is-loading .mini-cover svg {
+    animation: miniCoverSpin 1s linear infinite;
+}
+
+@keyframes miniCoverSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ================= Full player buffering ================= */
+.full-player.is-loading .full-progress-fill {
+    background: linear-gradient(90deg,
+            transparent 0%,
+            color-mix(in srgb, var(--accent) 60%, transparent) 20%,
+            var(--accent) 50%,
+            color-mix(in srgb, var(--accent) 60%, transparent) 80%,
+            transparent 100%);
+    background-size: 200% 100%;
+    animation: miniBuffering 1.2s linear infinite;
+}
+
+.full-player.is-loading .full-player-cover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center,
+            color-mix(in srgb, var(--accent) 25%, transparent),
+            transparent 65%);
+    animation: coverBuffering 1.6s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 2;
+}
+
+@keyframes coverBuffering {
+
+    0%,
+    100% {
+        opacity: 0.35;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.85;
+        transform: scale(1.08);
+    }
+}
+
+/* ================= Buffering spinner on full play button ================= */
+.full-player.is-loading .full-play-btn {
+    position: relative;
+}
+
+.full-player.is-loading .full-play-btn::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: #ffffff;
+    animation: playBtnSpin 0.9s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes playBtnSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ================= Main page scrollbar ================= */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--accent) 25%, transparent) transparent;
+}
+
+html::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+html::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--accent) 25%, transparent);
+    border-radius: 999px;
+    border: 2px solid var(--bg-primary);
+    background-clip: padding-box;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--accent) 45%, transparent);
+    background-clip: padding-box;
+}
+
+html::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+/* ================= Audio Card Play State ================= */
+.comment-audio-play .icon-pause {
+    display: none;
+}
+
+.comment-audio.is-playing .comment-audio-play .icon-play {
+    display: none;
+}
+
+.comment-audio.is-playing .comment-audio-play .icon-pause {
+    display: block;
+    margin-left: 0;
+}
+
+.comment-audio.is-playing {
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+    background: color-mix(in srgb, var(--accent) 8%, var(--bg-secondary));
+}
+
+.comment-audio.is-playing .comment-audio-cover {
+    box-shadow:
+        0 4px 12px color-mix(in srgb, var(--accent) 45%, transparent),
+        0 0 0 2px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.comment-audio.is-playing .comment-audio-play {
+    background: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+/* ================= Limit Modal ================= */
+.limit-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 999995;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: color-mix(in srgb, var(--bg-primary) 60%, transparent);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s;
+}
+
+.limit-modal.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.limit-modal-card {
+    width: min(360px, 100%);
+    padding: 28px 24px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    background: color-mix(in srgb, var(--bg-secondary) 95%, transparent);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--border));
+    border-radius: 22px;
+    box-shadow:
+        0 24px 64px rgba(0, 0, 0, 0.4),
+        0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent);
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.limit-modal.open .limit-modal-card {
+    transform: scale(1) translateY(0);
+}
+
+.limit-modal-icon {
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, #f43f5e 15%, transparent);
+    border: 1px solid color-mix(in srgb, #f43f5e 35%, transparent);
+    border-radius: 50%;
+    color: #f43f5e;
+}
+
+.limit-modal-icon svg {
+    width: 26px;
+    height: 26px;
+    stroke-width: 2.2;
+}
+
+.limit-modal-title {
+    font-family: var(--font-display);
+    font-size: 1.06rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--text-primary);
+    text-align: center;
+}
+
+.limit-modal-message {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 4px;
+    word-break: break-word;
+}
+
+.limit-modal-close {
+    width: 100%;
+    padding: 10px 16px;
+    background: linear-gradient(135deg,
+            var(--accent),
+            color-mix(in srgb, var(--accent) 60%, #8b5cf6));
+    border: none;
+    border-radius: 999px;
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 32%, transparent);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.limit-modal-close:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 32px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.limit-modal-close:active {
+    transform: translateY(0) scale(0.98);
+}
+
+@media (max-width: 420px) {
+    .limit-modal-card {
+        padding: 24px 20px 18px;
+        border-radius: 20px;
+    }
+
+    .limit-modal-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .limit-modal-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .limit-modal-title {
+        font-size: 1rem;
+    }
+
+    .limit-modal-message {
+        font-size: 0.78rem;
+    }
+}
+
+/* ============================================================
+   Full Player — More Menu (Download / Save)
+   ============================================================ */
+.full-more-wrap {
+    position: relative;
+    display: inline-flex;
+}
+
+.full-more-btn {
+    position: relative;
+}
+
+.full-more-wrap.open .full-more-btn {
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+}
+
+.full-more-menu {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    right: 0;
+    min-width: 168px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    background: color-mix(in srgb, var(--bg-primary) 90%, transparent);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+    border-radius: 14px;
+    box-shadow:
+        0 16px 44px rgba(0, 0, 0, 0.28),
+        0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px) scale(0.94);
+    transform-origin: bottom right;
+    transition:
+        opacity 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+        transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+        visibility 0.2s;
+    z-index: 20;
+}
+
+.full-more-wrap.open .full-more-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.full-more-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 11px;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 0.76rem;
+    font-weight: 500;
+    letter-spacing: 0.005em;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.full-more-item svg {
+    width: 15px;
+    height: 15px;
+    stroke-width: 2.2;
+    color: var(--text-secondary);
+    transition: color 0.15s ease;
+    flex-shrink: 0;
+}
+
+.full-more-item:hover {
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent);
+}
+
+.full-more-item:hover svg {
+    color: var(--accent);
+}
+
+.full-more-item .icon-saved {
+    display: none;
+}
+
+.full-more-item.is-saved {
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.full-more-item.is-saved .icon-unsaved {
+    display: none;
+}
+
+.full-more-item.is-saved .icon-saved {
+    display: block;
+}
+
+@media (max-width: 520px) {
+    .full-more-menu {
+        min-width: 150px;
+        bottom: calc(100% + 10px);
+    }
+
+    .full-more-item {
+        padding: 8px 10px;
+        font-size: 0.72rem;
+    }
+}
+
+/* ============================================================
+   FINAL: Comment audio play button — 3-icon state machine
+   Base rule hides all. Only the matching state class shows one.
+   ============================================================ */
+
+
+
+/* ============================================================
+   FINAL FIX — Comment audio play button
+   Play icon is the safe default (no state class needed).
+   ============================================================ */
+
+.comment-audio-play .icon-play {
+    display: block;
+    margin-left: 1px;
+}
+
+.comment-audio-play .icon-pause,
+.comment-audio-play .icon-replay {
+    display: none;
+}
+
+/* ---------- is-paused ---------- */
+.comment-audio-play.is-paused .icon-play {
+    display: block;
+    margin-left: 1px;
+}
+
+.comment-audio-play.is-paused .icon-pause,
+.comment-audio-play.is-paused .icon-replay {
+    display: none;
+}
+
+/* ---------- is-playing ---------- */
+.comment-audio-play.is-playing .icon-play {
+    display: none;
+}
+
+.comment-audio-play.is-playing .icon-pause {
+    display: block;
+    margin-left: 0;
+}
+
+.comment-audio-play.is-playing .icon-replay {
+    display: none;
+}
+
+/* ---------- is-ended ---------- */
+.comment-audio-play.is-ended .icon-play,
+.comment-audio-play.is-ended .icon-pause {
+    display: none;
+}
+
+.comment-audio-play.is-ended .icon-replay {
+    display: block;
+    margin-left: 0;
+}
+
+/* Icon sizing */
+.comment-audio-play svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 2.6;
+}
+
+/* ================= Comment Emoji Button ================= */
+.comment-emoji-btn {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.comment-emoji-btn:hover {
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.comment-emoji-btn:active {
+    transform: scale(0.9);
+}
+
+.comment-emoji-btn svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.2;
+}
+
+/* ============================================================
+   AVATAR RING — verified / non-verified (global)
+   ============================================================ */
+
+/* Wrapper — placed around any avatar */
+.avatar-wrap {
+    position: relative;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    isolation: isolate;
+}
+
+/* Kill inner avatar's own border so the ring doesn't double up */
+.avatar-wrap>.tweet-avatar,
+.avatar-wrap>.comment-avatar,
+.avatar-wrap>.saved-post-avatar {
+    border: none !important;
+}
+
+/* Ensure the avatar img sits above the ring */
+.avatar-wrap>* {
+    position: relative;
+    z-index: 1;
+    border-radius: 50%;
+}
+
+/* ---------- Default ring (non-verified) ---------- */
+.avatar-wrap::before {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 2px solid color-mix(in srgb, var(--accent) 22%, var(--border));
+    pointer-events: none;
+    z-index: 0;
+    transition: border-color 0.3s ease;
+}
+
+/* ---------- Animated gradient ring (verified) ---------- */
+.avatar-wrap.is-verified::before {
+    border: none;
+    background: conic-gradient(from 0deg,
+            var(--accent),
+            transparent 25%,
+            color-mix(in srgb, var(--accent) 60%, #8b5cf6),
+            transparent 75%,
+            var(--accent));
+    animation: avatarRingSpin 6s linear infinite;
+    opacity: 0.9;
+}
+
+@keyframes avatarRingSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ---------- Size variants ---------- */
+.avatar-wrap[data-size="xs"]::before {
+    inset: -2px;
+    border-width: 1.5px;
+}
+
+.avatar-wrap[data-size="sm"]::before {
+    inset: -2.5px;
+    border-width: 2px;
+}
+
+.avatar-wrap[data-size="md"]::before {
+    inset: -3px;
+}
+
+.avatar-wrap[data-size="lg"]::before {
+    inset: -4px;
+    border-width: 2.5px;
+}
+    
+
+/* Small avatars — thinner ring */
+.tweet-avatar+.avatar-ring,
+.comment-avatar+.avatar-ring {
+    display: none;
+}
+
+/* ============================================================
+   USER MODAL SKELETON
+   ============================================================ */
+.user-modal-skeleton {
+    padding: 0 22px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.user-modal-skeleton .sk-line {
+    height: 14px;
+    border-radius: 7px;
+}
+
+.user-modal-sk-avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    margin-top: -46px;
+    margin-bottom: 8px;
+    border: 4px solid var(--bg-primary);
+}
+
+.user-modal-sk-name {
+    height: 22px !important;
+    width: 55%;
+    border-radius: 8px !important;
+}
+
+.user-modal-sk-handle {
+    height: 14px !important;
+    width: 38%;
+}
+
+.user-modal-sk-bio {
+    height: 14px !important;
+    width: 92%;
+}
+
+.user-modal-sk-bio-2 {
+    height: 14px !important;
+    width: 68%;
+}
+
+.user-modal-sk-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    padding: 14px 0;
+    margin-top: 4px;
+    border-top: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+}
+
+.user-modal-sk-stat {
+    height: 42px;
+    border-radius: 10px;
+}
+
+.user-modal-sk-action {
+    height: 44px;
+    border-radius: 999px;
+    margin-top: 4px;
+}
+
+/* ============================================================
+   FIX: avatar-wrap inside flex containers must not stretch
+   ============================================================ */
+
+/* Tweet & Comment: اجازه نده کشیده بشه */
+.tweet>.avatar-wrap,
+.comment>.avatar-wrap {
+    align-self: flex-start;
+    flex: 0 0 auto;
+    width: fit-content;
+    height: fit-content;
+}
+
+/* ابعاد صریح بر اساس data-size — برای اطمینان */
+.avatar-wrap[data-size="xs"] {
+    width: 22px;
+    height: 22px;
+}
+
+.avatar-wrap[data-size="sm"] {
+    width: 26px;
+    height: 26px;
+}
+
+.avatar-wrap[data-size="md"] {
+    width: 38px;
+    height: 38px;
+}
+
+.avatar-wrap[data-size="lg"] {
+    width: 92px;
+    height: 92px;
+}
+
+/* inner avatar پرکنندهٔ wrap باشه */
+.avatar-wrap>.tweet-avatar,
+.avatar-wrap>.comment-avatar,
+.avatar-wrap>.saved-post-avatar {
+    width: 100%;
+    height: 100%;
+}
+
+.comment>.avatar-wrap,
+.tweet>.avatar-wrap {
+    align-self: flex-start;
+    flex: 0 0 auto;
+    aspect-ratio: 1 / 1;
+    display: inline-flex;
+    line-height: 0;
+}
+
+.avatar-wrap[data-size="xs"] {
+    width: 22px;
+    height: 22px;
+}
+
+.avatar-wrap[data-size="sm"] {
+    width: 26px;
+    height: 26px;
+}
+
+.avatar-wrap[data-size="md"] {
+    width: 38px;
+    height: 38px;
+}
+
+.avatar-wrap[data-size="lg"] {
+    width: 92px;
+    height: 92px;
+}
+
+/* 3) آواتار داخلی پرکنندهٔ wrap بشه */
+.avatar-wrap>.tweet-avatar,
+.avatar-wrap>.comment-avatar,
+.avatar-wrap>.saved-post-avatar {
+    width: 100% !important;
+    height: 100% !important;
+    border: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.avatar-wrap>.tweet-avatar>img,
+.avatar-wrap>.comment-avatar>img,
+.avatar-wrap>.saved-post-avatar>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 4) فضای کافی برای رینگ داخل لیست اسکرول‌شونده */
+.comments-list {
+    padding: 8px 8px 8px 8px !important;
+}
+
+/* 5) wrap کامنت‌ها isolation بگیره که رینگش زیر چیزی نره */
+.comment>.avatar-wrap {
+    isolation: isolate;
+    position: relative;
+    z-index: 1;
+}
+
+/* ============================================================
+   BULLETPROOF AVATAR RING
+   رینگ داخل wrap قرار می‌گیره → هرگز بریده نمیشه
+   ============================================================ */
+
+/* 1) wrap: بزرگ‌تر از آواتار + پدینگ داخلی برای جا دادن رینگ */
+.avatar-wrap {
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
+    padding: 3px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    border-radius: 50% !important;
+    isolation: isolate !important;
+    aspect-ratio: 1 / 1 !important;
+    overflow: visible !important;
+}
+
+/* 2) ابعاد صریح: wrap = آواتار + ۶px */
+.avatar-wrap[data-size="xs"] {
+    width: 28px !important;
+    height: 28px !important;
+    padding: 3px !important;
+}
+
+.avatar-wrap[data-size="sm"] {
+    width: 32px !important;
+    height: 32px !important;
+    padding: 3px !important;
+}
+
+.avatar-wrap[data-size="md"] {
+    width: 44px !important;
+    height: 44px !important;
+    padding: 3px !important;
+}
+
+.avatar-wrap[data-size="lg"] {
+    width: 98px !important;
+    height: 98px !important;
+    padding: 3px !important;
+}
+
+/* 3) آواتار داخل wrap: دقیقاً همون content box رو پر کنه */
+.avatar-wrap>.tweet-avatar,
+.avatar-wrap>.comment-avatar,
+.avatar-wrap>.saved-post-avatar {
+    width: 100% !important;
+    height: 100% !important;
+    border: none !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative !important;
+    z-index: 1 !important;
+    display: block !important;
+}
+
+.avatar-wrap>.tweet-avatar>img,
+.avatar-wrap>.comment-avatar>img,
+.avatar-wrap>.saved-post-avatar>img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+    border-radius: 50% !important;
+}
+
+/* 4) رینگ: از لبهٔ خود wrap شروع میشه، نه از آواتار */
+.avatar-wrap::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    /* ← کلید ماجرا: به‌جای -3px */
+    border-radius: 50% !important;
+    border: 1.5px solid color-mix(in srgb, var(--accent) 30%, var(--border)) !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+    transition: border-color 0.3s ease !important;
+}
+
+/* 5) verified: همون رینگ چرخان، ولی داخل wrap */
+.avatar-wrap.is-verified::before {
+    border: none !important;
+    background: conic-gradient(from 0deg,
+            var(--accent),
+            transparent 25%,
+            color-mix(in srgb, var(--accent) 60%, #8b5cf6),
+            transparent 75%,
+            var(--accent)) !important;
+    animation: avatarRingSpin 6s linear infinite !important;
+    opacity: 0.9 !important;
+}
+
+/* 6) تضمین کن لیست کامنت‌ها هم فضای کافی داره */
+.comments-list {
+    padding: 6px 8px !important;
+}
+
+/* ============================================================
+   BULLETPROOF — audio play/pause icon state (all variants)
+   Works whether class is on the CARD or on the BUTTON.
+   ============================================================ */
+
+/* ---------- Default state: play shown, pause/replay hidden ---------- */
+.comment-audio:not(.is-playing) .comment-audio-play .icon-play,
+.pv-audio:not(.is-playing) .pv-audio-play .icon-play,
+.vex-audio:not(.is-playing) .vex-audio-play .icon-play,
+.comment-audio-play:not(.is-playing) .icon-play,
+.pv-audio-play:not(.is-playing) .icon-play,
+.vex-audio-play:not(.is-playing) .icon-play {
+    display: block !important;
+    margin-left: 1px;
+}
+
+.comment-audio:not(.is-playing) .comment-audio-play .icon-pause,
+.comment-audio:not(.is-playing) .comment-audio-play .icon-replay,
+.pv-audio:not(.is-playing) .pv-audio-play .icon-pause,
+.vex-audio:not(.is-playing) .vex-audio-play .icon-pause,
+.comment-audio-play:not(.is-playing) .icon-pause,
+.comment-audio-play:not(.is-playing) .icon-replay,
+.pv-audio-play:not(.is-playing) .icon-pause,
+.vex-audio-play:not(.is-playing) .icon-pause {
+    display: none !important;
+}
+
+/* ---------- Playing state: pause shown, play/replay hidden ---------- */
+.comment-audio.is-playing .comment-audio-play .icon-play,
+.pv-audio.is-playing .pv-audio-play .icon-play,
+.vex-audio.is-playing .vex-audio-play .icon-play,
+.comment-audio-play.is-playing .icon-play,
+.pv-audio-play.is-playing .icon-play,
+.vex-audio-play.is-playing .icon-play {
+    display: none !important;
+}
+
+.comment-audio.is-playing .comment-audio-play .icon-pause,
+.pv-audio.is-playing .pv-audio-play .icon-pause,
+.vex-audio.is-playing .vex-audio-play .icon-pause,
+.comment-audio-play.is-playing .icon-pause,
+.pv-audio-play.is-playing .icon-pause,
+.vex-audio-play.is-playing .icon-pause {
+    display: block !important;
+    margin-left: 0;
+}
+
+.comment-audio.is-playing .comment-audio-play .icon-replay,
+.pv-audio.is-playing .pv-audio-play .icon-replay,
+.vex-audio.is-playing .vex-audio-play .icon-replay,
+.comment-audio-play.is-playing .icon-replay,
+.pv-audio-play.is-playing .icon-replay,
+.vex-audio-play.is-playing .icon-replay {
+    display: none !important;
+}
+
+/* ---------- Ended state: replay shown ---------- */
+.comment-audio.is-ended .comment-audio-play .icon-play,
+.comment-audio.is-ended .comment-audio-play .icon-pause,
+.pv-audio.is-ended .pv-audio-play .icon-play,
+.pv-audio.is-ended .pv-audio-play .icon-pause,
+.comment-audio-play.is-ended .icon-play,
+.comment-audio-play.is-ended .icon-pause {
+    display: none !important;
+}
+
+.comment-audio.is-ended .comment-audio-play .icon-replay,
+.pv-audio.is-ended .pv-audio-play .icon-replay,
+.comment-audio-play.is-ended .icon-replay {
+    display: block !important;
+    margin-left: 0;
+}

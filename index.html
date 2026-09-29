@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+
+    <title>Vexec – Write As Unknown</title>
+    <meta
+      name="description"
+      content="Write as unknown. Share your thoughts anonymously."
+    />
+
+    <meta name="application-name" content="Vexec" />
+    <meta name="apple-mobile-web-app-capable" content="no" />
+    <meta name="mobile-web-app-capable" content="no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Vexec" />
+    <meta
+      name="theme-color"
+      content="#3b82f6"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#60a5fa"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Vexec – Write As Unknown" />
+    <meta
+      property="og:description"
+      content="Write as unknown. Share your thoughts anonymously."
+    />
+    <meta property="og:image" content="./assets/pictures/vexec.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Vexec – Write As Unknown" />
+    <meta
+      name="twitter:description"
+      content="Write as unknown. Share your thoughts anonymously."
+    />
+    <meta name="twitter:image" content="./assets/pictures/vexec.png" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/pictures/vexec.png"
+      data-vexec-icon
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./assets/pictures/vexec.png"
+      data-vexec-icon
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="48x48"
+      href="./assets/pictures/vexec.png"
+      data-vexec-icon
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="./assets/pictures/vexec.png"
+      data-vexec-icon
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="./assets/pictures/vexec.png"
+      data-vexec-icon
+    />
+    <link
+      rel="shortcut icon"
+      href="./assets/pictures/vexec.png"
+      data-vexec-icon
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./assets/pictures/vexec.png"
+      data-vexec-icon
+    />
+    <link
+      rel="mask-icon"
+      href="./assets/pictures/vexec.png"
+      color="#3b82f6"
+      data-vexec-icon
+    />
+
+    <link rel="stylesheet" href="./style/pref.css" />
+    <link rel="stylesheet" href="./style/landing.css" />
+    <link rel="stylesheet" href="./style/home.css" />
+    <link rel="stylesheet" href="./style/saved.css" />
+    <link rel="stylesheet" href="./style/profile.css" />
+    <link rel="stylesheet" href="./style/write.css" />
+    <link rel="stylesheet" href="./style/pv.css" />
+    <link rel="stylesheet" href="./style/image-loader.css" />
+    <link rel="stylesheet" href="./style/user-modal.css" />
+    <link rel="stylesheet" href="./style/profile_view.css" />
+    <link rel="stylesheet" href="./style/my_posts.css" />
+    <link rel="stylesheet" href="./style/auth.css" />
+    <link rel="stylesheet" href="./style/skeleton.css" />
+    <link rel="stylesheet" href="./style/legal.css" />
+    <link rel="stylesheet" href="./style/tor-warning.css" />
+    <link rel="stylesheet" href="./style/tor-support.css" />
+    <link rel="stylesheet" href="./style/pv.css" />
+    <link rel="stylesheet" href="./style/pv-new.css" />
+    <link rel="stylesheet" href="./style/tweet.css" />
+    <link rel="stylesheet" href="./style/download-popup.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      /* ============================================================
+     Vexec — Boot: apply theme / accent / font BEFORE first paint
+     Reads from cookies set by Profile → Settings
+     ============================================================ */
+      (function () {
+        var HTML = document.documentElement;
+
+        function getCookie(name) {
+          var m = document.cookie.match(
+            new RegExp("(^| )" + name + "=([^;]+)"),
+          );
+          return m ? decodeURIComponent(m[2]) : null;
+        }
+
+        /* ---- Theme (auto → system) ---- */
+        var pref = getCookie("theme") || "auto";
+        var resolved =
+          pref === "auto"
+            ? window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light"
+            : pref;
+        HTML.setAttribute("data-theme", resolved);
+        HTML.setAttribute("data-theme-pref", pref);
+        HTML.style.colorScheme = resolved;
+
+        /* ---- Accent color ---- */
+        var accent = getCookie("accent");
+        if (accent && /^#[0-9a-f]{6}$/i.test(accent)) {
+          HTML.style.setProperty("--accent", accent);
+          HTML.setAttribute("data-accent", accent);
+        }
+
+        /* ---- Font size ---- */
+        var fs = getCookie("fontSize");
+        if (fs) {
+          var n = parseInt(fs, 10);
+          if (isFinite(n) && n >= 60 && n <= 150) HTML.style.fontSize = n + "%";
+        }
+
+        /* ---- Font family ---- */
+        var ff = getCookie("fontFamily");
+        var stacks = {
+          Inter: "'Inter', system-ui, -apple-system, sans-serif",
+          "Space Grotesk":
+            "'Space Grotesk', system-ui, -apple-system, sans-serif",
+          Georgia: "Georgia, 'Times New Roman', serif",
+          "ui-monospace": "ui-monospace, 'SF Mono', Menlo, Consolas, monospace",
+        };
+        if (ff && stacks[ff]) HTML.style.setProperty("--font-body", stacks[ff]);
+
+        /* ---- Theme-based logo (fast paint, from cache) ---- */
+        try {
+          var _accent = getCookie("accent") || "#3b82f6";
+          var _map = JSON.parse(localStorage.getItem("vexec:logos:v1") || "{}");
+          window.__vexecLogo =
+            _map[_accent] || _map["default"] || "./assets/pictures/vexec.png";
+        } catch (e) {
+          window.__vexecLogo = "./assets/pictures/vexec.png";
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="page-loader" class="page-loader">
+      <div class="loader-inner">
+        <img
+          src="./assets/pictures/vexec.png"
+          alt=""
+          class="loader-logo"
+          id="vexec-loader-logo"
+        />
+        <script>
+          (function () {
+            var el = document.getElementById("vexec-loader-logo");
+            if (el && window.__vexecLogo) el.src = window.__vexecLogo;
+          })();
+        </script>
+        <p class="loader-text">
+          Loading<span class="loader-dots"
+            ><span class="dot dot-1">.</span><span class="dot dot-2">.</span
+            ><span class="dot dot-3">.</span></span
+          >
+        </p>
+      </div>
+    </div>
+
+    <header class="brand-bar">
+      <button class="brand" type="button" aria-label="Reload">
+        <img
+          src="./assets/pictures/vexec.png"
+          alt="Vexec"
+          class="brand-logo"
+          id="vexec-brand-logo"
+        />
+        <script>
+          (function () {
+            var el = document.getElementById("vexec-brand-logo");
+            if (el && window.__vexecLogo) el.src = window.__vexecLogo;
+          })();
+        </script>
+        <span class="brand-text">
+          <span class="brand-name">Vexec</span>
+          <span class="brand-tag">Write as unknown</span>
+        </span>
+      </button>
+    </header>
+
+    <main class="container"></main>
+
+    <nav class="nav" role="navigation" aria-label="Main">
+      <button class="nav-item" type="button" data-tab="home" aria-label="Home">
+        <i data-lucide="house"></i>
+        <span>Home</span>
+      </button>
+      <button
+        class="nav-item"
+        type="button"
+        data-tab="pv"
+        aria-label="Secret Messages"
+      >
+        <i data-lucide="venetian-mask"></i>
+        <span>Secret</span>
+      </button>
+      <button
+        class="nav-item"
+        type="button"
+        data-tab="write"
+        aria-label="Write"
+      >
+        <i data-lucide="square-pen"></i>
+        <span>Write</span>
+      </button>
+      <button
+        class="nav-item"
+        type="button"
+        data-tab="saved"
+        aria-label="Saved"
+      >
+        <i data-lucide="bookmark"></i>
+        <span>Saved</span>
+      </button>
+      <button
+        class="nav-item"
+        type="button"
+        data-tab="profile"
+        aria-label="Profile"
+      >
+        <i data-lucide="user-round"></i>
+        <span>Profile</span>
+      </button>
+    </nav>
+
+    <!-- ========== GLOBAL EMOJI PICKER ========== -->
+    <div class="emoji-picker" id="emoji-picker" aria-hidden="true">
+      <div class="emoji-picker-head">
+        <div class="emoji-search">
+          <i data-lucide="search"></i>
+          <input
+            type="text"
+            id="emoji-search"
+            placeholder="Search emojis..."
+            autocomplete="off"
+          />
+        </div>
+        <button
+          class="emoji-close"
+          type="button"
+          data-action="close-emoji"
+          aria-label="Close"
+        >
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="emoji-tabs" id="emoji-tabs">
+        <button class="emoji-tab active" type="button" data-cat="smileys">
+          😀
+        </button>
+        <button class="emoji-tab" type="button" data-cat="gestures">👍</button>
+        <button class="emoji-tab" type="button" data-cat="hearts">❤️</button>
+        <button class="emoji-tab" type="button" data-cat="animals">🐶</button>
+        <button class="emoji-tab" type="button" data-cat="food">🍕</button>
+        <button class="emoji-tab" type="button" data-cat="nature">🌿</button>
+        <button class="emoji-tab" type="button" data-cat="objects">💡</button>
+        <button class="emoji-tab" type="button" data-cat="symbols">✨</button>
+      </div>
+      <div class="emoji-grid" id="emoji-grid"></div>
+      <div class="emoji-empty" id="emoji-empty" hidden>
+        <i data-lucide="search-x"></i>
+        <span>No emojis found</span>
+      </div>
+    </div>
+
+    <div id="reload-overlay" class="reload-overlay" aria-hidden="true">
+      <button class="reload-close" type="button" aria-label="Close">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="reload-inner">
+        <button class="reload-icon-btn" type="button" aria-label="Reload page">
+          <i data-lucide="refresh-cw"></i>
+        </button>
+        <p class="reload-title">Tap to reload</p>
+        <p class="reload-hint">Tap on empty area to close</p>
+      </div>
+    </div>
+
+    <script src="./javascript/sw.js"></script>
+    <script src="./javascript/jsmediatags.min.js"></script>
+    <script src="./javascript/lucide.js"></script>
+    <script src="./javascript/api.js"></script>
+    <script src="./javascript/theme.js"></script>
+    <script src="./javascript/emoji.js"></script>
+    <script src="./javascript/user-modal.js"></script>
+    <script src="./javascript/profile_view.js"></script>
+    <script src="./javascript/my_posts.js"></script>
+    <script src="./javascript/tor-warning.js"></script>
+    <script src="./javascript/tor-support.js"></script>
+    <script src="./javascript/auth.js"></script>
+    <script src="./javascript/router.js"></script>
+    <script src="./javascript/loading.js"></script>
+    <script src="./javascript/logo.js"></script>
+    <script src="./javascript/image-loader.js"></script>
+    <script src="./javascript/routers.js"></script>
+    <script src="./javascript/auth-guard.js"></script>
+    <script src="./javascript/nav.js"></script>
+    <script src="./javascript/legal.js"></script>
+    <script src="./javascript/tweet-renderer.js"></script>
+    <script src="./javascript/download-manager.js"></script>
+    <script src="./javascript/home.js"></script>
+    <script src="./javascript/profile.js"></script>
+    <script src="./javascript/saved.js"></script>
+    <script src="./javascript/pv.js"></script>
+    <script src="./javascript/pv-new.js"></script>
+    <script src="./javascript/write.js"></script>
+
+    <script>
+      lucide.createIcons();
+    </script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("./sw.js", { scope: "./" })
+            .catch(() => {
+              /* silent fallback */
+            });
+        });
+      }
+    </script>
+  </body>
+</html>

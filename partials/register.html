@@ -1,0 +1,198 @@
+<section class="auth-page" data-mode="register">
+  <div class="auth-bg" aria-hidden="true">
+    <div class="auth-grid"></div>
+  </div>
+
+  <div class="auth-card">
+    <header class="auth-head">
+      <h1 class="auth-title">
+        <span>Create your</span>
+        <span class="auth-title-accent">anonymous identity</span>
+      </h1>
+      <p class="auth-desc">
+        No email. No phone. No trace. Just a name that isn't yours.
+      </p>
+    </header>
+
+    <form class="auth-form" id="register-form" autocomplete="off" novalidate>
+      <div class="auth-honeypot" aria-hidden="true">
+        <label for="reg-website">Website</label>
+        <input
+          type="text"
+          id="reg-website"
+          name="website"
+          tabindex="-1"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="auth-field">
+        <label class="auth-label" for="reg-username">
+          <i data-lucide="at-sign"></i>
+          <span>Username</span>
+        </label>
+        <div class="auth-input-wrap">
+          <span class="auth-input-prefix">@</span>
+          <input
+            type="text"
+            id="reg-username"
+            name="username"
+            class="auth-input"
+            placeholder="your_handle"
+            maxlength="20"
+            autocomplete="off"
+            spellcheck="false"
+            autocapitalize="off"
+          />
+          <span class="auth-input-status" data-status="username"></span>
+        </div>
+        <p class="auth-hint" id="reg-username-hint">
+          3–20 characters · lowercase letters, numbers, underscores
+        </p>
+      </div>
+
+      <div class="auth-field">
+        <label class="auth-label" for="reg-displayname">
+          <i data-lucide="user-round"></i>
+          <span>Display name</span>
+        </label>
+        <div class="auth-input-wrap">
+          <input
+            type="text"
+            id="reg-displayname"
+            name="displayName"
+            class="auth-input"
+            placeholder="The name strangers will see"
+            maxlength="30"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <span class="auth-input-status" data-status="displayName"></span>
+        </div>
+        <p class="auth-hint" id="reg-displayname-hint">
+          This is how you'll appear on every whisper
+        </p>
+      </div>
+
+      <!-- ============ HUMAN CHECK ============ -->
+      <div class="auth-captcha" id="auth-captcha" data-state="idle">
+        <div class="auth-captcha-head">
+          <div class="auth-captcha-icon">
+            <i data-lucide="shield-check"></i>
+          </div>
+          <span class="auth-captcha-title">Human verification</span>
+          <button
+            class="auth-captcha-refresh"
+            type="button"
+            id="auth-captcha-refresh"
+            aria-label="New challenge"
+            title="New challenge"
+          >
+            <i data-lucide="refresh-cw"></i>
+          </button>
+        </div>
+
+        <!-- Round progress indicator -->
+        <div class="auth-captcha-progress">
+          <span class="auth-captcha-round-label" id="auth-captcha-round-label">
+            Round 1 of 2
+          </span>
+          <div class="auth-captcha-dots" id="auth-captcha-dots"></div>
+        </div>
+
+        <div class="auth-slider" id="auth-slider">
+          <div class="auth-slider-canvas" id="auth-slider-canvas">
+            <canvas id="auth-slider-bg"></canvas>
+            <canvas class="auth-slider-piece" id="auth-slider-piece"></canvas>
+          </div>
+          <div class="auth-slider-track" id="auth-slider-track">
+            <div class="auth-slider-fill" id="auth-slider-fill"></div>
+            <div class="auth-slider-handle" id="auth-slider-handle">
+              <i data-lucide="chevrons-right"></i>
+            </div>
+            <span class="auth-slider-text" id="auth-slider-text">
+              Slide to verify
+            </span>
+          </div>
+        </div>
+
+        <div
+          class="auth-captcha-msg"
+          id="auth-captcha-msg"
+          data-state="idle"
+        ></div>
+      </div>
+
+      <!-- ============ LOCK BAR (OUTSIDE captcha) ============ -->
+      <div class="auth-lock" id="auth-lock" hidden>
+        <div class="auth-lock-icon">
+          <i data-lucide="lock"></i>
+        </div>
+        <div class="auth-lock-content">
+          <span class="auth-lock-title"
+            >Too many attempts — temporarily locked</span
+          >
+          <span class="auth-lock-timer" id="auth-lock-timer">05:00</span>
+        </div>
+      </div>
+
+      <button type="submit" class="auth-submit" id="register-submit" disabled>
+        <span class="auth-submit-label">Create identity</span>
+        <i data-lucide="arrow-right"></i>
+      </button>
+    </form>
+
+    <footer class="auth-footer">
+      <span>Already have a code?</span>
+      <button class="auth-link" type="button" data-route="/login">
+        <i data-lucide="key-round"></i>
+        <span>Login</span>
+      </button>
+    </footer>
+  </div>
+</section>
+
+<!-- ============ CODE REVEAL MODAL ============ -->
+<div class="auth-code-modal" id="auth-code-modal" aria-hidden="true">
+  <div class="auth-code-card">
+    <div class="auth-code-icon">
+      <i data-lucide="key-round"></i>
+    </div>
+    <h2 class="auth-code-title">Your access code</h2>
+    <p class="auth-code-desc">
+      Save this code somewhere safe. This is the <b>only</b> way to log back in.
+      We cannot recover it for you.
+    </p>
+
+    <div class="auth-code-display">
+      <div class="auth-code-digits" id="auth-code-digits"></div>
+      <button
+        class="auth-code-copy"
+        type="button"
+        id="auth-code-copy"
+        aria-label="Copy code"
+      >
+        <i data-lucide="copy"></i>
+        <span>Copy</span>
+      </button>
+    </div>
+
+    <label class="auth-code-confirm">
+      <input type="checkbox" id="auth-code-check" />
+      <span class="auth-code-checkbox"></span>
+      <span class="auth-code-confirm-text">
+        I've saved my code. I understand it can't be recovered.
+      </span>
+    </label>
+
+    <button
+      class="auth-code-btn"
+      type="button"
+      id="auth-code-continue"
+      disabled
+    >
+      <i data-lucide="check"></i>
+      <span>Enter Vexec</span>
+    </button>
+  </div>
+</div>

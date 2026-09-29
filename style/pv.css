@@ -1,0 +1,1527 @@
+/* ============================================================
+   PV — SECRET INBOX
+   ============================================================ */
+
+.pv-page {
+    padding: 0 60px 60px;
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.pv-header {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 22px 0 18px;
+    position: sticky;
+    top: var(--brand-h);
+    z-index: 30;
+    background: color-mix(in srgb, var(--bg-primary) 92%, transparent);
+}
+
+.pv-header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent,
+            color-mix(in srgb, var(--accent) 40%, transparent) 30%,
+            color-mix(in srgb, var(--accent) 40%, transparent) 70%,
+            transparent);
+    opacity: 0.5;
+}
+
+.pv-header-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.pv-header-titles {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.pv-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: var(--text-primary);
+}
+
+.pv-title svg {
+    width: 22px;
+    height: 22px;
+    stroke-width: 2;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.pv-subtitle {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    opacity: 0.85;
+    max-width: 480px;
+}
+
+.pv-new-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 18px;
+    background: linear-gradient(135deg,
+            var(--accent),
+            color-mix(in srgb, var(--accent) 55%, #8b5cf6));
+    border: none;
+    border-radius: 999px;
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform 0.15s ease, filter 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.pv-new-btn:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+}
+
+.pv-new-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.pv-new-btn svg {
+    width: 15px;
+    height: 15px;
+    stroke-width: 2.4;
+    transition: transform 0.2s ease;
+}
+
+.pv-new-btn:hover svg {
+    transform: translateX(2px);
+}
+
+/* ============================================================
+   FILTERS
+   ============================================================ */
+.pv-filters {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.pv-filters::-webkit-scrollbar {
+    display: none;
+}
+
+.pv-filter {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    background: color-mix(in srgb, var(--bg-secondary) 55%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+    border-radius: 999px;
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: color 0.2s ease, background-color 0.2s ease,
+        border-color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.pv-filter svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 2.4;
+}
+
+.pv-filter:hover {
+    color: var(--text-primary);
+    background: color-mix(in srgb, var(--bg-secondary) 85%, transparent);
+}
+
+.pv-filter.active {
+    color: #ffffff;
+    background: linear-gradient(135deg,
+            var(--accent),
+            color-mix(in srgb, var(--accent) 55%, #8b5cf6));
+    border-color: transparent;
+}
+
+/* ============================================================
+   LIST
+   ============================================================ */
+.pv-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ============================================================
+   SECRET CARD
+   ============================================================ */
+.pv-card {
+    position: relative;
+    padding: 18px 20px 16px;
+    border-radius: 18px;
+    background: color-mix(in srgb, var(--bg-secondary) 55%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition:
+        background-color 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.2s ease;
+    animation: pvCardIn 0.4s ease both;
+    overflow: hidden;
+}
+
+.pv-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.pv-card:hover {
+    background: color-mix(in srgb, var(--bg-secondary) 80%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 28%, var(--border));
+}
+
+.pv-card:hover::before {
+    opacity: 1;
+}
+
+.pv-card.is-unread {
+    border-color: color-mix(in srgb, var(--text-secondary) 25%, var(--border));
+}
+
+.pv-card.is-unread::before {
+    background: linear-gradient(180deg,
+            color-mix(in srgb, var(--text-secondary) 45%, transparent),
+            transparent);
+    opacity: 1;
+}
+
+.pv-card.is-reported {
+    border-color: color-mix(in srgb, #f43f5e 40%, var(--border));
+}
+
+.pv-card.is-ignored {
+    opacity: 0.6;
+    border-style: dashed;
+}
+
+.pv-card.is-sent {
+    border-color: color-mix(in srgb, var(--accent) 25%, var(--border));
+}
+
+.pv-card.is-sent::before {
+    background: linear-gradient(180deg,
+            color-mix(in srgb, var(--accent) 55%, transparent),
+            transparent);
+    opacity: 1;
+}
+
+@keyframes pvCardIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================================
+   UNREAD BAR
+   ============================================================ */
+.pv-unread-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    margin: -18px -20px 12px;
+    background: color-mix(in srgb, var(--text-secondary) 12%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+    border-radius: 18px 18px 0 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.pv-unread-bar:hover {
+    background: color-mix(in srgb, var(--text-secondary) 18%, transparent);
+}
+
+.pv-unread-bar-icon {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+}
+
+.pv-unread-bar-icon svg {
+    width: 15px;
+    height: 15px;
+    stroke-width: 2.4;
+}
+
+.pv-unread-bar-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.pv-unread-bar-title {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--text-primary);
+    opacity: 0.9;
+}
+
+.pv-unread-bar-hint {
+    font-family: var(--font-body);
+    font-size: 0.64rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--text-secondary);
+    opacity: 0.75;
+}
+
+.pv-unread-bar-arrow {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    opacity: 0.6;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.pv-unread-bar:hover .pv-unread-bar-arrow {
+    transform: translateX(2px);
+    opacity: 1;
+}
+
+.pv-unread-bar-arrow svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 2.4;
+}
+
+/* ============================================================
+   SENT BADGE (for sent messages)
+   ============================================================ */
+.pv-sent-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    margin: -18px -20px 12px;
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+    border-radius: 18px 18px 0 0;
+}
+
+.pv-sent-bar-icon {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+}
+
+.pv-sent-bar-icon svg {
+    width: 15px;
+    height: 15px;
+    stroke-width: 2.4;
+}
+
+.pv-sent-bar-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.pv-sent-bar-title {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+}
+
+.pv-sent-bar-hint {
+    font-family: var(--font-body);
+    font-size: 0.64rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    opacity: 0.85;
+}
+
+/* ============================================================
+   Card head / avatar / meta
+   ============================================================ */
+.pv-card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pv-avatar {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg,
+            var(--accent),
+            color-mix(in srgb, var(--accent) 55%, #8b5cf6));
+    color: #ffffff;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+}
+
+.pv-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.pv-avatar svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+}
+
+.pv-meta {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.pv-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pv-anon-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 2px 7px;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+    border-radius: 999px;
+    color: var(--accent);
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+.pv-anon-tag svg {
+    width: 9px;
+    height: 9px;
+    stroke-width: 2.6;
+}
+
+.pv-time {
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+    opacity: 0.75;
+}
+
+.pv-menu-btn {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.pv-menu-btn:hover {
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.pv-menu-btn svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.2;
+}
+
+/* ============================================================
+   Card body
+   ============================================================ */
+.pv-text {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    word-wrap: break-word;
+    white-space: pre-line;
+    letter-spacing: -0.005em;
+}
+
+.pv-attachments {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* ============================================================
+   IMAGE GRID — separated boxes for each image
+   ============================================================ */
+.pv-images {
+    display: grid;
+    gap: 8px;
+}
+
+.pv-images[data-count="1"] {
+    grid-template-columns: 1fr;
+}
+
+.pv-images[data-count="2"] {
+    grid-template-columns: 1fr 1fr;
+}
+
+.pv-images[data-count="3"] {
+    grid-template-columns: 1fr 1fr;
+}
+
+.pv-images[data-count="3"] .pv-image:first-child {
+    grid-column: 1 / -1;
+}
+
+.pv-images[data-count="4"],
+.pv-images[data-count="5"] {
+    grid-template-columns: 1fr 1fr;
+}
+
+.pv-image {
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-secondary);
+    cursor: zoom-in;
+    border-radius: 12px;
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    aspect-ratio: 4 / 3;
+    max-height: 320px;
+    transition: transform 0.15s ease, border-color 0.2s ease;
+}
+
+.pv-images[data-count="1"] .pv-image {
+    aspect-ratio: 16 / 10;
+}
+
+.pv-image:hover {
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+    transform: translateY(-1px);
+}
+
+.pv-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.pv-image:hover img {
+    transform: scale(1.03);
+}
+
+.pv-image.is-more::after {
+    content: "+" attr(data-more);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.62);
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* ============================================================
+   AUDIO CARD — separated box with download & progress
+   ============================================================ */
+.pv-audio {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px 10px 10px;
+    background: color-mix(in srgb, var(--bg-primary) 55%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    overflow: hidden;
+}
+
+.pv-audio:hover {
+    background: color-mix(in srgb, var(--bg-primary) 80%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+}
+
+.pv-audio-cover {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: linear-gradient(135deg,
+            var(--accent),
+            color-mix(in srgb, var(--accent) 55%, #8b5cf6));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+}
+
+.pv-audio-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.pv-audio-cover svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.2;
+}
+
+.pv-audio-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.pv-audio-name {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: -0.005em;
+}
+
+.pv-audio-meta {
+    font-size: 0.62rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    opacity: 0.85;
+}
+
+.pv-audio-download,
+.pv-audio-play {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    border: none;
+    border-radius: 50%;
+    color: var(--accent);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.pv-audio-download {
+    background: transparent;
+    color: var(--text-secondary);
+}
+
+.pv-audio-download:hover {
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.pv-audio-play svg,
+.pv-audio-download svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 2.6;
+}
+
+.pv-audio-play .icon-play {
+    display: block;
+    margin-left: 1px;
+}
+
+.pv-audio-play .icon-pause {
+    display: none;
+}
+
+.pv-audio.is-playing .pv-audio-play .icon-play {
+    display: none;
+}
+
+.pv-audio.is-playing .pv-audio-play .icon-pause {
+    display: block;
+    margin-left: 0;
+}
+
+.pv-audio:hover .pv-audio-play {
+    background: color-mix(in srgb, var(--accent) 24%, transparent);
+}
+
+/* ============================================================
+   DOWNLOAD PROGRESS — overlay on the card
+   ============================================================ */
+.pv-download-progress {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: color-mix(in srgb, var(--bg-primary) 92%, transparent);
+    border-radius: inherit;
+    z-index: 5;
+    padding: 0 18px;
+    opacity: 0;
+    transition: opacity 0.18s ease;
+}
+
+.pv-audio.is-downloading .pv-download-progress,
+.pv-file.is-downloading .pv-download-progress,
+.pv-image.is-downloading .pv-download-progress {
+    display: flex;
+    opacity: 1;
+}
+
+.pv-download-bar {
+    flex: 1;
+    height: 5px;
+    background: color-mix(in srgb, var(--border) 80%, transparent);
+    border-radius: 999px;
+    overflow: hidden;
+    max-width: 220px;
+}
+
+.pv-download-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg,
+            var(--accent),
+            color-mix(in srgb, var(--accent) 55%, #8b5cf6));
+    border-radius: 999px;
+    transition: width 0.12s linear, background-color 0.2s ease;
+    will-change: width;
+}
+
+.pv-download-fill.is-error {
+    background: #f43f5e;
+}
+
+.pv-download-pct {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--accent);
+    min-width: 44px;
+    text-align: right;
+    letter-spacing: 0.02em;
+}
+
+.pv-download-pct.is-error {
+    color: #f43f5e;
+}
+
+.pv-download-pct.is-done {
+    color: #10b981;
+}
+
+/* ============================================================
+   FILE CARD — separated box with download & progress
+   ============================================================ */
+.pv-file {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px 10px 10px;
+    background: color-mix(in srgb, var(--bg-primary) 55%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    overflow: hidden;
+}
+
+.pv-file:hover {
+    background: color-mix(in srgb, var(--bg-primary) 80%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+}
+
+.pv-file-icon {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    border-radius: 9px;
+    color: var(--accent);
+}
+
+.pv-file-icon svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2.2;
+}
+
+.pv-file-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.pv-file-name {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pv-file-size {
+    font-size: 0.62rem;
+    color: var(--text-secondary);
+    opacity: 0.85;
+}
+
+.pv-file-download {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.pv-file-download:hover {
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.pv-file-download svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.4;
+}
+
+/* ============================================================
+   Card actions
+   ============================================================ */
+.pv-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding-top: 10px;
+    border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+    margin-top: 2px;
+}
+
+.pv-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: color 0.2s ease, background-color 0.2s ease,
+        border-color 0.2s ease, transform 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.pv-action svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 2.4;
+}
+
+.pv-action:hover {
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.pv-action:active {
+    transform: scale(0.96);
+}
+
+.pv-action.is-active {
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+.pv-action.pv-action-danger:hover {
+    color: #f43f5e;
+    background: color-mix(in srgb, #f43f5e 10%, transparent);
+}
+
+.pv-actions-spacer {
+    flex: 1;
+}
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+.pv-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 60px 20px;
+    text-align: center;
+    background: color-mix(in srgb, var(--bg-secondary) 40%, transparent);
+    border: 1px dashed color-mix(in srgb, var(--border) 90%, transparent);
+    border-radius: 18px;
+    animation: pvCardIn 0.4s ease;
+}
+
+.pv-empty-icon {
+    width: 68px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+    border-radius: 50%;
+    color: var(--accent);
+}
+
+.pv-empty-icon svg {
+    width: 28px;
+    height: 28px;
+    stroke-width: 2;
+}
+
+.pv-empty-title {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--text-primary);
+}
+
+.pv-empty-text {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 340px;
+    opacity: 0.9;
+}
+
+.pv-empty-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 20px;
+    margin-top: 6px;
+    background: linear-gradient(135deg,
+            var(--accent),
+            color-mix(in srgb, var(--accent) 55%, #8b5cf6));
+    border: none;
+    border-radius: 999px;
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s ease, filter 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.pv-empty-btn:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+}
+
+.pv-empty-btn svg {
+    width: 15px;
+    height: 15px;
+    stroke-width: 2.4;
+}
+
+/* ============================================================
+   REPORT MODAL
+   ============================================================ */
+.report-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 999996;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.22s ease, visibility 0.22s;
+}
+
+.report-modal.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.report-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.report-card {
+    position: relative;
+    width: min(440px, 100%);
+    max-height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-primary);
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    border-radius: 18px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    transform: scale(0.94) translateY(10px);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.report-modal.open .report-card {
+    transform: scale(1) translateY(0);
+}
+
+.report-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 18px;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+    flex-shrink: 0;
+}
+
+.report-head-icon {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, #f43f5e 12%, transparent);
+    border-radius: 10px;
+    color: #f43f5e;
+    flex-shrink: 0;
+}
+
+.report-head-icon svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2.4;
+}
+
+.report-head-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.report-title {
+    font-family: var(--font-display);
+    font-size: 0.98rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+.report-sub {
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+    opacity: 0.85;
+}
+
+.report-back,
+.report-close {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.report-back:hover,
+.report-close:hover {
+    color: var(--text-primary);
+    background: color-mix(in srgb, var(--text-primary) 8%, transparent);
+}
+
+.report-back svg,
+.report-close svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.4;
+}
+
+.report-body {
+    padding: 12px;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+}
+
+.report-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.report-category {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 12px;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.report-category:hover {
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.report-category-icon {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    border-radius: 9px;
+    color: var(--accent);
+}
+
+.report-category-icon svg {
+    width: 15px;
+    height: 15px;
+    stroke-width: 2.2;
+}
+
+.report-category-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.report-category-title {
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.005em;
+}
+
+.report-category-desc {
+    font-size: 0.66rem;
+    color: var(--text-secondary);
+    opacity: 0.8;
+    line-height: 1.35;
+}
+
+.report-category-chevron {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    color: var(--text-secondary);
+    opacity: 0.5;
+}
+
+.report-step2 {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 4px;
+}
+
+.report-step2-head {
+    padding: 8px 12px;
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.report-step2-head svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.4;
+    flex-shrink: 0;
+}
+
+.report-textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 12px 14px;
+    background: color-mix(in srgb, var(--bg-secondary) 60%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 0.84rem;
+    line-height: 1.6;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.report-textarea:focus {
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+}
+
+.report-textarea::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.55;
+    font-style: italic;
+}
+
+.report-hint {
+    font-family: var(--font-body);
+    font-size: 0.66rem;
+    color: var(--text-secondary);
+    opacity: 0.75;
+    padding: 0 4px;
+}
+
+.report-foot {
+    display: flex;
+    gap: 8px;
+    padding: 12px 14px;
+    border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+    background: color-mix(in srgb, var(--bg-secondary) 40%, transparent);
+    flex-shrink: 0;
+}
+
+.report-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: transform 0.15s ease, filter 0.2s ease,
+        background-color 0.2s ease, border-color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.report-btn:active {
+    transform: scale(0.98);
+}
+
+.report-btn-ghost {
+    flex: 1;
+    background: transparent;
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    color: var(--text-secondary);
+}
+
+.report-btn-ghost:hover {
+    color: var(--text-primary);
+    border-color: color-mix(in srgb, var(--text-primary) 25%, transparent);
+}
+
+.report-btn-primary {
+    flex: 1.2;
+    background: #f43f5e;
+    border: none;
+    color: #ffffff;
+}
+
+.report-btn-primary:hover {
+    filter: brightness(1.08);
+}
+
+.report-btn-primary:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    filter: grayscale(0.4);
+}
+
+.report-btn svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.4;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 720px) {
+    .pv-page {
+        padding: 0 40px 60px;
+    }
+}
+
+@media (max-width: 520px) {
+    .pv-page {
+        padding: 0 16px 60px;
+        gap: 14px;
+    }
+
+    .pv-header {
+        padding: 18px 0 14px;
+    }
+
+    .pv-header-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .pv-title {
+        font-size: 1.24rem;
+    }
+
+    .pv-title svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .pv-subtitle {
+        font-size: 0.72rem;
+    }
+
+    .pv-new-btn {
+        align-self: flex-start;
+        padding: 10px 16px;
+        font-size: 0.76rem;
+    }
+
+    .pv-filter {
+        padding: 6px 12px;
+        font-size: 0.68rem;
+    }
+
+    .pv-card {
+        padding: 14px 16px 12px;
+        border-radius: 14px;
+    }
+
+    .pv-avatar {
+        width: 34px;
+        height: 34px;
+    }
+
+    .pv-text {
+        font-size: 0.82rem;
+    }
+
+    .pv-action {
+        padding: 5px 10px;
+        font-size: 0.66rem;
+    }
+
+    .pv-action span {
+        display: none;
+    }
+
+    .pv-action svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .pv-unread-bar,
+    .pv-sent-bar {
+        margin: -14px -16px 12px;
+        padding: 9px 12px;
+        border-radius: 14px 14px 0 0;
+    }
+
+    .pv-unread-bar-title,
+    .pv-sent-bar-title {
+        font-size: 0.66rem;
+    }
+
+    .pv-unread-bar-hint,
+    .pv-sent-bar-hint {
+        font-size: 0.58rem;
+    }
+
+    .pv-images {
+        gap: 6px;
+    }
+
+    .report-card {
+        border-radius: 16px;
+    }
+
+    .report-head {
+        padding: 14px 16px;
+    }
+
+    .report-title {
+        font-size: 0.9rem;
+    }
+
+    .report-category {
+        padding: 10px;
+    }
+
+    .report-category-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .report-category-title {
+        font-size: 0.8rem;
+    }
+
+    .report-foot {
+        padding: 10px 12px;
+    }
+
+    .report-btn {
+        padding: 9px 14px;
+        font-size: 0.76rem;
+    }
+}
